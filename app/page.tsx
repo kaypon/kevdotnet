@@ -1,5 +1,5 @@
-import { Cover } from "@/components/Cover";
+import { Poster } from "@/components/Poster";
 
 export default function Home() {
-  return <Cover />;
+  return <Poster />;
 }

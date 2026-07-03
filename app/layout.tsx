@@ -1,23 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
 import { Archivo_Black } from "next/font/google";
 import "./globals.css";
-
-const lobster = localFont({
-  src: "./fonts/Lobster-Regular.ttf",
-  variable: "--font-lobster",
-  display: "swap",
-  weight: "400",
-  style: "normal",
-});
-
-const pacifico = localFont({
-  src: "./fonts/Pacifico-Regular.ttf",
-  variable: "--font-pacifico",
-  display: "swap",
-  weight: "400",
-  style: "normal",
-});
 
 const archivoBlack = Archivo_Black({
   weight: "400",
@@ -27,9 +10,9 @@ const archivoBlack = Archivo_Black({
 });
 
 export const metadata: Metadata = {
-  title: "VAN — Useful Systems / Strange Ideas",
+  title: "VAN — Kevin van der Poll",
   description:
-    "VAN makes useful systems, strange ideas, and work worth looking at.",
+    "A one-page halftone poster introducing Kevin van der Poll — Miami-based builder of useful systems and AI tools.",
 };
 
 export const viewport: Viewport = {
@@ -44,10 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${lobster.variable} ${pacifico.variable} ${archivoBlack.variable}`}
-    >
+    <html lang="en" className={archivoBlack.variable}>
       <body>{children}</body>
     </html>
   );
