@@ -85,9 +85,9 @@ export const posterTiles: PosterTileData[] = withFadeOrder([
 ]);
 
 export const posterCaption =
-  "KEVIN VAN DER POLL IS A BUILDER AND ARTIST BASED IN MIAMI. BORN IN SOUTH AFRICA AND RAISED IN JOHANNESBURG, HE IS ALWAYS MAKING SOMETHING. CODE, AI TOOLS, VISUALS, OBJECTS, EXPERIMENTS. MOST OF IT LIVES SOMEWHERE BETWEEN USEFUL AND STRANGE.";
+  "KEVIN VAN DER POLL IS A MIAMI BASED ARTIST AND DIGITAL TOOLMAKER.\n\nHE BUILDS THINGS TO FIND OUT WHAT THEY ARE. THE WORK TAKES SHAPE THROUGH MAKING, OFTEN BEFORE IT HAS A CLEAR NAME.\n\nIT OFTEN LANDS SOMEWHERE BETWEEN USEFUL AND STRANGE.";
 
 // Short summary typed out at the end of the hidden hold-to-reveal sequence,
 // then shown statically on /van.
 export const posterLore =
-  "For Kevin, code and art speak the same language.\n\nA screen can be a canvas. A system can have a mood. A tool can become an instrument.\n\nKevin makes art with systems, using whatever gets the idea out of his head and into the world.";
+  "For Kevin, code and art speak the same language. The screen is not just where the piece appears. It is where it comes to life.\n\nThe goal is not to explain the idea perfectly, but to make something that lets it exist.";
