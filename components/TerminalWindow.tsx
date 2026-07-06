@@ -286,7 +286,7 @@ export function TerminalWindow() {
     <div className="term-window" onClick={() => inputRef.current?.focus()}>
       <div className="term-handle">
         <div className="term-btns">
-          <button className="term-btn term-btn--close" aria-label="close" />
+          <button className="term-btn term-btn--close" aria-label="close" onClick={() => router.push("/van")} />
           <button className="term-btn term-btn--min" aria-label="minimize" />
           <button className="term-btn term-btn--max" aria-label="maximize" />
         </div>

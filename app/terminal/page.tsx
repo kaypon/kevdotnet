@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { TerminalWindow } from "@/components/TerminalWindow";
 
 export const metadata: Metadata = {
@@ -9,7 +10,10 @@ export const metadata: Metadata = {
 export default function TerminalPage() {
   return (
     <main className="term-page">
-      <TerminalWindow />
+      <div className="term-page__inner">
+        <Link href="/van" className="term-back">← van</Link>
+        <TerminalWindow />
+      </div>
     </main>
   );
 }
