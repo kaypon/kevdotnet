@@ -14,9 +14,9 @@ function buildLoreNode(lore: string) {
   return (
     <div className="poster-lore">
       <p className="poster-lore__text">
-        {p1}{"\n\n"}
-        <Link href="/terminal" className="poster-lore__link">{p2}</Link>
-        {"\n\n"}{p3}
+        <Link href="/terminal" className="poster-lore__link">{p1}</Link>
+        {"\n\n"}{p2}
+        {p3 ? <>{"\n\n"}{p3}</> : null}
       </p>
     </div>
   );
