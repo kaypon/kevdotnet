@@ -98,6 +98,13 @@ body {
   cursor: crosshair;
   opacity: 1;
   transition: opacity 200ms ease;
+  /* Press-and-hold here drives the hidden reveal sequence (see
+     PosterExperience.tsx) — without this, mobile browsers read the hold as
+     a text-selection gesture and pop the copy/callout menu instead. */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
 }
 
 .poster-grid:focus-visible {
