@@ -34,10 +34,4 @@ export const projects: Project[] = [
     description: "A two-page Dungeons & Dragons character sheet you fill out in the browser.",
     href: "https://dnd-rho-umber.vercel.app",
   },
-  {
-    slug: "s3-menu-flashcards",
-    name: "S3 menu flashcards",
-    description: "A flashcard app for training on a restaurant menu.",
-    href: "https://trps3menu.vercel.app",
-  },
 ];

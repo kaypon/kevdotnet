@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo_Black, Share_Tech_Mono } from "next/font/google";
 import "./globals.css";
+import { TerminalShortcut } from "@/components/TerminalShortcut";
 
 const archivoBlack = Archivo_Black({
   weight: "400",
@@ -35,7 +36,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${archivoBlack.variable} ${shareTechMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <TerminalShortcut />
+        {children}
+      </body>
     </html>
   );
 }

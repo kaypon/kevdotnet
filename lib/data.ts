@@ -90,4 +90,4 @@ export const posterCaption =
 // Short summary typed out at the end of the hidden hold-to-reveal sequence,
 // then shown statically on /van.
 export const posterLore =
-  "Kevin is an artist first — code just happens to be the material. The terminal is his canvas: things that fade, tile, glitch, and reassemble belong to the same practice as anything hung on a wall. AI tools and software are how the ideas get built, but the instinct underneath is the same as any other artist's — make the thing only you would make.";
+  "For Kevin, code and art speak the same language.\n\nA screen can be a canvas. A system can have a mood. A tool can become an instrument.\n\nKevin makes art with systems, using whatever gets the idea out of his head and into the world.";

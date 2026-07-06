@@ -9,6 +9,19 @@ import {
 } from "@/lib/data";
 import { PosterGrid } from "@/components/PosterGrid";
 
+function buildLoreNode(lore: string) {
+  const [p1, p2, p3] = lore.split("\n\n");
+  return (
+    <div className="poster-lore">
+      <p className="poster-lore__text">
+        {p1}{"\n\n"}
+        <Link href="/terminal" className="poster-lore__link">{p2}</Link>
+        {"\n\n"}{p3}
+      </p>
+    </div>
+  );
+}
+
 export const metadata: Metadata = {
   title: "VAN — Kevin van der Poll",
   description: "Kevin van der Poll — code artist. Terminal as canvas.",
@@ -26,23 +39,19 @@ export default function VanPage() {
           tiles={posterTiles}
           photoUrl={images[0]}
           fadedCount={photoTileCount}
-          loreText={posterLore}
+          loreNode={buildLoreNode(posterLore)}
           interactive={false}
         />
-        {/* Reserves the identical gap the ResizeObserver-measured caption
-            holds open on `/`, with zero JS — same text, just invisible. */}
         <p className="poster-caption poster-caption--ghost" aria-hidden="true">
           {posterCaption}
         </p>
       </section>
-      {/* Sibling of .poster, not nested inside it — .poster-nav positions
-          itself relative to .poster-page (75% down the full viewport), not
-          relative to .poster's own (grid-sized) height. */}
       <nav className="poster-nav" aria-label="Site sections">
         {[
           { href: "/info", label: "info" },
           { href: "/projects", label: "projects" },
           { href: "/contact", label: "contact" },
+          { href: "/terminal", label: "{}" },
         ].map(({ href, label }) => (
           <Link key={href} href={href}>
             <span className="poster-nav__circle" aria-hidden="true" />

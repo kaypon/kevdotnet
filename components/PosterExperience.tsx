@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import type { KeyboardEvent as ReactKeyboardEvent } from "react";
+import type { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent } from "react";
 import { useRouter } from "next/navigation";
 import type { PosterTileData } from "@/lib/data";
 import { PosterGrid } from "./PosterGrid";
 import { useTypewriter } from "./useTypewriter";
 
-type Phase = "idle" | "deleting" | "fading" | "inverting" | "typing" | "done";
+type Phase = "intro" | "idle" | "deleting" | "fading" | "inverting" | "typing" | "done";
 
 type PosterExperienceProps = {
   headline: string;
@@ -20,13 +20,45 @@ type PosterExperienceProps = {
 const HOLD_MS = 500;
 const FADE_STEP_MS = 140;
 const INVERT_MS = 750;
-// How fast each tile flips to the next treatment during a tap-cycle sweep —
-// quick enough that 8 tiles resolve almost instantly.
-const SWITCH_STEP_MS = 14;
-const REVEALED_STORAGE_KEY = "van-poster-revealed";
+const RIPPLE_STEP_MS = 55;
+const GRID_IN_DELAY_MS = 300;
 
-// Fisher-Yates — a fresh random switch order every tap, so the sweep never
-// reads as the same fixed animation running twice in a row.
+// Normalized tile centers derived from grid-template-columns: 226fr 159fr 263fr
+// and grid-template-rows: 214fr 196fr 158fr 189fr (matches posterTiles in lib/data.ts)
+const COL_CENTERS = [113 / 648, 305.5 / 648, 516.5 / 648] as const;
+const ROW_CENTERS = [107 / 757, 312 / 757, 489 / 757, 662.5 / 757] as const;
+
+function rippleGroups(
+  photoTiles: PosterTileData[],
+  cx: number,
+  cy: number,
+): PosterTileData[][] {
+  const dist = (t: PosterTileData) =>
+    Math.hypot(COL_CENTERS[t.colStart - 1] - cx, ROW_CENTERS[t.rowStart - 1] - cy);
+  const sorted = [...photoTiles].sort((a, b) => dist(a) - dist(b));
+  const groups: PosterTileData[][] = [];
+  for (const tile of sorted) {
+    const d = dist(tile);
+    const last = groups[groups.length - 1];
+    const lastD = last ? dist(last[0]) : -1;
+    if (last && d - lastD < 0.08) {
+      last.push(tile);
+    } else {
+      groups.push([tile]);
+    }
+  }
+  return groups;
+}
+
+// V lands first (top-left photo block), then A and N complete the name,
+// then the remaining 7 photo tiles reveal in a random order each load.
+const INTRO_VAN: Array<{ id: string; pause: number }> = [
+  { id: "v", pause: 0 },    // V photo block — first thing visible
+  { id: "a", pause: 220 },  // A
+  { id: "n", pause: 160 },  // N — VAN complete
+];
+const INTRO_REST_IDS = ["t1", "t2", "t3", "t4", "t5", "t6", "t7"];
+
 function shuffled<T>(items: T[]): T[] {
   const result = [...items];
   for (let i = result.length - 1; i > 0; i -= 1) {
@@ -44,31 +76,29 @@ export function PosterExperience({
   lore,
 }: PosterExperienceProps) {
   const router = useRouter();
-  const [phase, setPhase] = useState<Phase>("idle");
-  const phaseRef = useRef<Phase>("idle");
+
+  const [phase, setPhase] = useState<Phase>("intro");
+  const phaseRef = useRef<Phase>("intro");
   useEffect(() => {
     phaseRef.current = phase;
   }, [phase]);
 
   const [fadedCount, setFadedCount] = useState(0);
+  const [gridVisible, setGridVisible] = useState(false);
+  // Starts as an empty Set; tiles are added one-by-one during the intro.
+  // Set to undefined when the intro ends — PosterTile falls back to fadedCount.
+  const [revealedIds, setRevealedIds] = useState<Set<string> | undefined>(new Set());
 
-  // Safety net: if this component is ever kept alive across navigation
-  // instead of fully unmounting (not the case today — see /van's plan notes
-  // — but cheap to guard against if that ever changes), make sure coming
-  // back to `/` always resets to a fresh idle face page.
   useLayoutEffect(() => {
     return () => {
-      setPhase("idle");
+      setPhase("intro");
       setFadedCount(0);
+      setGridVisible(false);
+      setRevealedIds(new Set());
     };
   }, []);
 
-  // --- halftone image cycling (quick tap only) ---
-  // A tap sweeps the grid tile-by-tile in a fresh random order each time
-  // (deliberately distinct from the hold-to-reveal fade's fixed snake order)
-  // rather than hard-cutting the whole photo at once: each tile flips to the
-  // next treatment a beat after the last, so cycling reads as a quick
-  // deliberate flip instead of a jarring blink.
+  // --- halftone image cycling ---
   const [displayedSrc, setDisplayedSrc] = useState(images[0]);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [nextPhotoUrl, setNextPhotoUrl] = useState<string | undefined>(undefined);
@@ -76,7 +106,6 @@ export function PosterExperience({
   const imageIndexRef = useRef(0);
   const loadedRef = useRef(new Set<string>([images[0]]));
   const isCyclingRef = useRef(false);
-  const photoTileIds = tiles.filter((tile) => !tile.bare).map((tile) => tile.id);
 
   useEffect(() => {
     images.forEach((src) => {
@@ -87,30 +116,34 @@ export function PosterExperience({
     });
   }, [images]);
 
-  const cycleImage = () => {
+  const cycleImage = (clickX = 0.5, clickY = 0.5) => {
     if (isCyclingRef.current) return;
     isCyclingRef.current = true;
-
     imageIndexRef.current = (imageIndexRef.current + 1) % images.length;
     const nextSrc = images[imageIndexRef.current];
-
     const sweep = () => {
       setNextPhotoUrl(nextSrc);
-      const order = shuffled(photoTileIds);
-      let count = 0;
-      const interval = setInterval(() => {
-        count += 1;
-        setSwitchedIds(new Set(order.slice(0, count)));
-        if (count >= order.length) {
-          clearInterval(interval);
-          setDisplayedSrc(nextSrc);
-          setNextPhotoUrl(undefined);
-          setSwitchedIds(undefined);
-          isCyclingRef.current = false;
+      const photoTiles = tiles.filter((t) => !t.bare);
+      const groups = rippleGroups(photoTiles, clickX, clickY);
+      const switched = new Set<string>();
+      let step = 0;
+      const advance = () => {
+        for (const t of groups[step]) switched.add(t.id);
+        setSwitchedIds(new Set(switched));
+        step += 1;
+        if (step < groups.length) {
+          setTimeout(advance, RIPPLE_STEP_MS);
+        } else {
+          setTimeout(() => {
+            setDisplayedSrc(nextSrc);
+            setNextPhotoUrl(undefined);
+            setSwitchedIds(undefined);
+            isCyclingRef.current = false;
+          }, RIPPLE_STEP_MS);
         }
-      }, SWITCH_STEP_MS);
+      };
+      advance();
     };
-
     if (loadedRef.current.has(nextSrc)) {
       sweep();
       return;
@@ -126,14 +159,10 @@ export function PosterExperience({
   };
 
   // --- typewriters ---
-  // The bio blurb is static on load (no entrance typing) — it only deletes
-  // when the hidden sequence starts.
-  const blurbTypewriter = useTypewriter(caption, 12);
+  // Caption starts empty; intro types it in, hold sequence deletes it.
+  const blurbTypewriter = useTypewriter("", 12);
   const loreTypewriter = useTypewriter("", 30);
 
-  // Locks the caption box to the tallest height it's naturally rendered at
-  // (i.e. with the full caption showing), so deleting down to fewer lines
-  // never shrinks the box and re-centers/shifts the poster above it.
   const captionRef = useRef<HTMLParagraphElement>(null);
   const captionMinHeightRef = useRef(0);
   const [captionMinHeight, setCaptionMinHeight] = useState(0);
@@ -152,19 +181,48 @@ export function PosterExperience({
     return () => observer.disconnect();
   }, []);
 
-  // --- discoverability hint (shown once, until the sequence is completed) ---
-  const [hintDismissed, setHintDismissed] = useState(false);
-
+  // --- intro sequence ---
+  // Grid fades in, V lands first, then A and N complete the name, then the
+  // remaining 7 photo tiles reveal in a freshly-shuffled random order.
   useEffect(() => {
-    if (localStorage.getItem(REVEALED_STORAGE_KEY)) setHintDismissed(true);
-  }, []);
+    if (phase !== "intro") return;
 
-  useEffect(() => {
-    if (phase !== "done") return;
-    localStorage.setItem(REVEALED_STORAGE_KEY, "1");
+    const timers: ReturnType<typeof setTimeout>[] = [];
+
+    timers.push(setTimeout(() => setGridVisible(true), GRID_IN_DELAY_MS));
+
+    // Build the full step list: fixed VAN head + shuffled tail.
+    const restSteps = shuffled(INTRO_REST_IDS).map((id, i) => ({
+      id,
+      pause: i === 0 ? 350 : 140, // pause after VAN, then 140ms between each
+    }));
+    const steps = [...INTRO_VAN, ...restSteps];
+
+    let t = GRID_IN_DELAY_MS;
+    for (const { id, pause } of steps) {
+      t += pause;
+      const capturedId = id;
+      const capturedT = t;
+      timers.push(
+        setTimeout(() => {
+          setRevealedIds((prev) => new Set([...(prev ?? []), capturedId]));
+        }, capturedT)
+      );
+    }
+
+    // After all tiles are in, clear intro mode and type the caption.
+    timers.push(
+      setTimeout(() => {
+        setRevealedIds(undefined);
+        blurbTypewriter.typeIn(caption, () => setPhase("idle"));
+      }, t + 200)
+    );
+
+    return () => timers.forEach(clearTimeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
-  // --- hidden hold-to-reveal trigger ---
+  // --- hold-to-reveal trigger ---
   const holdTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const holdTriggeredRef = useRef(false);
 
@@ -189,13 +247,18 @@ export function PosterExperience({
     }
   };
 
-  const handlePointerUp = () => {
+  const handlePointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
     clearHoldTimer();
     if (holdTriggeredRef.current) {
       holdTriggeredRef.current = false;
       return;
     }
-    if (phaseRef.current === "idle") cycleImage();
+    if (phaseRef.current === "idle") {
+      const rect = event.currentTarget.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width;
+      const y = (event.clientY - rect.top) / rect.height;
+      cycleImage(x, y);
+    }
   };
 
   const handleGridKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
@@ -205,7 +268,6 @@ export function PosterExperience({
     }
   };
 
-  // Global spacebar trigger.
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.code !== "Space" && event.key !== " ") return;
@@ -218,17 +280,10 @@ export function PosterExperience({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // --- phase progression ---
+  // --- hold-to-reveal phase progression ---
   useEffect(() => {
     if (phase !== "fading") return;
-    // Only photo tiles ever fade (bare cells have no fadeOrder — see
-    // lib/data.ts's withFadeOrder), so the interval must count up to exactly
-    // that many steps. Ticking a fixed 12 times regardless would waste steps
-    // on bare cells that have nothing visible to show, producing dead gaps
-    // in the cascade instead of a steady run of fades.
     const photoTileCount = tiles.filter((tile) => !tile.bare).length;
-    // fadedCount starts at 0 by default and this effect only ever runs once
-    // (the sequence is one-way), so no explicit reset is needed here.
     let count = 0;
     const interval = setInterval(() => {
       count += 1;
@@ -239,7 +294,7 @@ export function PosterExperience({
       }
     }, FADE_STEP_MS);
     return () => clearInterval(interval);
-  }, [phase]);
+  }, [phase, tiles]);
 
   useEffect(() => {
     if (phase !== "inverting") return;
@@ -249,42 +304,41 @@ export function PosterExperience({
 
   useEffect(() => {
     if (phase !== "typing") return;
-    // Warm /van a beat before we need it, so the eventual push is instant.
     router.prefetch("/van");
     loreTypewriter.typeIn(lore, () => setPhase("done"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
-  // Once the sequence is fully done, hand off to the dedicated /van page —
-  // a real navigation (not just local state) so browser back/forward works:
-  // back from /van returns here to a fresh idle face page, and later back
-  // from /info (etc.) returns to /van specifically.
   useEffect(() => {
     if (phase !== "done") return;
     router.push("/van");
   }, [phase, router]);
 
   const isDark = phase === "inverting" || phase === "typing" || phase === "done";
-  const showFadedTiles = !(phase === "idle" || phase === "deleting");
-  const showHint = phase === "idle" && !hintDismissed;
+  const showHint = phase === "idle";
+  const introRevealedIds = phase === "intro" ? revealedIds : undefined;
+  const fadedCountForGrid = phase === "idle" || phase === "deleting" ? undefined : fadedCount;
 
   return (
     <main className={`poster-page${isDark ? " poster-page--dark" : ""}`}>
       <section className="poster" aria-label={`${headline} — Kevin van der Poll poster`}>
         <h1 className="sr-only">{headline} — Kevin van der Poll</h1>
-        <PosterGrid
-          tiles={tiles}
-          photoUrl={displayedSrc}
-          fadedCount={showFadedTiles ? fadedCount : undefined}
-          isLoading={isImageLoading}
-          nextPhotoUrl={nextPhotoUrl}
-          switchedIds={switchedIds}
-          loreText={phase === "typing" || phase === "done" ? loreTypewriter.text : undefined}
-          onPointerDown={handlePointerDown}
-          onPointerUp={handlePointerUp}
-          onPointerLeave={clearHoldTimer}
-          onKeyDown={handleGridKeyDown}
-        />
+        <div className={`van-intro-grid${gridVisible ? " van-intro-grid--visible" : ""}`}>
+          <PosterGrid
+            tiles={tiles}
+            photoUrl={displayedSrc}
+            fadedCount={fadedCountForGrid}
+            isLoading={isImageLoading}
+            nextPhotoUrl={nextPhotoUrl}
+            switchedIds={switchedIds}
+            loreText={phase === "typing" || phase === "done" ? loreTypewriter.text : undefined}
+            revealedIds={introRevealedIds}
+            onPointerDown={handlePointerDown}
+            onPointerUp={handlePointerUp}
+            onPointerLeave={clearHoldTimer}
+            onKeyDown={handleGridKeyDown}
+          />
+        </div>
         <p
           ref={captionRef}
           className="poster-caption"
