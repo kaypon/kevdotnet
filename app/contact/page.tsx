@@ -9,10 +9,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <SubPageShell title="Contact">
-      <p>Based in Miami, working on things worth talking about. Reach out below.</p>
-      <p>
-        <a href="mailto:you@example.com">you@example.com</a>
-      </p>
+      <p>Work in progress — more coming soon.</p>
     </SubPageShell>
   );
 }

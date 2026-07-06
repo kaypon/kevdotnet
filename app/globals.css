@@ -265,8 +265,10 @@ body {
   color: var(--dark-text);
 }
 
+/* Word joiner (U+2060) glues the cursor to the preceding character so
+   justified/wrapped text can never strand it alone on its own line. */
 .poster-lore__text::after {
-  content: "\2588";
+  content: "\2060\2588";
   margin-left: 0.15em;
   animation: poster-cursor-blink 1s steps(1) infinite;
 }
@@ -412,6 +414,10 @@ body {
 .subpage-body p {
   margin: 0;
   text-align: justify;
+}
+
+.project-title {
+  font-size: 1.35em;
 }
 
 .subpage-body p + p {

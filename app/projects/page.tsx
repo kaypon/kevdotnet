@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <SubPageShell title="Projects">
-      <p>A running list — this page will keep growing as things ship.</p>
+      <p>Work in progress — a running list that will keep growing as things ship.</p>
       {projects.map((project) => (
         <p key={project.slug}>
-          <strong>
+          <strong className="project-title">
             {project.href ? (
               <Link href={`/projects/${project.slug}`}>{project.name}</Link>
             ) : (

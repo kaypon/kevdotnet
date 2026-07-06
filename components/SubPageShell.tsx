@@ -12,7 +12,6 @@ export function SubPageShell({ title, children }: SubPageShellProps) {
       <div className="subpage-inner">
         <div className="subpage-topnav">
           <Link href="/van" className="subpage-back">← van</Link>
-          <Link href="/terminal" className="subpage-back">terminal</Link>
         </div>
         <h1 className="subpage-title">{title}</h1>
         <div className="subpage-body">{children}</div>

@@ -51,7 +51,6 @@ export default function VanPage() {
           { href: "/info", label: "info" },
           { href: "/projects", label: "projects" },
           { href: "/contact", label: "contact" },
-          { href: "/terminal", label: "{}" },
         ].map(({ href, label }) => (
           <Link key={href} href={href}>
             <span className="poster-nav__circle" aria-hidden="true" />
