@@ -1,11 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo_Black } from "next/font/google";
+import { Archivo_Black, Share_Tech_Mono } from "next/font/google";
 import "./globals.css";
 
 const archivoBlack = Archivo_Black({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-bebas",
+  display: "swap",
+});
+
+const shareTechMono = Share_Tech_Mono({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-terminal",
   display: "swap",
 });
 
@@ -27,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={archivoBlack.variable}>
+    <html lang="en" className={`${archivoBlack.variable} ${shareTechMono.variable}`}>
       <body>{children}</body>
     </html>
   );

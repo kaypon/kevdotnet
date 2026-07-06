@@ -1,17 +1,66 @@
+import fs from "node:fs";
+import path from "node:path";
+
 export type PosterTileData = {
   id: string;
   alt: string;
   tone?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
   bare?: boolean;
   letter?: string;
-  src?: string;
   colStart: 1 | 2 | 3;
   rowStart: 1 | 2 | 3 | 4;
+  /** Position in the hold-to-reveal fade sequence — undefined for bare
+   * cells, since they never fade (see PosterTile.tsx) and so are skipped
+   * entirely rather than reserving a "dead" step in the sequence. Computed
+   * once below by withFadeOrder so every step of the sequence lands on a
+   * tile that's actually visibly fading. */
+  fadeOrder?: number;
 };
+
+// Snake order for the hold-to-reveal fade: bottom row left-to-right, next
+// row up right-to-left, alternating, ending at the top-left "V" cell last.
+// Bare cells are skipped entirely (not just left un-faded) so the sequence
+// never "waits" on a step that has nothing visible to show.
+function withFadeOrder(tiles: PosterTileData[]): PosterTileData[] {
+  const sweepOrder = ([4, 3, 2, 1] as const).flatMap((rowStart, sweepGroup) => {
+    const leftToRight = sweepGroup % 2 === 0;
+    return tiles
+      .filter((tile) => tile.rowStart === rowStart && !tile.bare)
+      .sort((a, b) => (leftToRight ? a.colStart - b.colStart : b.colStart - a.colStart));
+  });
+  const orderById = new Map(sweepOrder.map((tile, index) => [tile.id, index]));
+  return tiles.map((tile) => ({ ...tile, fadeOrder: orderById.get(tile.id) }));
+}
 
 export const posterHeadline = "VAN";
 
-const PORTRAIT = "/photos/kevin-halftone.png";
+const HALFTONES_DIR = path.join(process.cwd(), "public/photos/halftones");
+
+// Every non-bare cell windows into the SAME shared photo (see PosterGrid.tsx,
+// which sets --photo-url once on the grid and cycles it through this list on
+// click) — so all tone tiles below just need to know they're photo cells,
+// not which image. The first entry is always what's shown on load.
+//
+// Reads public/photos/halftones/ directly rather than hardcoding filenames —
+// that list previously went stale twice (files deleted on disk without the
+// array being updated, causing 404s on click-to-cycle). This must only be
+// called from a Server Component (see components/Poster.tsx) since it
+// touches the filesystem; PosterExperience.tsx only ever imports the
+// PosterTileData *type* from this module, which is stripped at compile
+// time, so `node:fs` never reaches the client bundle.
+export function getPosterHalftoneImages(): string[] {
+  const files = fs
+    .readdirSync(HALFTONES_DIR, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && path.extname(entry.name).toLowerCase() === ".png")
+    .map((entry) => entry.name)
+    .sort((a, b) => {
+      if (a === "default.png") return -1;
+      if (b === "default.png") return 1;
+      return a.localeCompare(b);
+    });
+
+  return files.map((name) => `/photos/halftones/${name}`);
+}
 
 // 3x4 grid measured off inspo/her.jpg: only the first header cell carries a
 // photo tile (the letter reads as a paper-colored cutout on it); the other
@@ -20,22 +69,25 @@ const PORTRAIT = "/photos/kevin-halftone.png";
 // windowed through the grid (see PosterTile.tsx for the offset math), so
 // adjacent tiles line up like a photo cut into pieces rather than 8
 // independent crops.
-export const posterTiles: PosterTileData[] = [
-  { id: "v", letter: "V", tone: 1, src: PORTRAIT, alt: "Kevin van der Poll", colStart: 1, rowStart: 1 },
+export const posterTiles: PosterTileData[] = withFadeOrder([
+  { id: "v", letter: "V", tone: 1, alt: "Kevin van der Poll", colStart: 1, rowStart: 1 },
   { id: "a", letter: "A", bare: true, alt: "", colStart: 2, rowStart: 1 },
   { id: "n", letter: "N", bare: true, alt: "", colStart: 3, rowStart: 1 },
-  { id: "t1", tone: 2, src: PORTRAIT, alt: "Kevin van der Poll", colStart: 1, rowStart: 2 },
-  { id: "t2", tone: 3, src: PORTRAIT, alt: "Kevin van der Poll", colStart: 2, rowStart: 2 },
-  { id: "t3", tone: 4, src: PORTRAIT, alt: "Kevin van der Poll", colStart: 3, rowStart: 2 },
+  { id: "t1", tone: 2, alt: "Kevin van der Poll", colStart: 1, rowStart: 2 },
+  { id: "t2", tone: 3, alt: "Kevin van der Poll", colStart: 2, rowStart: 2 },
+  { id: "t3", tone: 4, alt: "Kevin van der Poll", colStart: 3, rowStart: 2 },
   { id: "bare1", bare: true, alt: "", colStart: 1, rowStart: 3 },
-  { id: "t4", tone: 5, src: PORTRAIT, alt: "Kevin van der Poll", colStart: 2, rowStart: 3 },
-  { id: "t5", tone: 6, src: PORTRAIT, alt: "Kevin van der Poll", colStart: 3, rowStart: 3 },
-  { id: "t6", tone: 7, src: PORTRAIT, alt: "Kevin van der Poll", colStart: 1, rowStart: 4 },
-  { id: "t7", tone: 8, src: PORTRAIT, alt: "Kevin van der Poll", colStart: 2, rowStart: 4 },
+  { id: "t4", tone: 5, alt: "Kevin van der Poll", colStart: 2, rowStart: 3 },
+  { id: "t5", tone: 6, alt: "Kevin van der Poll", colStart: 3, rowStart: 3 },
+  { id: "t6", tone: 7, alt: "Kevin van der Poll", colStart: 1, rowStart: 4 },
+  { id: "t7", tone: 8, alt: "Kevin van der Poll", colStart: 2, rowStart: 4 },
   { id: "bare2", bare: true, alt: "", colStart: 3, rowStart: 4 },
-];
+]);
 
 export const posterCaption =
-  "KEVIN VAN DER POLL. BORN IN SOUTH AFRICA, RAISED IN JOHANNESBURG, WELL TRAVELED SINCE, NOW BASED IN MIAMI. BUILDS USEFUL SYSTEMS, AI TOOLING, AND SOFTWARE FOR PEOPLE WITH ACTUAL WORK TO DO.";
+  "KEVIN VAN DER POLL IS A BUILDER AND ARTIST BASED IN MIAMI. BORN IN SOUTH AFRICA AND RAISED IN JOHANNESBURG, HE IS ALWAYS MAKING SOMETHING. CODE, AI TOOLS, VISUALS, OBJECTS, EXPERIMENTS. MOST OF IT LIVES SOMEWHERE BETWEEN USEFUL AND STRANGE.";
 
-export const posterCredit = "van der poll.";
+// Short summary typed out at the end of the hidden hold-to-reveal sequence,
+// then shown statically on /van.
+export const posterLore =
+  "Kevin is an artist first — code just happens to be the material. The terminal is his canvas: things that fade, tile, glitch, and reassemble belong to the same practice as anything hung on a wall. AI tools and software are how the ideas get built, but the instinct underneath is the same as any other artist's — make the thing only you would make.";

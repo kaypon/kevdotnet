@@ -3,6 +3,18 @@ import type { PosterTileData } from "@/lib/data";
 
 type PosterTileProps = {
   tile: PosterTileData;
+  /** Set once the hidden hold-to-reveal sequence starts fading tiles out.
+   * Only fades each tile's photo background — never the letter — so V/A/N
+   * stay put after their containers are gone. */
+  fadedCount?: number;
+  /** The upcoming halftone treatment's URL, while a tap-to-cycle swap is
+   * sweeping across the grid (see PosterExperience.tsx's cycleImage). */
+  nextPhotoUrl?: string;
+  /** Tile ids that have already switched to nextPhotoUrl this sweep — a
+   * fresh random order every tap (see PosterExperience.tsx's `shuffled`),
+   * so cycling treatments reads as a quick block-by-block flip rather than
+   * a hard cut. */
+  switchedIds?: Set<string>;
 };
 
 // Cumulative negative offsets (container-query units, relative to
@@ -20,8 +32,11 @@ type PosterTileProps = {
 const COLUMN_OFFSET = ["-7.2cqh", "-37.06cqh", "-58.06cqh"];
 const ROW_OFFSET = ["0", "-28.27cqh", "-54.16cqh", "-74.11cqh"];
 
-export function PosterTile({ tile }: PosterTileProps) {
-  const isPhoto = !tile.bare && Boolean(tile.src);
+export function PosterTile({ tile, fadedCount, nextPhotoUrl, switchedIds }: PosterTileProps) {
+  const isPhoto = !tile.bare;
+  const isFaded =
+    fadedCount !== undefined && tile.fadeOrder !== undefined && tile.fadeOrder < fadedCount;
+  const hasSwitched = switchedIds?.has(tile.id) ?? false;
 
   const style = {
     gridColumn: tile.colStart,
@@ -30,7 +45,11 @@ export function PosterTile({ tile }: PosterTileProps) {
       ? {
           "--ox": COLUMN_OFFSET[tile.colStart - 1],
           "--oy": ROW_OFFSET[tile.rowStart - 1],
-          "--photo-url": `url(${tile.src})`,
+          "--fade-opacity": isFaded ? 0 : 1,
+          // Overrides the grid-level --photo-url (see PosterGrid.tsx) for
+          // just this tile, once its turn in the sweep comes up — CSS custom
+          // properties set inline always win over an inherited value.
+          ...(hasSwitched && nextPhotoUrl ? { "--photo-url": `url(${nextPhotoUrl})` } : {}),
         }
       : {}),
   } as unknown as CSSProperties;
