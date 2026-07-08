@@ -1,0 +1,332 @@
+/* align-items is deliberately flex-start, not center: the content below the
+   grid differs in height from page to page (`/` never shows the nav, /van
+   always does; the idle bio caption is much taller than its emptied/hidden
+   states) — centering the whole variable-height block would shift the grid
+   itself up or down depending on what's currently rendered below it. Anchor
+   the grid to a fixed top offset instead, so its position depends only on
+   the viewport, never on sibling content. */
+.poster-page {
+  --poster-width: calc(0.9 * min(92vw, calc((100svh - 8rem) * 648 / 757)));
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+  padding-top: clamp(2rem, 10vh, 6rem);
+  background: var(--paper);
+  transition: background-color 700ms ease;
+}
+
+/* Final beats of the hidden hold-to-reveal sequence (see
+   PosterExperience.tsx): page inverts to dark once every tile has faded to
+   the background color. */
+.poster-page--dark {
+  background-color: var(--dark-bg);
+}
+
+.poster-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.4;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16 -13'/%3E%3C/filter%3E%3Crect width='90' height='90' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 90px 90px;
+}
+
+.poster {
+  container-type: inline-size;
+  position: relative;
+  z-index: 1;
+  width: var(--poster-width);
+}
+
+.poster-grid {
+  container-type: size;
+  position: relative;
+  display: grid;
+  grid-template-columns: 226fr 159fr 263fr;
+  grid-template-rows: 214fr 196fr 158fr 189fr;
+  gap: 0.9cqw;
+  aspect-ratio: 648 / 757;
+  cursor: crosshair;
+  opacity: 1;
+  transition: opacity 200ms ease;
+  /* Press-and-hold here drives the hidden reveal sequence (see
+     PosterExperience.tsx) — without this, mobile browsers read the hold as
+     a text-selection gesture and pop the copy/callout menu instead. */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.poster-grid:focus-visible {
+  outline: none;
+}
+
+/* While waiting on a not-yet-cached variant to finish loading, the old image
+   stays put (no blank/broken flash) — this dip is just a subtle cue that a
+   swap is in flight. */
+.poster-grid--loading {
+  opacity: 0.85;
+}
+
+/* /van's static, non-interactive reuse of this grid (see PosterGrid.tsx's
+   `interactive` prop) — no click-to-cycle, so no crosshair affordance. */
+.poster-grid--static {
+  cursor: default;
+}
+
+.poster-cell {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 250ms ease;
+}
+
+.poster-cell__letter {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  font-family: var(--display);
+  font-weight: 900;
+  line-height: 0.78;
+  font-size: 27cqw;
+  text-align: center;
+  text-transform: uppercase;
+  transition: color 700ms ease;
+}
+
+.poster-cell--bare .poster-cell__letter {
+  color: var(--ink);
+}
+
+.poster-cell--letter:not(.poster-cell--bare) .poster-cell__letter {
+  color: var(--paper);
+}
+
+/* Once the page inverts to dark, the letters need to flip light too —
+   otherwise they'd stay near-black on the near-black background through the
+   glow/glitch beats that follow. */
+.poster-page--dark .poster-cell__letter {
+  color: var(--dark-text);
+}
+
+/* One consistently-scaled photo, windowed through every tile via a
+   per-cell negative offset (--ox/--oy, set inline in PosterTile.tsx) —
+   background-size is identical across all cells (100cqh x 100cqh, a true
+   square matching the source photo's own aspect ratio, not stretched to
+   the grid's portrait shape), so adjacent tiles' edges line up like a
+   photo cut into pieces instead of independently cropped/distorted images.
+   --photo-url is set once on .poster-grid (PosterGrid.tsx) and inherits
+   down to every tile's ::before — clicking the grid cycles which of the
+   pre-rendered halftone images (public/photos/halftones/) that variable
+   points to, updating all tiles at once. Those source images are already
+   real halftone dot-screen renders, so no CSS grayscale/contrast filter or
+   fake noise overlay is layered on top — that would just risk moiré against
+   the real dot grid. A mild brightness pull (no contrast/grayscale, so it
+   won't interact with the dot frequency) keeps the "V" cutout legible. */
+.poster-cell[class*="poster-cell--tone-"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: var(--photo-url);
+  background-repeat: no-repeat;
+  background-size: 100cqh 100cqh;
+  background-position: var(--ox) var(--oy);
+  filter: brightness(0.78);
+  opacity: var(--fade-opacity, 1);
+  transition: opacity 250ms ease;
+}
+
+.poster-caption {
+  margin: clamp(0.5rem, 2.2cqw, 1rem) 0 0;
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+  font-size: clamp(0.7rem, 1.4cqw, 0.92rem);
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  text-align: justify;
+  color: var(--ink);
+  transition: color 700ms ease;
+}
+
+/* /van has no JS to measure the caption's natural height the way `/`'s
+   ResizeObserver does (see PosterExperience.tsx) — rendering the same full
+   text invisibly reserves the identical space with zero JS, so the grid/nav
+   spacing matches exactly whether you arrive via the animation or a direct
+   /van visit. */
+.poster-caption--ghost {
+  visibility: hidden;
+}
+
+/* Discoverability hint for the hidden hold-to-reveal sequence — shown only
+   while idle, faded out (not unmounted, via `showHint` state) once the
+   sequence starts (see PosterExperience.tsx). */
+.poster-hint {
+  margin: clamp(0.55rem, 2.4cqw, 1.1rem) 0 0;
+  text-align: center;
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+  font-size: clamp(0.58rem, 1.15cqw, 0.76rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 1;
+  transition: opacity 300ms ease;
+}
+
+.poster-hint--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Hidden hold-to-reveal sequence beats, in order: dark (bg inverted, letters
+   flip white, see .poster-page--dark above) -> typing (lore appears, see
+   .poster-lore) -> done (stays dark). */
+
+/* Plain block box, top-anchored: as the typewriter adds characters the text
+   only grows downward from a fixed starting line, never re-centering (which
+   would shift already-typed lines upward every time a new line wraps).
+
+   Top inset is deliberately much bigger than the others: the VAN letter row
+   is 214/757 = ~28.3% of the grid's height (see .poster-grid's
+   grid-template-rows above), so this box's top edge has to start below that
+   with margin to spare — otherwise long lore text can grow tall enough to
+   reach the letters. Because of overflow:hidden, this is a hard floor: no
+   matter how long the text gets, it can never render above this line. */
+.poster-lore {
+  position: absolute;
+  inset: 34% 16% 10%;
+  z-index: 4;
+  overflow: hidden;
+}
+
+.poster-lore__text {
+  margin: 0;
+  font-family: var(--terminal);
+  font-size: clamp(0.75rem, 2.6cqh, 1.15rem);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-align: justify;
+  white-space: pre-line;
+  color: var(--dark-text);
+}
+
+/* Word joiner (U+2060) glues the cursor to the preceding character so
+   justified/wrapped text can never strand it alone on its own line. */
+.poster-lore__text::after {
+  content: "\2060\2588";
+  margin-left: 0.15em;
+  animation: poster-cursor-blink 1s steps(1) infinite;
+}
+
+
+@keyframes poster-cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* /van intro: grid fades in from invisible on mount via `gridVisible` state,
+   then tiles cascade in (see PosterExperience.tsx). The wrapper sits between
+   .poster and .poster-grid so the opacity transition doesn't interfere with
+   the grid's own loading fade. */
+.van-intro-grid {
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+.van-intro-grid--visible {
+  opacity: 1;
+}
+
+/* Site nav — lives only on /van (the resting "revealed" page), bracketed by
+   rule lines. Positioned relative to the viewport (a sibling of .poster, not
+   nested inside it) rather than flowing below the grid — pinned at a fixed
+   75%-down-the-page position regardless of grid/caption height, matched in
+   width to .poster via the shared --poster-width custom property. */
+.poster-nav {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--poster-width);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+  padding: 0.7em 0;
+  border-top: 1px solid var(--muted);
+  border-bottom: 1px solid var(--muted);
+  font-family: var(--terminal);
+  font-size: clamp(1rem, 2.4vw, 1.4rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: poster-nav-in 0.7s ease forwards;
+  animation-delay: 350ms;
+}
+
+@keyframes poster-nav-in {
+  0%   { opacity: 0; translate: 0 5px; }
+  100% { opacity: 1; translate: 0 0; }
+}
+
+.poster-nav a {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  padding: 0.1em 0.2em;
+  color: var(--dark-text);
+  text-decoration: none;
+}
+
+/* Hover/focus: a circle grows from the center of the link, the longer it's
+   held, until it's roughly as wide as the text. It's the same light color
+   as the text itself, blended with `difference` — so wherever it overlaps
+   a letter the two nearly-identical colors cancel out to near-black
+   (inverting that letter), while the rest of the circle reads as a plain
+   light disc against the dark page background. */
+.poster-nav__circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: var(--dark-text);
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition: width 900ms ease, height 900ms ease;
+  pointer-events: none;
+}
+
+.poster-nav a:hover .poster-nav__circle,
+.poster-nav a:focus-visible .poster-nav__circle {
+  width: 6em;
+  height: 6em;
+}
+
+/* Lore link on /van — second paragraph links to /terminal */
+.poster-lore__link {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 200ms ease;
+}
+
+.poster-lore__link:hover,
+.poster-lore__link:focus-visible {
+  text-decoration: underline;
+  text-decoration-color: rgba(242, 242, 240, 0.7);
+  text-underline-offset: 0.18em;
+}

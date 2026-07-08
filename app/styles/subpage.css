@@ -1,0 +1,70 @@
+/* Sub-pages (info/projects/contact) reuse the poster's dark/terminal look
+   rather than the paper-colored default page background. */
+.subpage {
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+  background: var(--dark-bg);
+  color: var(--dark-text);
+  padding: clamp(2.5rem, 8vw, 6rem) clamp(1.25rem, 5vw, 2.5rem);
+}
+
+.subpage-inner {
+  width: 100%;
+  max-width: 40rem;
+}
+
+.subpage-topnav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: clamp(2rem, 6vw, 3.5rem);
+}
+
+.subpage-back {
+  display: inline-block;
+  font-family: var(--terminal);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.subpage-back:hover,
+.subpage-back:focus-visible {
+  color: var(--dark-text);
+}
+
+.subpage-title {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(2.25rem, 8vw, 4rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  margin: 0 0 1.5rem;
+}
+
+.subpage-body {
+  font-family: var(--terminal);
+  font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+  line-height: 1.65;
+}
+
+.subpage-body p {
+  margin: 0;
+  text-align: justify;
+}
+
+.project-title {
+  font-size: 1.35em;
+}
+
+.subpage-body p + p {
+  margin-top: 1.2em;
+}
+
+.subpage-body a {
+  color: var(--dark-text);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
