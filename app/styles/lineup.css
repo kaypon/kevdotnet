@@ -1,6 +1,4 @@
-/* /line-up — a CIA-style "criminal record" sheet (see inspo/record1.jpg):
-   white typewriter document floating on the site's dark background, with a
-   halftone mugshot against a height chart, charge list, and fingerprints. */
+/* /line-up — CIA-style criminal record dossier floating on dark background */
 .lineup-page {
   min-height: 100svh;
   display: flex;
@@ -15,11 +13,70 @@
 }
 
 .lineup-sheet {
-  background: #fdfdfa;
+  position: relative;
+  background: #f0e6cc;
   color: #141414;
-  font-family: "Courier New", monospace;
-  font-weight: 700;
+  font-family: var(--terminal);
   padding: clamp(1.5rem, 5vw, 3rem);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+/* Subtle paper grain */
+.lineup-sheet::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 18 -12'/%3E%3C/filter%3E%3Crect width='80' height='80' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 80px 80px;
+}
+
+/* Red classification bars — bleed to sheet edges */
+.lineup-classify {
+  background: #aa0000;
+  color: #fff;
+  font-family: var(--terminal);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-align: center;
+  padding: 0.3em 1em;
+  margin-left: calc(-1 * clamp(1.5rem, 5vw, 3rem));
+  margin-right: calc(-1 * clamp(1.5rem, 5vw, 3rem));
+  position: relative;
+  z-index: 5;
+}
+
+.lineup-classify--top {
+  margin-top: calc(-1 * clamp(1.5rem, 5vw, 3rem));
+  margin-bottom: clamp(1.5rem, 5vw, 3rem);
+}
+
+.lineup-classify--bottom {
+  margin-top: clamp(1.5rem, 5vw, 3rem);
+  margin-bottom: calc(-1 * clamp(1.5rem, 5vw, 3rem));
+}
+
+/* CONFIDENTIAL rubber stamp */
+.lineup-stamp {
+  position: absolute;
+  top: 22%;
+  right: clamp(1rem, 4vw, 2.5rem);
+  transform: rotate(-9deg);
+  border: 3.5px solid rgba(160, 0, 0, 0.6);
+  color: rgba(160, 0, 0, 0.6);
+  font-family: var(--terminal);
+  font-size: clamp(0.9rem, 2.5vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  padding: 0.45em 0.8em;
+  pointer-events: none;
+  user-select: none;
+  z-index: 4;
+  line-height: 1;
 }
 
 .lineup-head {
@@ -41,8 +98,6 @@
   flex-shrink: 0;
 }
 
-/* The letterhead is the one non-typewriter voice on the sheet, matching the
-   printed agency masthead in the reference. */
 .lineup-agency__name {
   display: flex;
   flex-direction: column;
@@ -117,6 +172,7 @@
 
 .lineup-field dt {
   font-weight: 700;
+  flex-shrink: 0;
 }
 
 .lineup-field dd {
@@ -124,11 +180,40 @@
   font-weight: 400;
 }
 
+/* Inline redaction bar */
+.lineup-redact {
+  display: inline-block;
+  background: #141414;
+  color: transparent;
+  user-select: none;
+  padding: 0 0.5em;
+  vertical-align: middle;
+  line-height: 1.1;
+}
+
+/* Mugshot box */
+.lineup-mugshot-wrap {
+  margin-top: 0.75rem;
+  border: 2px solid #141414;
+  display: flex;
+  flex-direction: column;
+}
+
+.lineup-mugshot-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-align: center;
+  padding: 0.35em;
+  border-bottom: 1px solid #141414;
+  background: rgba(0, 0, 0, 0.06);
+  text-transform: uppercase;
+}
+
 .lineup-mugshot {
   position: relative;
-  margin: 0.75rem 0 0;
   aspect-ratio: 5 / 6;
   overflow: hidden;
+  flex: 1;
 }
 
 .lineup-mugshot__mark {
@@ -149,60 +234,103 @@
   border-top: 1px solid #777;
 }
 
-/* multiply lets the chart lines read through the halftone's white paper
-   areas, like a photo printed onto the ruled backdrop. */
+/* multiply lets chart lines read through the halftone's white areas */
 .lineup-mugshot__photo {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 84%;
+  width: 100%;
   mix-blend-mode: multiply;
+  cursor: crosshair;
+}
+
+.lineup-mugshot__mark--subject {
+  color: #aa0000;
+  font-weight: 700;
+}
+
+.lineup-mugshot__mark--subject .lineup-mugshot__line {
+  border-color: #aa0000;
+}
+
+.lineup-mugshot-caption {
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-align: center;
+  padding: 0.35em;
+  border-top: 1px solid #141414;
+  background: rgba(0, 0, 0, 0.04);
+  text-transform: uppercase;
 }
 
 .lineup-section-title {
   margin: 2.4rem 0 0.8rem;
   font-size: clamp(1.3rem, 3.4vw, 1.7rem);
   letter-spacing: 0.02em;
+  padding-bottom: 0.35em;
+  border-bottom: 3px solid #141414;
 }
 
 .lineup-charges {
   margin: 0;
-  padding: 0;
-  list-style: none;
+  padding: 0 0 0 1.2em;
   font-size: clamp(0.72rem, 1.8vw, 0.85rem);
-  line-height: 1.7;
+  line-height: 1.9;
 }
 
 .lineup-casual {
   margin: 1.2em 0 0;
   font-size: clamp(0.72rem, 1.8vw, 0.85rem);
   font-weight: 400;
+  padding: 0.6em 0.8em;
+  border: 1px dashed #888;
+  background: rgba(0, 0, 0, 0.03);
 }
 
 .lineup-casual u {
   font-weight: 700;
+  text-decoration: none;
+  border-bottom: 2px solid #141414;
 }
 
 .lineup-notes {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1rem, 3vw, 1.75rem);
+  gap: 0;
   margin-top: 2.2rem;
   font-size: 0.74rem;
   line-height: 1.6;
   font-weight: 400;
+  border: 1px solid #141414;
 }
 
 .lineup-notes p {
   margin: 0;
+  padding: 0.75em;
+  border-right: 1px solid #141414;
+}
+
+.lineup-notes p:last-child {
+  border-right: none;
+}
+
+.lineup-notes strong {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.3em;
+  letter-spacing: 0.05em;
+  font-size: 0.65rem;
+  border-bottom: 1px solid #141414;
+  padding-bottom: 0.3em;
+  margin-bottom: 0.5em;
 }
 
 .lineup-bottom {
   display: grid;
   grid-template-columns: 1.15fr 1fr;
   gap: clamp(1.25rem, 4vw, 2.5rem);
-  align-items: end;
+  align-items: start;
 }
 
 .lineup-prints {
@@ -218,15 +346,43 @@
   border: 1px solid #141414;
 }
 
+.lineup-print-labels {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  font-size: 0.48rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: #555;
+  border: 1px solid #141414;
+  border-top: none;
+}
+
+.lineup-print-labels span {
+  padding: 0.2em 0;
+  border-right: 1px solid #141414;
+}
+
+.lineup-print-labels span:last-child {
+  border-right: none;
+}
+
+.lineup-tastes {
+  border: 1px solid #141414;
+  padding: 0.75em;
+}
+
 .lineup-tastes h3 {
-  margin: 0 0 0.4rem;
-  font-size: 1rem;
-  letter-spacing: 0.03em;
+  margin: 0 0 0.3rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 1px solid #141414;
+  padding-bottom: 0.3em;
 }
 
 .lineup-tastes p {
-  margin: 0 0 1.4rem;
-  font-size: 0.74rem;
+  margin: 0.4em 0 1em;
+  font-size: 0.72rem;
   line-height: 1.6;
   font-weight: 400;
 }
@@ -235,13 +391,40 @@
   margin-bottom: 0;
 }
 
+/* Authorization signature block */
+.lineup-auth {
+  margin-top: 2.5rem;
+  border-top: 2px solid #141414;
+  padding-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.lineup-auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-bottom: 1px solid #141414;
+  padding-bottom: 0.3em;
+}
+
+.lineup-auth-field span {
+  color: #555;
+}
+
 .lineup-footer {
-  margin: 2.5rem 0 0;
-  text-align: center;
-  font-size: 0.72rem;
+  margin: 1.5rem 0 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.58rem;
   font-weight: 400;
-  letter-spacing: 0.18em;
-  color: #999;
+  letter-spacing: 0.12em;
+  color: #888;
+  text-transform: uppercase;
 }
 
 @media (max-width: 640px) {
@@ -254,7 +437,21 @@
     grid-template-columns: 1fr;
   }
 
+  .lineup-notes p {
+    border-right: none;
+    border-bottom: 1px solid #141414;
+  }
+
+  .lineup-notes p:last-child {
+    border-bottom: none;
+  }
+
   .lineup-mugshot {
     max-width: 22rem;
+  }
+
+  .lineup-auth {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }

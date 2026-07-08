@@ -1,0 +1,139 @@
+.projects-intro {
+  margin: 0 0 3rem;
+  color: var(--muted);
+}
+
+.projects-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.project-row {
+  border-top: 1px solid var(--muted);
+}
+
+.project-row:last-child {
+  border-bottom: 1px solid var(--muted);
+}
+
+.project-row a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.project-row-inner {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr auto;
+  gap: 0 1.5rem;
+  align-items: start;
+  padding: 1.25rem 0;
+  transition: background 150ms ease;
+}
+
+.project-row a:hover .project-row-inner {
+  background: rgba(117, 107, 89, 0.12);
+  margin: 0 -1rem;
+  padding: 1.25rem 1rem;
+}
+
+.project-row a:hover .project-name {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.project-num {
+  font-family: var(--terminal);
+  font-size: 0.75rem;
+  color: var(--muted);
+  padding-top: 0.35rem;
+  letter-spacing: 0.05em;
+}
+
+.project-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.project-name {
+  font-family: var(--display);
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.project-arrow {
+  font-family: var(--terminal);
+  font-size: 0.9rem;
+  color: var(--muted);
+  vertical-align: middle;
+  margin-left: 0.1em;
+}
+
+.project-desc {
+  font-family: var(--terminal);
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.5;
+  max-width: 38rem;
+}
+
+.project-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+  padding-top: 0.35rem;
+  flex-shrink: 0;
+}
+
+.project-year {
+  font-family: var(--terminal);
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.project-tags {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+}
+
+.project-tags li {
+  font-family: var(--terminal);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--muted);
+  padding: 0.1rem 0.45rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 520px) {
+  .project-row-inner {
+    grid-template-columns: 2rem 1fr;
+    grid-template-rows: auto auto;
+    gap: 0 1rem;
+  }
+
+  .project-meta {
+    grid-column: 2;
+    flex-direction: row-reverse;
+    align-items: center;
+    padding-top: 0.5rem;
+  }
+
+  .project-tags {
+    flex-direction: row;
+    align-items: center;
+  }
+}

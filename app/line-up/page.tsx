@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { MugshotCycler } from "@/components/MugshotCycler";
 
 export const metadata: Metadata = {
   title: "Line-Up — Kevin van der Poll",
@@ -7,22 +8,22 @@ export const metadata: Metadata = {
     "Official criminal record of Kevin van der Poll — digital toolmaker, chaos operator, repeat offender.",
 };
 
-// Mugshot height-chart marks (cm). Top mark to bottom mark maps onto the
-// full box height, with a little headroom below the last mark.
-const HEIGHT_MARKS = Array.from({ length: 17 }, (_, i) => 190 - i * 4);
+const HEIGHT_MARKS = [198, 195, 190, 185, 183, 180, 175, 170, 165, 160, 155];
 const MARK_TOP = HEIGHT_MARKS[0];
-const MARK_RANGE = MARK_TOP - 122;
+const MARK_RANGE = MARK_TOP - HEIGHT_MARKS[HEIGHT_MARKS.length - 1];
 
-const FIELDS: [string, string][] = [
+const FIELDS: [string, string | "REDACTED"][] = [
   ["NAME", "KEVIN VAN DER POLL"],
   ["RECORD ID", "VDP-305-K"],
   ["PRONOUNS", "HE/HIM"],
-  ["AGE", "[REDACTED]"],
+  ["AGE", "REDACTED"],
   ["OCCUPATION", "DIGITAL TOOLMAKER"],
   ["NATIONALITY", "SOUTH AFRICAN"],
   ["BASE", "MIAMI, FL"],
   ["ALIASES", "VDP / KEV.PNG / VAN"],
 ];
+
+const FINGER_LABELS = ["L.TH", "L.I", "L.M", "L.R", "L.L", "R.TH", "R.I", "R.M", "R.R", "R.L"];
 
 function Fingerprint({ seed }: { seed: number }) {
   const rings = Array.from({ length: 7 }, (_, i) => 2.2 + i * 2.1);
@@ -51,6 +52,15 @@ export default function LineUpPage() {
           <Link href="/van" className="subpage-back">← van</Link>
         </div>
         <article className="lineup-sheet">
+
+          {/* Classification bar — top */}
+          <div className="lineup-classify lineup-classify--top">
+            CONFIDENTIAL // VDA-7K // NOT FOR DISTRIBUTION // HANDLE VIA APPROVED CHANNELS ONLY
+          </div>
+
+          {/* Rubber stamp */}
+          <div className="lineup-stamp" aria-hidden="true">CONFIDENTIAL</div>
+
           <header className="lineup-head">
             <div className="lineup-agency">
               <svg viewBox="0 0 64 64" className="lineup-seal" aria-hidden="true">
@@ -62,15 +72,7 @@ export default function LineUpPage() {
                 <text fontSize="6.5" letterSpacing="1.4" fill="#111" fontFamily="Arial, sans-serif" fontWeight="bold">
                   <textPath href="#seal-arc">VAN INTELLIGENCE AGENCY • MIA •</textPath>
                 </text>
-                <text
-                  x="32"
-                  y="38"
-                  textAnchor="middle"
-                  fontSize="17"
-                  fontWeight="900"
-                  fill="#111"
-                  fontFamily="Arial, sans-serif"
-                >
+                <text x="32" y="38" textAnchor="middle" fontSize="17" fontWeight="900" fill="#111" fontFamily="Arial, sans-serif">
                   V
                 </text>
               </svg>
@@ -82,18 +84,11 @@ export default function LineUpPage() {
             </div>
             <table className="lineup-filetable">
               <tbody>
-                <tr>
-                  <th>FILE NUMBER</th>
-                  <td>#305-VDP-000186</td>
-                </tr>
-                <tr>
-                  <th>PURPOSE RECORD</th>
-                  <td>G-LINEUP-9(P)</td>
-                </tr>
-                <tr>
-                  <th>SRU ID</th>
-                  <td>K007</td>
-                </tr>
+                <tr><th>FILE NUMBER</th><td>#305-VDP-000186</td></tr>
+                <tr><th>PURPOSE RECORD</th><td>G-LINEUP-9(P)</td></tr>
+                <tr><th>DATE OF RECORD</th><td>██████████</td></tr>
+                <tr><th>CASE STATUS</th><td>OPEN — ONGOING</td></tr>
+                <tr><th>SRU ID</th><td>K007</td></tr>
               </tbody>
             </table>
           </header>
@@ -105,38 +100,41 @@ export default function LineUpPage() {
               {FIELDS.map(([label, value]) => (
                 <div key={label} className="lineup-field">
                   <dt>{label}:</dt>
-                  <dd>{value}</dd>
+                  <dd>
+                    {value === "REDACTED"
+                      ? <span className="lineup-redact">REDACTED</span>
+                      : value}
+                  </dd>
                 </div>
               ))}
             </dl>
-            <figure className="lineup-mugshot">
-              {HEIGHT_MARKS.map((n) => (
-                <div
-                  key={n}
-                  className="lineup-mugshot__mark"
-                  style={{ top: `${((MARK_TOP - n) / MARK_RANGE) * 100}%` }}
-                >
-                  <span>{n}</span>
-                  <span className="lineup-mugshot__line" />
-                  <span>{n}</span>
-                </div>
-              ))}
-              {/* eslint-disable-next-line @next/next/no-img-element -- plain img keeps
-                  the halftone pixels untouched; next/image re-encoding softens them */}
-              <img
-                src="/photos/halftones/fine.png"
-                alt="Halftone mugshot of Kevin van der Poll"
-                className="lineup-mugshot__photo"
-              />
-            </figure>
+
+            <div className="lineup-mugshot-wrap">
+              <div className="lineup-mugshot-label">Subject Photograph</div>
+              <figure className="lineup-mugshot">
+                {HEIGHT_MARKS.map((n) => (
+                  <div
+                    key={n}
+                    className={`lineup-mugshot__mark${n === 183 ? " lineup-mugshot__mark--subject" : ""}`}
+                    style={{ top: `${((MARK_TOP - n) / MARK_RANGE) * 100}%` }}
+                  >
+                    <span>{n}</span>
+                    <span className="lineup-mugshot__line" />
+                    <span>{n}</span>
+                  </div>
+                ))}
+                <MugshotCycler />
+              </figure>
+              <div className="lineup-mugshot-caption">Photo ID: VDP-305-K &nbsp;•&nbsp; Date taken: ██████</div>
+            </div>
           </div>
 
-          <h2 className="lineup-section-title">CHARGES...</h2>
+          <h2 className="lineup-section-title">Charges</h2>
           <ul className="lineup-charges">
-            <li>EXCESSIVE SIDE PROJECTS — ONGOING</li>
-            <li>BREAKING SYSTEMS TO LEARN THEIR RULES</li>
-            <li>MAKING THINGS NOBODY ASKED FOR</li>
-            <li>IMPERSONATING A DEVELOPER, AN ARTIST, A BARTENDER, AND A CARPENTER — ALL CHARGES STUCK</li>
+            <li>Excessive side projects — ongoing</li>
+            <li>Breaking systems to learn their rules</li>
+            <li>Making things nobody asked for</li>
+            <li>Impersonating a developer, an artist, a bartender, and a carpenter — all charges stuck</li>
           </ul>
           <p className="lineup-casual">
             <u>casual:</u>{" "}
@@ -146,36 +144,41 @@ export default function LineUpPage() {
 
           <div className="lineup-notes">
             <p>
-              <strong>#CODE:</strong> react, node, typescript, next.js. automations, scrapers,
-              AI tooling, weird web experiments. builds real software and strange ones with
-              equal conviction.
+              <strong>#Code</strong>
+              react, node, typescript, next.js. automations, scrapers, AI tooling, weird web
+              experiments. builds real software and strange ones with equal conviction.
             </p>
             <p>
-              <strong>#HANDS:</strong> cabinetry, CNC, demolition, stone work. when the screen
-              gets old the tools come out. the pattern never changes: make the thing.
+              <strong>#Hands</strong>
+              cabinetry, CNC, demolition, stone work. when the screen gets old the tools come
+              out. the pattern never changes: make the thing.
             </p>
             <p>
-              <strong>#FLOOR:</strong> bartender, trainer, manager. years of high-volume
-              service. handles chaos without freezing. keeps moving when the thing is messy.
+              <strong>#Floor</strong>
+              bartender, trainer, manager. years of high-volume service. handles chaos without
+              freezing. keeps moving when the thing is messy.
             </p>
           </div>
 
+          <h2 className="lineup-section-title" style={{ marginTop: "2.4rem" }}>Biometrics</h2>
           <div className="lineup-bottom">
             <div>
-              <h2 className="lineup-section-title">FINGERTIPS...</h2>
               <div className="lineup-prints">
                 {Array.from({ length: 10 }, (_, i) => (
                   <Fingerprint key={i} seed={i + 1} />
                 ))}
               </div>
+              <div className="lineup-print-labels">
+                {FINGER_LABELS.map((l) => <span key={l}>{l}</span>)}
+              </div>
             </div>
             <div className="lineup-tastes">
-              <h3>LIKES</h3>
+              <h3>Likes</h3>
               <p>
                 raw but designed. high-contrast line art, vintage newsprint, banknote
                 engraving, code that feels beautiful.
               </p>
-              <h3>DISLIKES</h3>
+              <h3>Dislikes</h3>
               <p>
                 polished corporate sludge, generic inspirational language, anything that
                 smells generated.
@@ -183,7 +186,32 @@ export default function LineUpPage() {
             </div>
           </div>
 
-          <p className="lineup-footer">( internal use only — do not distribute )</p>
+          {/* Authorization block */}
+          <div className="lineup-auth">
+            <div className="lineup-auth-field">
+              <span>&nbsp;</span>
+              <span>Case Officer</span>
+            </div>
+            <div className="lineup-auth-field">
+              <span>&nbsp;</span>
+              <span>Reviewed By</span>
+            </div>
+            <div className="lineup-auth-field">
+              <span>&nbsp;</span>
+              <span>Date Authorized</span>
+            </div>
+          </div>
+
+          <div className="lineup-footer">
+            <span>Internal use only — do not distribute</span>
+            <span>Form VDA-305-K Rev. 04/2024 &nbsp;•&nbsp; Page 1 of 1</span>
+          </div>
+
+          {/* Classification bar — bottom */}
+          <div className="lineup-classify lineup-classify--bottom">
+            CONFIDENTIAL // VDA-7K // NOT FOR DISTRIBUTION // HANDLE VIA APPROVED CHANNELS ONLY
+          </div>
+
         </article>
       </div>
     </main>

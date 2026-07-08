@@ -2,7 +2,9 @@ export type Project = {
   slug: string;
   name: string;
   description: string;
+  tags: string[];
   href?: string;
+  year?: number;
 };
 
 export const projects: Project[] = [
@@ -11,50 +13,68 @@ export const projects: Project[] = [
     name: "This site",
     description:
       "A halftone-tiled landing page with a hidden press-and-hold reveal sequence, hand-built with Next.js.",
+    tags: ["Next.js", "Design"],
+    year: 2025,
   },
   {
     slug: "ai-tooling",
     name: "AI tooling",
     description: "Agent workflows and internal tools built around day-to-day engineering work.",
+    tags: ["AI", "Engineering"],
+    year: 2025,
+  },
+  {
+    slug: "blokc",
+    name: "blokc",
+    description: "Bitcoin block hashes rendered as deterministic 8×8 pixel art.",
+    tags: ["Generative", "Web3"],
+    href: "https://blokc-bice.vercel.app",
+    year: 2024,
   },
   {
     slug: "visual-experiments",
     name: "Visual experiments",
     description: "Halftone processing, generative layouts, and other small design/code studies.",
-  },
-  {
-    slug: "blokc",
-    name: "blokc",
-    description: "Bitcoin block hashes rendered as deterministic 8x8 pixel art.",
-    href: "https://blokc-bice.vercel.app",
+    tags: ["Design", "Generative"],
+    year: 2024,
   },
   {
     slug: "dnd-character-sheet",
     name: "D&D character sheet",
     description: "A two-page Dungeons & Dragons character sheet you fill out in the browser.",
+    tags: ["Tool", "Web"],
     href: "https://dnd-rho-umber.vercel.app",
+    year: 2023,
   },
   {
     slug: "fifty-two",
     name: "fifty_two",
     description:
-      "A way to explore 52! (52 factorial) — shuffling a deck of cards in unique ways.",
+      "A way to explore 52! — the mind-bending number of ways to shuffle a deck of cards.",
+    tags: ["Math", "Web"],
+    year: 2023,
   },
   {
     slug: "pyano",
     name: "pyano",
     description:
-      "A four-in-one music toy: a beatbox creator, an onscreen piano, a kick-and-snare beat maker, and a keyboard that auto-generates melodies.",
+      "A four-in-one music toy: beatbox creator, onscreen piano, kick-and-snare beat maker, and a keyboard that auto-generates melodies.",
+    tags: ["Music", "Web"],
+    year: 2022,
   },
   {
     slug: "pyeye",
     name: "pyeye",
     description:
-      "A Python tool that auto-detects eyes in a photo and covers them with a censor bar, with a few style options.",
+      "A Python tool that auto-detects eyes in a photo and covers them with a censor bar.",
+    tags: ["Python", "CV"],
+    year: 2022,
   },
   {
     slug: "blackjack",
     name: "Blackjack trainer",
     description: "A blackjack trainer built to teach basic strategy.",
+    tags: ["Game", "Web"],
+    year: 2021,
   },
 ];

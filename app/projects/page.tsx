@@ -10,21 +10,48 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <SubPageShell title="Projects">
-      <p>Work in progress — a running list that will keep growing as things ship.</p>
-      {projects.map((project) => (
-        <p key={project.slug}>
-          <strong className="project-title">
-            {project.href ? (
-              <Link href={`/projects/${project.slug}`}>{project.name}</Link>
-            ) : (
-              project.name
-            )}
-            .
-          </strong>{" "}
-          {project.description}
-        </p>
-      ))}
+    <SubPageShell title="Projects" wide>
+      <p className="projects-intro">
+        Things I&apos;ve shipped — tools, experiments, and whatever else caught my attention.
+      </p>
+      <ol className="projects-list">
+        {projects.map((project, i) => {
+          const num = String(i + 1).padStart(2, "0");
+          const isLinked = !!project.href;
+          const inner = (
+            <div className="project-row-inner">
+              <span className="project-num">{num}</span>
+              <div className="project-content">
+                <span className="project-name">
+                  {project.name}
+                  {isLinked && <span className="project-arrow"> ↗</span>}
+                </span>
+                <span className="project-desc">{project.description}</span>
+              </div>
+              <div className="project-meta">
+                {project.year && <span className="project-year">{project.year}</span>}
+                <ul className="project-tags">
+                  {project.tags.map((tag) => (
+                    <li key={tag}>{tag}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          );
+
+          return (
+            <li key={project.slug} className="project-row">
+              {isLinked ? (
+                <a href={project.href} target="_blank" rel="noopener noreferrer">
+                  {inner}
+                </a>
+              ) : (
+                inner
+              )}
+            </li>
+          );
+        })}
+      </ol>
     </SubPageShell>
   );
 }
