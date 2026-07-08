@@ -12,6 +12,7 @@ const PAGES: Record<string, string> = {
   van: "/van",
   home: "/",
   "/": "/",
+  now: "/now",
   info: "/info",
   projects: "/projects",
   contact: "/contact",
@@ -89,6 +90,7 @@ function runCommand(
         <Ln />,
         <Ln><span className="term-green">van</span><span className="term-dim">         poster, home base</span></Ln>,
         <Ln><span className="term-green">home</span><span className="term-dim">        landing / intro animation</span></Ln>,
+        <Ln><span className="term-green">now</span><span className="term-dim">         what kevin&apos;s doing right now</span></Ln>,
         <Ln><span className="term-green">info</span><span className="term-dim">        about kevin</span></Ln>,
         <Ln><span className="term-green">projects</span><span className="term-dim">    things being built</span></Ln>,
         <Ln><span className="term-green">contact</span><span className="term-dim">     get in touch</span></Ln>,
@@ -189,7 +191,7 @@ function runCommand(
           <Ln />,
           <Ln>usage: goto <span className="term-cyan">[page]</span></Ln>,
           <Ln />,
-          <Ln>pages: <span className="term-green">van  home  info  projects  contact  terminal</span></Ln>,
+          <Ln>pages: <span className="term-green">van  home  now  info  projects  contact  terminal</span></Ln>,
           <Ln />,
         );
       } else if (target === "terminal") {

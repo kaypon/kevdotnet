@@ -9,7 +9,18 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <SubPageShell title="Contact">
-      <p>Work in progress — more coming soon.</p>
+      <p>
+        Reach out — <a href="mailto:you@example.com">you@example.com</a>.
+      </p>
+      <p>
+        <a href="https://github.com/kaypon" target="_blank" rel="noopener noreferrer">GitHub</a>
+        {" · "}
+        <a href="https://www.linkedin.com/in/kevinvanderpoll/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        {" · "}
+        <a href="https://x.com/kevdotpng" target="_blank" rel="noopener noreferrer">X</a>
+        {" · "}
+        <a href="https://www.instagram.com/kevdotpng/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      </p>
     </SubPageShell>
   );
 }

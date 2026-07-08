@@ -48,6 +48,7 @@ export default function VanPage() {
       </section>
       <nav className="poster-nav" aria-label="Site sections">
         {[
+          { href: "/now", label: "now" },
           { href: "/info", label: "info" },
           { href: "/projects", label: "projects" },
           { href: "/contact", label: "contact" },
