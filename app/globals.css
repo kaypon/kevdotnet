@@ -1,6 +1,7 @@
 @import "./styles/poster.css";
 @import "./styles/subpage.css";
 @import "./styles/terminal.css";
+@import "./styles/lineup.css";
 
 :root {
   --paper: #f2f2f0;

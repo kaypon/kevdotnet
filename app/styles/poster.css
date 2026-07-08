@@ -156,6 +156,8 @@
   letter-spacing: 0.01em;
   text-transform: uppercase;
   text-align: justify;
+  text-align-last: justify;
+  text-wrap: balance;
   color: var(--ink);
   transition: color 700ms ease;
 }
@@ -167,6 +169,46 @@
    /van visit. */
 .poster-caption--ghost {
   visibility: hidden;
+}
+
+/* The last word of the caption ("strange") gets a rainbow flash — a little
+   wink that the "useful and strange" line means it. */
+.poster-caption-rainbow {
+  background-image: linear-gradient(
+    90deg,
+    #ff3b3b,
+    #ff8a2b,
+    #e0b400,
+    #1fb84f,
+    #1fa8dc,
+    #7a3bff,
+    #ff3bd4,
+    #ff3b3b
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* Thin dark stroke keeps the light stops (yellow/green) legible against
+     the paper background as the gradient sweeps through them. */
+  -webkit-text-stroke: 0.75px rgba(26, 26, 26, 0.3);
+  animation: poster-caption-rainbow-wave 6s linear infinite;
+}
+
+@keyframes poster-caption-rainbow-wave {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: -300% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poster-caption-rainbow {
+    animation: none;
+    background-position: 0% 50%;
+  }
 }
 
 /* Discoverability hint for the hidden hold-to-reveal sequence — shown only

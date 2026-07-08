@@ -17,6 +17,8 @@ type PosterExperienceProps = {
   lore: string;
 };
 
+const RAINBOW_WORD = "STRANGE";
+
 const HOLD_MS = 500;
 const FADE_STEP_MS = 140;
 const INVERT_MS = 750;
@@ -162,6 +164,23 @@ export function PosterExperience({
   // Caption starts empty; intro types it in, hold sequence deletes it.
   const blurbTypewriter = useTypewriter("", 12);
   const loreTypewriter = useTypewriter("", 30);
+
+  // The caption is justified + balanced (see .poster-caption in poster.css),
+  // so typing it by slicing the string re-wraps and re-spaces the whole
+  // paragraph on every keystroke. Instead the full caption is always laid
+  // out and each character is revealed in place (visibility, which keeps its
+  // space) — line breaks and word gaps are final from the first frame.
+  const rainbowIndex = caption.lastIndexOf(RAINBOW_WORD);
+  const visibleCount = blurbTypewriter.text.length;
+  const renderCaptionChars = (text: string, offset: number) =>
+    text.split("").map((ch, i) => (
+      <span
+        key={offset + i}
+        style={offset + i < visibleCount ? undefined : { visibility: "hidden" }}
+      >
+        {ch}
+      </span>
+    ));
 
   const captionRef = useRef<HTMLParagraphElement>(null);
   const captionMinHeightRef = useRef(0);
@@ -344,7 +363,16 @@ export function PosterExperience({
           className="poster-caption"
           style={captionMinHeight ? { minHeight: captionMinHeight } : undefined}
         >
-          {blurbTypewriter.text}
+          {rainbowIndex === -1 ? (
+            renderCaptionChars(caption, 0)
+          ) : (
+            <>
+              {renderCaptionChars(caption.slice(0, rainbowIndex), 0)}
+              <span className="poster-caption-rainbow">
+                {renderCaptionChars(caption.slice(rainbowIndex), rainbowIndex)}
+              </span>
+            </>
+          )}
         </p>
         <p className={`poster-hint${showHint ? "" : " poster-hint--hidden"}`}>[ press &amp; hold ]</p>
       </section>

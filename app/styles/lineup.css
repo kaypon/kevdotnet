@@ -1,0 +1,260 @@
+/* /line-up — a CIA-style "criminal record" sheet (see inspo/record1.jpg):
+   white typewriter document floating on the site's dark background, with a
+   halftone mugshot against a height chart, charge list, and fingerprints. */
+.lineup-page {
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+  background: var(--dark-bg);
+  padding: clamp(2.5rem, 8vw, 6rem) clamp(1rem, 4vw, 2.5rem);
+}
+
+.lineup-wrap {
+  width: 100%;
+  max-width: 46rem;
+}
+
+.lineup-sheet {
+  background: #fdfdfa;
+  color: #141414;
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+  padding: clamp(1.5rem, 5vw, 3rem);
+}
+
+.lineup-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.lineup-agency {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.lineup-seal {
+  width: clamp(52px, 9vw, 68px);
+  flex-shrink: 0;
+}
+
+/* The letterhead is the one non-typewriter voice on the sheet, matching the
+   printed agency masthead in the reference. */
+.lineup-agency__name {
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.25;
+}
+
+.lineup-agency__name span {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.lineup-agency__name strong {
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.lineup-agency__name small {
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  color: #555;
+  margin-top: 0.2em;
+}
+
+.lineup-filetable {
+  border-collapse: collapse;
+  border-top: 3px solid #141414;
+  font-size: 0.72rem;
+  min-width: 15rem;
+}
+
+.lineup-filetable th,
+.lineup-filetable td {
+  border-bottom: 1px solid #141414;
+  padding: 0.35em 0.2em;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.lineup-filetable td {
+  padding-left: 1.5em;
+  font-weight: 400;
+}
+
+.lineup-idnum {
+  margin: 2.2rem 0 0;
+  padding-bottom: 0.35em;
+  border-bottom: 5px solid #141414;
+  font-size: clamp(0.95rem, 2.4vw, 1.15rem);
+  letter-spacing: 0.04em;
+}
+
+.lineup-main {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(1.25rem, 4vw, 2.5rem);
+  margin-top: 0.5rem;
+}
+
+.lineup-fields {
+  margin: 0;
+}
+
+.lineup-field {
+  display: flex;
+  gap: 0.5em;
+  border-bottom: 2px solid #141414;
+  padding: 0.65em 0 0.4em;
+  font-size: clamp(0.78rem, 1.9vw, 0.95rem);
+}
+
+.lineup-field dt {
+  font-weight: 700;
+}
+
+.lineup-field dd {
+  margin: 0;
+  font-weight: 400;
+}
+
+.lineup-mugshot {
+  position: relative;
+  margin: 0.75rem 0 0;
+  aspect-ratio: 5 / 6;
+  overflow: hidden;
+}
+
+.lineup-mugshot__mark {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.5rem;
+  font-weight: 400;
+  color: #333;
+  line-height: 1;
+}
+
+.lineup-mugshot__line {
+  flex: 1;
+  border-top: 1px solid #777;
+}
+
+/* multiply lets the chart lines read through the halftone's white paper
+   areas, like a photo printed onto the ruled backdrop. */
+.lineup-mugshot__photo {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 84%;
+  mix-blend-mode: multiply;
+}
+
+.lineup-section-title {
+  margin: 2.4rem 0 0.8rem;
+  font-size: clamp(1.3rem, 3.4vw, 1.7rem);
+  letter-spacing: 0.02em;
+}
+
+.lineup-charges {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: clamp(0.72rem, 1.8vw, 0.85rem);
+  line-height: 1.7;
+}
+
+.lineup-casual {
+  margin: 1.2em 0 0;
+  font-size: clamp(0.72rem, 1.8vw, 0.85rem);
+  font-weight: 400;
+}
+
+.lineup-casual u {
+  font-weight: 700;
+}
+
+.lineup-notes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 3vw, 1.75rem);
+  margin-top: 2.2rem;
+  font-size: 0.74rem;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.lineup-notes p {
+  margin: 0;
+}
+
+.lineup-bottom {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(1.25rem, 4vw, 2.5rem);
+  align-items: end;
+}
+
+.lineup-prints {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: 1px solid #141414;
+}
+
+.lineup-print {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border: 1px solid #141414;
+}
+
+.lineup-tastes h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+}
+
+.lineup-tastes p {
+  margin: 0 0 1.4rem;
+  font-size: 0.74rem;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.lineup-tastes p:last-child {
+  margin-bottom: 0;
+}
+
+.lineup-footer {
+  margin: 2.5rem 0 0;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  color: #999;
+}
+
+@media (max-width: 640px) {
+  .lineup-main,
+  .lineup-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .lineup-notes {
+    grid-template-columns: 1fr;
+  }
+
+  .lineup-mugshot {
+    max-width: 22rem;
+  }
+}
