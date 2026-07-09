@@ -112,18 +112,19 @@ export default function LineUpPage() {
             <div className="lineup-mugshot-wrap">
               <div className="lineup-mugshot-label">Subject Photograph</div>
               <figure className="lineup-mugshot">
-                {HEIGHT_MARKS.map((n) => (
-                  <div
-                    key={n}
-                    className={`lineup-mugshot__mark${n === 183 ? " lineup-mugshot__mark--subject" : ""}`}
-                    style={{ top: `${((MARK_TOP - n) / MARK_RANGE) * 100}%` }}
-                  >
-                    <span>{n}</span>
-                    <span className="lineup-mugshot__line" />
-                    <span>{n}</span>
-                  </div>
-                ))}
                 <MugshotCycler />
+                <div className="lineup-ruler" aria-hidden="true">
+                  {HEIGHT_MARKS.map((n) => (
+                    <div
+                      key={n}
+                      className={`lineup-mugshot__mark${n === 183 ? " lineup-mugshot__mark--subject" : ""}`}
+                      style={{ top: `${((MARK_TOP - n) / MARK_RANGE) * 100}%` }}
+                    >
+                      <span className="lineup-mugshot__tick" />
+                      <span className="lineup-mugshot__marknum">{n}</span>
+                    </div>
+                  ))}
+                </div>
               </figure>
               <div className="lineup-mugshot-caption">Photo ID: VDP-305-K &nbsp;•&nbsp; Date taken: ██████</div>
             </div>

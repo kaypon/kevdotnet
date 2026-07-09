@@ -151,7 +151,7 @@
   margin: clamp(0.5rem, 2.2cqw, 1rem) 0 0;
   font-family: var(--terminal);
   font-weight: 700;
-  font-size: clamp(0.75rem, 1.5cqw, 0.98rem);
+  font-size: clamp(0.7rem, 1.4cqw, 0.92rem);
   line-height: 1.45;
   letter-spacing: 0.01em;
   text-transform: uppercase;

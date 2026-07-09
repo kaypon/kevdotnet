@@ -216,24 +216,6 @@
   flex: 1;
 }
 
-.lineup-mugshot__mark {
-  position: absolute;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.5rem;
-  font-weight: 400;
-  color: #333;
-  line-height: 1;
-}
-
-.lineup-mugshot__line {
-  flex: 1;
-  border-top: 1px solid #777;
-}
-
 /* multiply lets chart lines read through the halftone's white areas */
 .lineup-mugshot__photo {
   position: absolute;
@@ -245,13 +227,78 @@
   cursor: crosshair;
 }
 
+/* Height ruler — right-side strip with tick marks */
+.lineup-ruler {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 2rem;
+  border-left: 1.5px solid rgba(60, 60, 60, 0.5);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.lineup-mugshot__mark {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  transform: translateY(-50%);
+  font-size: 0.44rem;
+  font-weight: 400;
+  color: #444;
+  line-height: 1;
+}
+
+.lineup-mugshot__tick {
+  width: 7px;
+  border-top: 1px solid #666;
+  flex-shrink: 0;
+}
+
+.lineup-mugshot__marknum {
+  padding: 0 2px 0 1px;
+  background: rgba(240, 230, 204, 0.82);
+  line-height: 1.4;
+}
+
 .lineup-mugshot__mark--subject {
   color: #aa0000;
   font-weight: 700;
+  font-size: 0.48rem;
 }
 
-.lineup-mugshot__mark--subject .lineup-mugshot__line {
+.lineup-mugshot__mark--subject .lineup-mugshot__tick {
   border-color: #aa0000;
+  width: 11px;
+}
+
+/* Cycle indicator dots — overlaid at bottom of the photo */
+.lineup-mugshot-dots {
+  position: absolute;
+  bottom: 0.5em;
+  left: 0;
+  right: 2rem; /* stay left of ruler */
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.lineup-mugshot-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: 1px solid #555;
+  background: transparent;
+  transition: background 200ms;
+}
+
+.lineup-mugshot-dot--active {
+  background: #141414;
 }
 
 .lineup-mugshot-caption {
