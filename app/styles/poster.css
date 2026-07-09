@@ -151,8 +151,8 @@
   margin: clamp(0.5rem, 2.2cqw, 1rem) 0 0;
   font-family: var(--terminal);
   font-weight: 500;
-  font-size: clamp(0.67rem, 1.35cqw, 0.88rem);
-  line-height: 1.4;
+  font-size: clamp(0.75rem, 1.5cqw, 0.98rem);
+  line-height: 1.45;
   letter-spacing: 0.01em;
   text-transform: uppercase;
   text-align: justify;
@@ -219,7 +219,7 @@
   text-align: center;
   font-family: var(--terminal);
   font-weight: 500;
-  font-size: clamp(0.52rem, 1.04cqw, 0.68rem);
+  font-size: clamp(0.58rem, 1.15cqw, 0.76rem);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
@@ -256,7 +256,7 @@
 .poster-lore__text {
   margin: 0;
   font-family: var(--terminal);
-  font-size: clamp(0.67rem, 2.35cqh, 1.04rem);
+  font-size: clamp(0.75rem, 2.6cqh, 1.15rem);
   line-height: 1.5;
   letter-spacing: 0.02em;
   text-align: justify;
@@ -311,7 +311,7 @@
   border-top: 1px solid var(--muted);
   border-bottom: 1px solid var(--muted);
   font-family: var(--terminal);
-  font-size: clamp(0.9rem, 2.15vw, 1.25rem);
+  font-size: clamp(1rem, 2.4vw, 1.4rem);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0;

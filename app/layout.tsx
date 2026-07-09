@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo_Black, Noto_Sans_Mono } from "next/font/google";
+import { Archivo_Black } from "next/font/google";
 import "./globals.css";
 import { TerminalShortcut } from "@/components/TerminalShortcut";
 
@@ -7,13 +7,6 @@ const archivoBlack = Archivo_Black({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-bebas",
-  display: "swap",
-});
-
-const notoSansMono = Noto_Sans_Mono({
-  weight: ["400", "500", "700"],
-  subsets: ["latin"],
-  variable: "--font-terminal",
   display: "swap",
 });
 
@@ -35,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${archivoBlack.variable} ${notoSansMono.variable}`}>
+    <html lang="en" className={archivoBlack.variable}>
       <body>
         <TerminalShortcut />
         {children}

@@ -27,7 +27,7 @@
 .subpage-back {
   display: inline-block;
   font-family: var(--terminal);
-  font-size: 0.76rem;
+  font-size: 0.85rem;
   letter-spacing: 0.05em;
   color: var(--muted);
   text-decoration: none;
@@ -50,8 +50,8 @@
 
 .subpage-body {
   font-family: var(--terminal);
-  font-size: clamp(0.8rem, 1.6vw, 0.94rem);
-  line-height: 1.55;
+  font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+  line-height: 1.65;
 }
 
 .subpage-body p {

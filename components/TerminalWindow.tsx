@@ -172,7 +172,7 @@ function runCommand(
         <Ln>{"  "}▓ ▓{"        "}{"  "}OS<span className="term-dim">       VAN/OS 1.0.0</span></Ln>,
         <Ln>{"  "}▓  ▓{"       "}{"  "}HOST<span className="term-dim">     kevs.site</span></Ln>,
         <Ln>{"  "}▓   ▓{"      "}{"  "}SHELL<span className="term-dim">    zsh</span></Ln>,
-        <Ln>{"  "}▓    ▓{"     "}{"  "}FONT<span className="term-dim">     DejaVu Sans Mono</span></Ln>,
+        <Ln>{"  "}▓    ▓{"     "}{"  "}FONT<span className="term-dim">     Courier New</span></Ln>,
         <Ln>{"  "}▓     ▓{"    "}{"  "}THEME<span className="term-dim">    halftone-dark</span></Ln>,
         <Ln>{"             "}{"  "}DOTS<span className="term-dim">     9 halftone treatments</span></Ln>,
         <Ln>{"             "}{"  "}LOC<span className="term-dim">      miami, fl</span></Ln>,
