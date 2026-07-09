@@ -150,7 +150,7 @@
 .poster-caption {
   margin: clamp(0.5rem, 2.2cqw, 1rem) 0 0;
   font-family: var(--terminal);
-  font-weight: 500;
+  font-weight: 700;
   font-size: clamp(0.75rem, 1.5cqw, 0.98rem);
   line-height: 1.45;
   letter-spacing: 0.01em;
@@ -218,7 +218,7 @@
   margin: clamp(0.55rem, 2.4cqw, 1.1rem) 0 0;
   text-align: center;
   font-family: var(--terminal);
-  font-weight: 500;
+  font-weight: 700;
   font-size: clamp(0.58rem, 1.15cqw, 0.76rem);
   letter-spacing: 0.08em;
   text-transform: uppercase;
