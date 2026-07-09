@@ -172,6 +172,13 @@ export function PosterExperience({
   // space) — line breaks and word gaps are final from the first frame.
   const rainbowIndex = caption.lastIndexOf(RAINBOW_WORD);
   const visibleCount = blurbTypewriter.text.length;
+  // WebKit paints the rainbow gradient (background-clip: text) using the
+  // span's glyphs as the mask even while every char inside is still
+  // visibility: hidden — the word would appear fully colored before it's
+  // typed and never delete. So the gradient class is only applied once the
+  // whole word is revealed; until then its chars are ordinary ink, which
+  // every engine hides correctly.
+  const rainbowRevealed = visibleCount >= rainbowIndex + RAINBOW_WORD.length;
   const renderCaptionChars = (text: string, offset: number) =>
     text.split("").map((ch, i) => (
       <span
@@ -368,7 +375,7 @@ export function PosterExperience({
           ) : (
             <>
               {renderCaptionChars(caption.slice(0, rainbowIndex), 0)}
-              <span className="poster-caption-rainbow">
+              <span className={rainbowRevealed ? "poster-caption-rainbow" : undefined}>
                 {renderCaptionChars(caption.slice(rainbowIndex), rainbowIndex)}
               </span>
             </>
