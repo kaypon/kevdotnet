@@ -340,7 +340,13 @@ export function PosterExperience({
     router.push("/van");
   }, [phase, router]);
 
-  const isDark = phase === "inverting" || phase === "typing" || phase === "done";
+  // Dark starts at "fading", not "inverting": the tiles fade to the page
+  // background, and if that background were still paper the screen would
+  // blow out to near-white for a beat before the invert — a white flash.
+  // Darkening the page while the tiles dissolve lets the photos sink
+  // straight into black instead.
+  const isDark =
+    phase === "fading" || phase === "inverting" || phase === "typing" || phase === "done";
   const showHint = phase === "idle";
   const introRevealedIds = phase === "intro" ? revealedIds : undefined;
   const fadedCountForGrid = phase === "idle" || phase === "deleting" ? undefined : fadedCount;
