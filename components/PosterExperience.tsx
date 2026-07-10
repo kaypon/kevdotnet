@@ -20,10 +20,10 @@ type PosterExperienceProps = {
 const RAINBOW_WORD = "STRANGE";
 
 const HOLD_MS = 500;
-const FADE_STEP_MS = 140;
-const INVERT_MS = 750;
+const FADE_STEP_MS = 70;
+const INVERT_MS = 375;
 const RIPPLE_STEP_MS = 55;
-const GRID_IN_DELAY_MS = 300;
+const GRID_IN_DELAY_MS = 150;
 
 // Normalized tile centers derived from grid-template-columns: 226fr 159fr 263fr
 // and grid-template-rows: 214fr 196fr 158fr 189fr (matches posterTiles in lib/data.ts)
@@ -56,8 +56,8 @@ function rippleGroups(
 // then the remaining 7 photo tiles reveal in a random order each load.
 const INTRO_VAN: Array<{ id: string; pause: number }> = [
   { id: "v", pause: 0 },    // V photo block — first thing visible
-  { id: "a", pause: 220 },  // A
-  { id: "n", pause: 160 },  // N — VAN complete
+  { id: "a", pause: 110 },  // A
+  { id: "n", pause: 80 },   // N — VAN complete
 ];
 const INTRO_REST_IDS = ["t1", "t2", "t3", "t4", "t5", "t6", "t7"];
 
@@ -162,8 +162,8 @@ export function PosterExperience({
 
   // --- typewriters ---
   // Caption starts empty; intro types it in, hold sequence deletes it.
-  const blurbTypewriter = useTypewriter("", 12);
-  const loreTypewriter = useTypewriter("", 30);
+  const blurbTypewriter = useTypewriter("", 6);
+  const loreTypewriter = useTypewriter("", 15);
 
   // The caption is justified + balanced (see .poster-caption in poster.css),
   // so typing it by slicing the string re-wraps and re-spaces the whole
@@ -220,7 +220,7 @@ export function PosterExperience({
     // Build the full step list: fixed VAN head + shuffled tail.
     const restSteps = shuffled(INTRO_REST_IDS).map((id, i) => ({
       id,
-      pause: i === 0 ? 350 : 140, // pause after VAN, then 140ms between each
+      pause: i === 0 ? 175 : 70, // pause after VAN, then 70ms between each
     }));
     const steps = [...INTRO_VAN, ...restSteps];
 
@@ -241,7 +241,7 @@ export function PosterExperience({
       setTimeout(() => {
         setRevealedIds(undefined);
         blurbTypewriter.typeIn(caption, () => setPhase("idle"));
-      }, t + 200)
+      }, t + 100)
     );
 
     return () => timers.forEach(clearTimeout);

@@ -16,7 +16,7 @@
   padding: clamp(0.75rem, 2vw, 1.5rem);
   padding-top: clamp(2rem, 10vh, 6rem);
   background: var(--paper);
-  transition: background-color 700ms ease;
+  transition: background-color 350ms ease;
 }
 
 /* Final beats of the hidden hold-to-reveal sequence (see
@@ -88,7 +88,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 250ms ease;
+  transition: opacity 125ms ease;
 }
 
 .poster-cell__letter {
@@ -101,7 +101,7 @@
   font-size: 27cqw;
   text-align: center;
   text-transform: uppercase;
-  transition: color 700ms ease;
+  transition: color 350ms ease;
 }
 
 .poster-cell--bare .poster-cell__letter {
@@ -144,7 +144,7 @@
   background-position: var(--ox) var(--oy);
   filter: brightness(0.78);
   opacity: var(--fade-opacity, 1);
-  transition: opacity 250ms ease;
+  transition: opacity 125ms ease;
 }
 
 .poster-caption {
@@ -159,7 +159,7 @@
   text-align-last: justify;
   text-wrap: balance;
   color: var(--ink);
-  transition: color 700ms ease;
+  transition: color 350ms ease;
 }
 
 /* /van has no JS to measure the caption's natural height the way `/`'s
@@ -285,7 +285,7 @@
    the grid's own loading fade. */
 .van-intro-grid {
   opacity: 0;
-  transition: opacity 500ms ease;
+  transition: opacity 250ms ease;
 }
 
 .van-intro-grid--visible {
