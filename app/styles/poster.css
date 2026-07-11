@@ -16,7 +16,7 @@
   padding: clamp(0.75rem, 2vw, 1.5rem);
   padding-top: clamp(2rem, 10vh, 6rem);
   background: var(--paper);
-  transition: background-color 350ms ease;
+  transition: background-color 700ms ease;
 }
 
 /* Final beats of the hidden hold-to-reveal sequence (see
@@ -42,7 +42,7 @@
   opacity: 0.4;
   pointer-events: none;
   mix-blend-mode: multiply;
-  transition: opacity 350ms ease;
+  transition: opacity 700ms ease;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16 -13'/%3E%3C/filter%3E%3Crect width='90' height='90' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 90px 90px;
 }
@@ -97,7 +97,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 125ms ease;
+  transition: opacity 250ms ease;
 }
 
 .poster-cell__letter {
@@ -110,7 +110,7 @@
   font-size: 27cqw;
   text-align: center;
   text-transform: uppercase;
-  transition: color 350ms ease;
+  transition: color 700ms ease;
 }
 
 .poster-cell--bare .poster-cell__letter {
@@ -124,14 +124,14 @@
 /* Once the page inverts to dark, the letters need to flip light too —
    otherwise they'd stay near-black on the near-black background through the
    glow/glitch beats that follow. The flip must NOT run in lockstep with the
-   350ms background fade: ink→light and paper→dark cross through the exact
+   700ms background fade: ink→light and paper→dark cross through the exact
    same mid-gray at the midpoint, blanking the name entirely for a beat — the
    letters visibly flicker out and back in. Instead the letters hold ink
    while the page darkens around them, then flip fast at the tail end, so
    there's always contrast between glyph and background. */
 .poster-page--dark .poster-cell__letter {
   color: var(--dark-text);
-  transition: color 150ms ease 200ms;
+  transition: color 300ms ease 400ms;
 }
 
 /* One consistently-scaled photo, windowed through every tile via a
@@ -159,7 +159,7 @@
   background-position: var(--ox) var(--oy);
   filter: brightness(0.78);
   opacity: var(--fade-opacity, 1);
-  transition: opacity 125ms ease;
+  transition: opacity 250ms ease;
 }
 
 .poster-caption {
@@ -174,7 +174,7 @@
   text-align-last: justify;
   text-wrap: balance;
   color: var(--ink);
-  transition: color 350ms ease;
+  transition: color 700ms ease;
 }
 
 /* /van has no JS to measure the caption's natural height the way `/`'s
@@ -300,7 +300,7 @@
    the grid's own loading fade. */
 .van-intro-grid {
   opacity: 0;
-  transition: opacity 250ms ease;
+  transition: opacity 500ms ease;
 }
 
 .van-intro-grid--visible {
