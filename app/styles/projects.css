@@ -118,7 +118,108 @@
   white-space: nowrap;
 }
 
+/* --- project info page (/projects/[slug]) --- */
+
+.project-info-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Reuses .project-tags' chip styling but lays the chips out inline —
+   the list version stacks them column-wise against the right edge. */
+.project-tags--row {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* The .subpage-body qualifier isn't decorative: subpage.css's
+   `.subpage-body p` rule (margin: 0, text-align: justify) out-specifies a
+   lone class — without it the description loses its bottom margin (button
+   sits flush against the text) and justifies into stretched word gaps at
+   narrow widths. */
+.subpage-body .project-info-desc {
+  margin: 0 0 1.5rem;
+  font-family: var(--terminal);
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 38rem;
+  text-align: left;
+}
+
+/* Subpages render on the dark theme (see .subpage in subpage.css), so the
+   button and preview chrome key off --dark-text, not --ink. The extra
+   .subpage-body qualifier out-specifies its blanket `a { color }` rule. */
+.subpage-body .project-info-visit {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  font-family: var(--terminal);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark-text);
+  text-decoration: none;
+  border: 1px solid var(--dark-text);
+  padding: 0.5rem 1rem;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.subpage-body .project-info-visit:hover,
+.subpage-body .project-info-visit:focus-visible {
+  background: var(--dark-text);
+  color: var(--dark-bg);
+}
+
+.project-preview {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--muted);
+}
+
+.project-preview__frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.project-preview__blocked {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  text-align: center;
+  font-family: var(--terminal);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.project-preview__blocked p {
+  margin: 0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.project-preview__blocked a {
+  color: var(--dark-text);
+  text-underline-offset: 0.18em;
+}
+
 @media (max-width: 520px) {
+  /* 16:10 is a desktop-monitor shape; at phone width it leaves a short
+     letterboxed sliver. Portrait-ish 3:4 shows the embedded site the way a
+     phone actually renders it. */
+  .project-preview {
+    aspect-ratio: 3 / 4;
+  }
+
   .project-row-inner {
     grid-template-columns: 2rem 1fr;
     grid-template-rows: auto auto;

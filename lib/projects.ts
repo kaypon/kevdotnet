@@ -5,9 +5,22 @@ export type Project = {
   tags: string[];
   href?: string;
   year?: number;
+  /** Only meaningful when href is set. False for sites that send
+   * X-Frame-Options/frame-ancestors headers blocking iframe embeds —
+   * their info page shows a fallback card instead of a live preview. */
+  embeddable?: boolean;
 };
 
 export const projects: Project[] = [
+  {
+    slug: "halftone-studio",
+    name: "Halftone Studio",
+    description:
+      "Upload an image and tune halftone effects live — the same dot-screen treatment behind this site's poster tiles.",
+    tags: ["Design", "Tool"],
+    href: "https://halftone-studio-sigma.vercel.app",
+    year: 2026,
+  },
   {
     slug: "this-site",
     name: "This site",
@@ -44,14 +57,16 @@ export const projects: Project[] = [
     description: "A two-page Dungeons & Dragons character sheet you fill out in the browser.",
     tags: ["Tool", "Web"],
     href: "https://dnd-rho-umber.vercel.app",
+    embeddable: false,
     year: 2023,
   },
   {
     slug: "fifty-two",
     name: "fifty_two",
     description:
-      "A way to explore 52! — the mind-bending number of ways to shuffle a deck of cards.",
+      "Manually shuffle a deck of cards and find out whether that exact order has ever appeared before — a hands-on tour of 52!.",
     tags: ["Math", "Web"],
+    href: "https://fiftytwo.vercel.app",
     year: 2023,
   },
   {

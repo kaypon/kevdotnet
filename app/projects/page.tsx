@@ -9,13 +9,20 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectsPage() {
+  // Live projects lead the list; the data file stays in canonical year order,
+  // so this is a stable partition — relative order within each group holds.
+  const ordered = [
+    ...projects.filter((project) => project.href),
+    ...projects.filter((project) => !project.href),
+  ];
+
   return (
     <SubPageShell title="Projects" wide>
       <p className="projects-intro">
         Things I&apos;ve shipped — tools, experiments, and whatever else caught my attention.
       </p>
       <ol className="projects-list">
-        {projects.map((project, i) => {
+        {ordered.map((project, i) => {
           const num = String(i + 1).padStart(2, "0");
           const isLinked = !!project.href;
           const inner = (
@@ -42,9 +49,7 @@ export default function ProjectsPage() {
           return (
             <li key={project.slug} className="project-row">
               {isLinked ? (
-                <a href={project.href} target="_blank" rel="noopener noreferrer">
-                  {inner}
-                </a>
+                <Link href={`/projects/${project.slug}`}>{inner}</Link>
               ) : (
                 inner
               )}
