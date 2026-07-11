@@ -239,7 +239,10 @@ export function TerminalWindow() {
     const date = new Date().toString().replace(/\s*\(.*\)\s*$/, "");
     return [
       mkLine(<Ln><span className="term-dim">Last login: {date} on ttys000</span></Ln>),
-      mkLine(<Ln><span className="term-dim">type <span className="term-green">help</span> to see available commands.</span></Ln>),
+      mkLine(<Ln />),
+      mkLine(<Ln>Don&apos;t worry, you&apos;re not lost! This is just my website&apos;s terminal.</Ln>),
+      mkLine(<Ln><span className="term-dim">Type <span className="term-green">help</span> to see available commands.</span></Ln>),
+      mkLine(<Ln><span className="term-dim">To get back out, click my face in the bottom-right corner — or <span className="term-green">← van</span> up top.</span></Ln>),
       mkLine(<Ln />),
     ];
   });

@@ -1,6 +1,6 @@
 .projects-intro {
   margin: 0 0 3rem;
-  color: var(--muted);
+  color: var(--dark-muted);
 }
 
 .projects-list {
@@ -46,7 +46,7 @@
 .project-num {
   font-family: var(--terminal);
   font-size: 0.75rem;
-  color: var(--muted);
+  color: var(--dark-muted);
   padding-top: 0.35rem;
   letter-spacing: 0.05em;
 }
@@ -68,7 +68,7 @@
 .project-arrow {
   font-family: var(--terminal);
   font-size: 0.9rem;
-  color: var(--muted);
+  color: var(--dark-muted);
   vertical-align: middle;
   margin-left: 0.1em;
 }
@@ -76,7 +76,7 @@
 .project-desc {
   font-family: var(--terminal);
   font-size: 0.8rem;
-  color: var(--muted);
+  color: var(--dark-muted);
   line-height: 1.5;
   max-width: 38rem;
 }
@@ -93,7 +93,7 @@
 .project-year {
   font-family: var(--terminal);
   font-size: 0.7rem;
-  color: var(--muted);
+  color: var(--dark-muted);
   letter-spacing: 0.05em;
 }
 
@@ -112,8 +112,8 @@
   font-size: 0.65rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--muted);
-  border: 1px solid var(--muted);
+  color: var(--dark-muted);
+  border: 1px solid var(--dark-muted);
   padding: 0.1rem 0.45rem;
   white-space: nowrap;
 }
@@ -144,7 +144,7 @@
   margin: 0 0 1.5rem;
   font-family: var(--terminal);
   font-size: 0.85rem;
-  color: var(--muted);
+  color: var(--dark-muted);
   line-height: 1.6;
   max-width: 38rem;
   text-align: left;
@@ -198,7 +198,7 @@
   text-align: center;
   font-family: var(--terminal);
   font-size: 0.8rem;
-  color: var(--muted);
+  color: var(--dark-muted);
 }
 
 .project-preview__blocked p {

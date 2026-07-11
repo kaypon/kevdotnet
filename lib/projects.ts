@@ -90,6 +90,7 @@ export const projects: Project[] = [
     name: "Blackjack trainer",
     description: "A blackjack trainer built to teach basic strategy.",
     tags: ["Game", "Web"],
+    href: "https://blackjacktrainer-chi.vercel.app",
     year: 2021,
   },
 ];

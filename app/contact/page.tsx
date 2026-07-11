@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
 import { SubPageShell } from "@/components/SubPageShell";
+import { ContactFlow } from "@/components/ContactFlow";
 
 export const metadata: Metadata = {
   title: "Contact — Kevin van der Poll",
-  description: "Get in touch with Kevin van der Poll.",
+  description: "Start a conversation with Kevin van der Poll.",
 };
 
 export default function ContactPage() {
   return (
     <SubPageShell title="Contact">
-      <p>
-        Reach out — <a href="mailto:you@example.com">you@example.com</a>.
-      </p>
+      <ContactFlow />
       <p>
         <a href="https://github.com/kaypon" target="_blank" rel="noopener noreferrer">GitHub</a>
         {" · "}

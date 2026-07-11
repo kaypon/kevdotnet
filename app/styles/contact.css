@@ -1,0 +1,134 @@
+/* Multi-step contact flow (ContactFlow.tsx) — one question per screen in the
+   subpage's terminal voice. */
+
+.contact-flow {
+  margin: 0 0 3rem;
+}
+
+.contact-flow__counter {
+  margin: 0 0 1.25rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.contact-flow__optional {
+  text-transform: none;
+  letter-spacing: 0.05em;
+}
+
+.contact-flow__question {
+  display: block;
+  margin: 0 0 1.25rem;
+  font-size: 1.15em;
+  font-weight: 700;
+  color: var(--dark-text);
+}
+
+.contact-flow__input {
+  display: block;
+  width: 100%;
+  max-width: 28rem;
+  padding: 0.4em 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--muted);
+  border-radius: 0;
+  font-family: var(--terminal);
+  font-size: 1em;
+  color: var(--dark-text);
+  caret-color: var(--dark-text);
+  transition: border-color 200ms ease;
+}
+
+.contact-flow__input::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+.contact-flow__input:focus {
+  outline: none;
+  border-bottom-color: var(--dark-text);
+}
+
+.contact-flow__input--area {
+  resize: vertical;
+  min-height: 4.5em;
+  line-height: 1.5;
+}
+
+/* Honeypot: parked offscreen, still focusable-by-bots in the DOM. */
+.contact-flow__hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.contact-flow__error {
+  margin: 0.9em 0 0;
+  font-size: 0.85em;
+  color: var(--dark-text);
+}
+
+.contact-flow__error::before {
+  content: "! ";
+  color: var(--muted);
+}
+
+.contact-flow__controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5em;
+  margin-top: 1.75rem;
+}
+
+.contact-flow__btn {
+  padding: 0;
+  background: none;
+  border: 0;
+  font-family: var(--terminal);
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark-text);
+  cursor: pointer;
+  transition: color 200ms ease;
+}
+
+.contact-flow__btn:disabled {
+  color: var(--muted);
+  cursor: default;
+}
+
+.contact-flow__btn--quiet {
+  color: var(--muted);
+}
+
+.contact-flow__btn:hover:not(:disabled),
+.contact-flow__btn:focus-visible {
+  color: var(--dark-text);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  outline: none;
+}
+
+.contact-flow__done {
+  font-weight: 700;
+}
+
+/* .subpage-body qualifier out-specifies its blanket `a` color/underline. */
+.subpage-body .contact-flow__backlink {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.subpage-body .contact-flow__backlink:hover,
+.subpage-body .contact-flow__backlink:focus-visible {
+  color: var(--dark-text);
+  text-decoration: underline;
+}
