@@ -32,6 +32,62 @@ body {
   color: var(--paper);
 }
 
+/* Floating terminal shortcut (TerminalFab.tsx), pinned bottom-right on
+   every page. Ink disc with a muted ring so it reads on both the paper
+   home page and the dark subpages. */
+.terminal-fab {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--dark-bg);
+  border: 1px solid var(--muted);
+  color: var(--dark-text);
+  font-family: var(--terminal);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background 200ms ease, color 200ms ease, transform 200ms ease;
+}
+
+.terminal-fab:hover,
+.terminal-fab:focus-visible {
+  background: var(--dark-text);
+  color: var(--dark-bg);
+  transform: scale(1.08);
+}
+
+.terminal-fab:focus-visible {
+  outline: 1px solid var(--muted);
+  outline-offset: 3px;
+}
+
+/* On /terminal the disc trades the glyph for a halftone mugshot and leads
+   back to /van (see TerminalFab.tsx). The image is set inline; here it's
+   framed and cropped to the face. */
+.terminal-fab--face {
+  background-size: cover;
+  background-position: center 30%;
+}
+
+.terminal-fab--face:hover,
+.terminal-fab--face:focus-visible {
+  background-color: var(--dark-bg);
+  filter: brightness(1.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-fab {
+    transition: background 200ms ease, color 200ms ease;
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

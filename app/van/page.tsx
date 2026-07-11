@@ -48,15 +48,24 @@ export default function VanPage() {
       </section>
       <nav className="poster-nav" aria-label="Site sections">
         {[
-          { href: "/now", label: "now" },
-          { href: "/info", label: "info" },
-          { href: "/projects", label: "projects" },
-          { href: "/contact", label: "contact" },
-          { href: "/terminal", label: "{}" },
-        ].map(({ href, label }) => (
+          { href: "/now", label: "now", tagline: "whats happening" },
+          { href: "/info", label: "info", tagline: "need some more" },
+          { href: "/projects", label: "projects", tagline: "can i see your" },
+          { href: "/contact", label: "contact", tagline: "how do i get in" },
+        ].map(({ href, label, tagline }) => (
           <Link key={href} href={href}>
-            <span className="poster-nav__circle" aria-hidden="true" />
-            {label}
+            <span className="poster-nav__tagline" aria-hidden="true">
+              {tagline.split(" ").map((word, i) => (
+                <span
+                  key={i}
+                  className="poster-nav__tw"
+                  style={{ "--i": i } as React.CSSProperties}
+                >
+                  <span>{word}</span>
+                </span>
+              ))}
+            </span>
+            <span className="poster-nav__label">{label}</span>
           </Link>
         ))}
       </nav>

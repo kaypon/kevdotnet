@@ -307,27 +307,32 @@
   opacity: 1;
 }
 
-/* Site nav — lives only on /van (the resting "revealed" page), bracketed by
-   rule lines. Positioned relative to the viewport (a sibling of .poster, not
-   nested inside it) rather than flowing below the grid — pinned at a fixed
-   75%-down-the-page position regardless of grid/caption height, matched in
-   width to .poster via the shared --poster-width custom property. */
+/* Site nav — lives only on /van (the resting "revealed" page). No bar, no
+   rules: the menu is display typography set in the poster's own face, made
+   of the poster's own material. Each word carries the halftone portrait as
+   a background (--nav-photo-url, set inline in van/page.tsx from the same
+   images[0] the grid uses) clipped to its glyphs; at rest an opaque muted
+   color painted over the glyphs hides the fill, and hover/focus fades that
+   color to transparent so the photo develops inside the letterforms — the
+   word prints, like a tile of the poster. Anchored to the bottom edge of
+   the viewport rather than floated at a mid-page percentage. */
 .poster-nav {
   position: absolute;
-  top: 75%;
+  bottom: clamp(1.5rem, 5vh, 3rem);
   left: 50%;
   transform: translateX(-50%);
-  width: var(--poster-width);
+  width: 100%;
   z-index: 1;
   display: flex;
   justify-content: center;
-  gap: 2em;
-  padding: 0.7em 0;
-  border-top: 1px solid var(--muted);
-  border-bottom: 1px solid var(--muted);
-  font-family: var(--terminal);
-  font-size: clamp(1rem, 2.4vw, 1.4rem);
-  letter-spacing: 0.08em;
+  align-items: baseline;
+  gap: clamp(0.9em, 2.5vw, 1.6em);
+  padding: 0 1rem;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(1.05rem, 3.2vw, 2.1rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
   opacity: 0;
   animation: poster-nav-in 0.7s ease forwards;
@@ -339,39 +344,139 @@
   100% { opacity: 1; translate: 0 0; }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .poster-nav {
+    animation-duration: 0.01s;
+  }
+}
+
+/* Hover/focus surfaces a small typewritten tagline just above the word:
+   each tagline word sits in its own overflow-hidden mask (poster-nav__tw)
+   and slides up from below its baseline, staggered 40ms apart via the --i
+   index set inline in van/page.tsx. The delays apply only in the hover
+   state, so mouse-out drops every word at once — quick in, instant out.
+   Taglines are aria-hidden decoration; the link's name is its label. */
 .poster-nav a {
   position: relative;
   display: inline-block;
-  isolation: isolate;
-  padding: 0.1em 0.2em;
-  color: var(--dark-text);
+  padding: 0.1em 0.15em;
   text-decoration: none;
+  color: var(--dark-text);
 }
 
-/* Hover/focus: a circle grows from the center of the link, the longer it's
-   held, until it's roughly as wide as the text. It's the same light color
-   as the text itself, blended with `difference` — so wherever it overlaps
-   a letter the two nearly-identical colors cancel out to near-black
-   (inverting that letter), while the rest of the circle reads as a plain
-   light disc against the dark page background. */
-.poster-nav__circle {
+/* The tagline is a mini-lockup, echoing the mobile menu: words stack in a
+   ragged column above the hovered word, each line at its own indent and
+   size (nth-child pattern below), no two sharing an edge. */
+.poster-nav__tagline {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: var(--dark-text);
-  mix-blend-mode: difference;
-  transform: translate(-50%, -50%);
-  transition: width 900ms ease, height 900ms ease;
+  bottom: calc(100% + 0.3em);
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.08em;
+  white-space: nowrap;
   pointer-events: none;
+  font-family: var(--terminal);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark-text);
 }
 
-.poster-nav a:hover .poster-nav__circle,
-.poster-nav a:focus-visible .poster-nav__circle {
-  width: 6em;
-  height: 6em;
+.poster-nav__tw {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.poster-nav__tw:nth-child(5n + 1) {
+  margin-left: 0;
+  font-size: 1em;
+}
+
+.poster-nav__tw:nth-child(5n + 2) {
+  margin-left: 1.7em;
+  font-size: 0.82em;
+}
+
+.poster-nav__tw:nth-child(5n + 3) {
+  margin-left: 0.6em;
+  font-size: 0.94em;
+}
+
+.poster-nav__tw:nth-child(5n + 4) {
+  margin-left: 2.3em;
+  font-size: 0.78em;
+}
+
+.poster-nav__tw:nth-child(5n + 5) {
+  margin-left: 1.1em;
+  font-size: 0.88em;
+}
+
+.poster-nav__tw > span {
+  display: inline-block;
+  transform: translateY(110%);
+  opacity: 0;
+  transition: transform 250ms ease, opacity 200ms ease;
+}
+
+.poster-nav a:hover .poster-nav__tw > span,
+.poster-nav a:focus-visible .poster-nav__tw > span {
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: calc(var(--i) * 40ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poster-nav__tw > span {
+    transform: none;
+    transition: opacity 200ms ease;
+  }
+}
+
+.poster-nav a:focus-visible {
+  outline: 1px solid var(--muted);
+  outline-offset: 4px;
+}
+
+/* Phones: the menu becomes a typographic lockup — a ragged, staggered
+   stack. Every word gets its own indent and its own size, set straight.
+   The stagger is the design: no two lines share an edge, so the eye walks
+   the column. */
+@media (max-width: 520px) {
+  .poster-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.1em;
+    padding: 0 0 0 9vw;
+  }
+
+  /* No hover on touch — keep the lockup clean. */
+  .poster-nav__tagline {
+    display: none;
+  }
+
+  .poster-nav a:nth-child(1) {
+    font-size: 1.75rem;
+    margin-left: 0;
+  }
+
+  .poster-nav a:nth-child(2) {
+    font-size: 1.4rem;
+    margin-left: 19vw;
+  }
+
+  .poster-nav a:nth-child(3) {
+    font-size: 2rem;
+    margin-left: 5vw;
+  }
+
+  .poster-nav a:nth-child(4) {
+    font-size: 1.35rem;
+    margin-left: 30vw;
+  }
 }
 
 /* Lore link on /van — second paragraph links to /terminal */
