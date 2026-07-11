@@ -75,6 +75,7 @@ export const projects: Project[] = [
     description:
       "A four-in-one music toy: beatbox creator, onscreen piano, kick-and-snare beat maker, and a keyboard that auto-generates melodies.",
     tags: ["Music", "Web"],
+    href: "https://pyano-web.vercel.app",
     year: 2022,
   },
   {
