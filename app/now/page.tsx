@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { SubPageShell } from "@/components/SubPageShell";
-import { getLastPublicCommitAt } from "@/lib/github";
+import { getLastPublicActivityAt } from "@/lib/github";
 
 export const metadata: Metadata = {
   title: "Now — Kevin van der Poll",
@@ -20,16 +21,29 @@ function formatRelativeCommitTime(iso: string): string {
 }
 
 export default async function NowPage() {
-  const lastCommitAt = await getLastPublicCommitAt();
+  const lastActivityAt = await getLastPublicActivityAt();
 
   return (
     <SubPageShell title="Now">
-      <p>Right now: completing the brand image and getting this site out into the world.</p>
+      <p>Currently:</p>
       <p>
-        {lastCommitAt
-          ? `Last public commit: ${formatRelativeCommitTime(lastCommitAt)}.`
-          : "No recent public commit activity to show."}
+        — completing the brand image and getting this site out into the world (a proper
+        domain included).
       </p>
+      <p>
+        — building <Link href="/projects/halftone-studio">Halftone Studio</Link>, the
+        image-to-dot-screen tool behind this site&apos;s poster tiles.
+      </p>
+      <p>
+        — prototyping AI tooling and agent workflows around day-to-day engineering work.
+      </p>
+      <p>— and a hidden page or two in the works. Keep an eye out.</p>
+      <p>
+        {lastActivityAt
+          ? `Last public GitHub activity: ${formatRelativeCommitTime(lastActivityAt)}.`
+          : "No recent public GitHub activity to show."}
+      </p>
+      <p>updated july 2026.</p>
     </SubPageShell>
   );
 }
