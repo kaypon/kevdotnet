@@ -4,6 +4,7 @@
 @import "./styles/lineup.css";
 @import "./styles/projects.css";
 @import "./styles/contact.css";
+@import "./styles/resume.css";
 
 :root {
   --paper: #f2f2f0;
