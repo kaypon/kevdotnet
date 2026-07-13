@@ -162,7 +162,7 @@ export function PosterExperience({
 
   // --- typewriters ---
   // Caption starts empty; intro types it in, hold sequence deletes it.
-  const blurbTypewriter = useTypewriter("", 12);
+  const blurbTypewriter = useTypewriter("", 9);
   const loreTypewriter = useTypewriter("", 30);
 
   // The caption is justified + balanced (see .poster-caption in poster.css),
@@ -215,7 +215,24 @@ export function PosterExperience({
 
     const timers: ReturnType<typeof setTimeout>[] = [];
 
-    timers.push(setTimeout(() => setGridVisible(true), GRID_IN_DELAY_MS));
+    // The caption types in parallel with the tile cascade, both kicking off
+    // as the grid appears. Idle waits for whichever finishes last, so tiles
+    // can never pop in early because the shorter job ended the intro.
+    let cascadeDone = false;
+    let typingDone = false;
+    const maybeIdle = () => {
+      if (cascadeDone && typingDone) setPhase("idle");
+    };
+
+    timers.push(
+      setTimeout(() => {
+        setGridVisible(true);
+        blurbTypewriter.typeIn(caption, () => {
+          typingDone = true;
+          maybeIdle();
+        });
+      }, GRID_IN_DELAY_MS)
+    );
 
     // Build the full step list: fixed VAN head + shuffled tail.
     const restSteps = shuffled(INTRO_REST_IDS).map((id, i) => ({
@@ -236,11 +253,12 @@ export function PosterExperience({
       );
     }
 
-    // After all tiles are in, clear intro mode and type the caption.
+    // All tiles in: leave intro tile-mode, and go idle if typing beat us.
     timers.push(
       setTimeout(() => {
         setRevealedIds(undefined);
-        blurbTypewriter.typeIn(caption, () => setPhase("idle"));
+        cascadeDone = true;
+        maybeIdle();
       }, t + 200)
     );
 
@@ -311,15 +329,22 @@ export function PosterExperience({
     if (phase !== "fading") return;
     const photoTileCount = tiles.filter((tile) => !tile.bare).length;
     let count = 0;
+    let doneTimeout: ReturnType<typeof setTimeout> | undefined;
     const interval = setInterval(() => {
       count += 1;
       setFadedCount(count);
       if (count >= photoTileCount) {
         clearInterval(interval);
-        setPhase("inverting");
+        // The last tile's 250ms opacity transition is still running when the
+        // counter maxes out — hold the paper page until it fully clears, so
+        // every block is gone before the invert starts.
+        doneTimeout = setTimeout(() => setPhase("inverting"), 350);
       }
     }, FADE_STEP_MS);
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      if (doneTimeout) clearTimeout(doneTimeout);
+    };
   }, [phase, tiles]);
 
   useEffect(() => {
@@ -340,13 +365,12 @@ export function PosterExperience({
     router.push("/van");
   }, [phase, router]);
 
-  // Dark starts at "fading", not "inverting": the tiles fade to the page
-  // background, and if that background were still paper the screen would
-  // blow out to near-white for a beat before the invert — a white flash.
-  // Darkening the page while the tiles dissolve lets the photos sink
-  // straight into black instead.
-  const isDark =
-    phase === "fading" || phase === "inverting" || phase === "typing" || phase === "done";
+  // Three clean beats, in order: every tile dissolves into the still-paper
+  // page, THEN the page inverts to black while the letters crossfade to
+  // white, then the lore types. Dark deliberately waits for "inverting" —
+  // the bright all-paper beat between the blocks clearing and the invert is
+  // part of the sequence, not a flash to engineer away.
+  const isDark = phase === "inverting" || phase === "typing" || phase === "done";
   const showHint = phase === "idle";
   const introRevealedIds = phase === "intro" ? revealedIds : undefined;
   const fadedCountForGrid = phase === "idle" || phase === "deleting" ? undefined : fadedCount;

@@ -121,17 +121,29 @@
   color: var(--paper);
 }
 
+/* A letter riding a photo tile is paper-colored for contrast against the
+   photo; once its tile has dissolved (poster-cell--cleared, set in
+   PosterTile.tsx) that would leave it paper-on-paper — invisible for the
+   beat before the invert. Flip it to ink in step with the tile's own 250ms
+   fade so the full name holds on the paper page. Scoped to the not-dark
+   page: once the invert starts, the --dark rule below takes over and every
+   letter crossfades to white at the same 700ms pace. */
+.poster-page:not(.poster-page--dark) .poster-cell--cleared .poster-cell__letter {
+  color: var(--ink);
+  transition-duration: 250ms;
+}
+
 /* Once the page inverts to dark, the letters need to flip light too —
    otherwise they'd stay near-black on the near-black background through the
-   glow/glitch beats that follow. The flip must NOT run in lockstep with the
-   700ms background fade: ink→light and paper→dark cross through the exact
-   same mid-gray at the midpoint, blanking the name entirely for a beat — the
-   letters visibly flicker out and back in. Instead the letters hold ink
-   while the page darkens around them, then flip fast at the tail end, so
-   there's always contrast between glyph and background. */
+   glow/glitch beats that follow. The flip runs in lockstep with the 700ms
+   background fade (the base transition above): at this pace the brief
+   low-contrast moment at the crossfade midpoint reads as part of one smooth
+   dissolve. (A delayed hold-then-flip was tried to dodge that midpoint, but
+   it reads as a two-beat pop — worse than the thing it fixed. Only shorten
+   these transitions together with the JS timings in PosterExperience.tsx:
+   at ~350ms and below the midpoint blank starts to read as flicker.) */
 .poster-page--dark .poster-cell__letter {
   color: var(--dark-text);
-  transition: color 300ms ease 400ms;
 }
 
 /* One consistently-scaled photo, windowed through every tile via a
@@ -450,7 +462,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 0.1em;
-    padding: 0 0 0 9vw;
+    padding: 0 0 0 17vw;
   }
 
   /* No hover on touch — keep the lockup clean. */
@@ -459,23 +471,23 @@
   }
 
   .poster-nav a:nth-child(1) {
-    font-size: 1.75rem;
+    font-size: 2.1rem;
     margin-left: 0;
   }
 
   .poster-nav a:nth-child(2) {
-    font-size: 1.4rem;
+    font-size: 1.7rem;
     margin-left: 19vw;
   }
 
   .poster-nav a:nth-child(3) {
-    font-size: 2rem;
+    font-size: 2.4rem;
     margin-left: 5vw;
   }
 
   .poster-nav a:nth-child(4) {
-    font-size: 1.35rem;
-    margin-left: 30vw;
+    font-size: 1.6rem;
+    margin-left: 28vw;
   }
 }
 

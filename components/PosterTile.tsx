@@ -48,6 +48,9 @@ export function PosterTile({ tile, fadedCount, nextPhotoUrl, switchedIds, reveal
     "poster-cell",
     tile.bare ? "poster-cell--bare" : `poster-cell--tone-${tile.tone}`,
     tile.letter ? "poster-cell--letter" : "",
+    // Photo gone ⇒ a paper-colored letter (the V) would sit invisible on the
+    // paper page; this flips it to ink for the beat before the invert.
+    isPhoto && fadeOpacity === 0 ? "poster-cell--cleared" : "",
   ]
     .filter(Boolean)
     .join(" ");
