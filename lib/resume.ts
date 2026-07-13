@@ -19,9 +19,16 @@ export type ResumeEducation = {
   dates: string;
 };
 
+export type ResumeProject = {
+  name: string;
+  stack: string;
+  description: string;
+  href: string;
+};
+
 export const resumeHeader = {
   name: "Kevin van der Poll",
-  title: "Forward-Deployed AI Engineer",
+  title: "Forward-Deployed AI Engineer · Full-Stack Developer · Technical Project Lead",
   location: "South Florida",
   // Deliberately split: the assembled number/address must never appear in
   // served HTML, RSC payloads, or JS bundles, where email/phone regexes
@@ -38,12 +45,13 @@ export const resumeHeader = {
 };
 
 export const resumeSummary =
-  "Forward-Deployed AI Engineer with 8+ years designing agentic systems, retrieval " +
-  "pipelines, vector-database workflows, and customer-integrated automation solutions. " +
-  "Hands-on with MCP protocol, embeddings, Pinecone/Chroma/PGVector, OpenAI Assistants " +
-  "API, and LangChain-style orchestration in Node.js + Python. Proven ability to ship " +
-  "production systems fast, reduce manual work by 50–70%, and translate ambiguous " +
-  "business needs into clean, automated AI workflows.";
+  "Forward-Deployed AI Engineer and Full-Stack Developer with 8+ years delivering " +
+  "high-impact web, AI, blockchain, and automation solutions. Designs agentic systems, " +
+  "retrieval pipelines, and vector-database workflows — hands-on with MCP protocol, " +
+  "embeddings, Pinecone/Chroma/PGVector, OpenAI Assistants API, and LangChain-style " +
+  "orchestration in Node.js + Python. Certified Scrum Master with a proven record of " +
+  "leading Agile teams, shipping MVPs fast, reducing manual work by 50–70%, and " +
+  "bridging business goals with technical execution.";
 
 export const resumeSkills: { group: string; items: string }[] = [
   {
@@ -59,7 +67,12 @@ export const resumeSkills: { group: string; items: string }[] = [
   {
     group: "Backend",
     items:
-      "Node.js, Python, REST, GraphQL, SQL, MongoDB, FaunaDB, Firebase, microservices, authentication",
+      "Node.js, Express, Python, REST, GraphQL, SQL, PostgreSQL, MongoDB, FaunaDB, Firebase, microservices, JWT/OAuth authentication",
+  },
+  {
+    group: "Blockchain / Web3",
+    items:
+      "Solidity, Web3.js, Ethereum smart contracts, Hyperledger Fabric, IPFS, NFTs, wallets",
   },
   {
     group: "Cloud & DevOps",
@@ -73,7 +86,11 @@ export const resumeSkills: { group: string; items: string }[] = [
   {
     group: "Leadership / Delivery",
     items:
-      "Client-facing engineering, Agile/Scrum, backlog refinement, sprint planning, QA",
+      "Certified Scrum Master, Agile (Scrum, Kanban, SAFe), client-facing engineering, sprint planning, backlog refinement, QA automation, velocity optimization, MVP delivery",
+  },
+  {
+    group: "Tools",
+    items: "Jira, Confluence, GitHub, Figma",
   },
 ];
 
@@ -84,9 +101,9 @@ export const resumeExperience: ResumeExperience[] = [
     location: "Sunrise, FL",
     dates: "January 2025 — current",
     bullets: [
-      "Created internal AI copilots that helped teams draft responses, summarize records, generate reports, query documentation, and reduce manual operational work.",
-      "Built reusable AI service patterns for document Q&A, proposal generation, lead qualification, support triage, data cleanup, and workflow orchestration.",
-      "Built RAG pipelines using document ingestion, chunking, embeddings, vector search, and grounded response generation for internal knowledge retrieval and customer-facing support use cases.",
+      "Shipped internal AI copilots that draft responses, summarize records, generate reports, and answer documentation queries — cutting manual operational work across teams.",
+      "Turned one-off AI experiments into reusable service patterns: document Q&A, proposal generation, lead qualification, support triage, data cleanup, and workflow orchestration.",
+      "Built end-to-end RAG pipelines — ingestion, chunking, embeddings, vector search, grounded generation — powering internal knowledge retrieval and customer-facing support.",
     ],
   },
   {
@@ -95,12 +112,14 @@ export const resumeExperience: ResumeExperience[] = [
     location: "Sunrise, FL",
     dates: "June 2022 — March 2025",
     bullets: [
-      "Built LLM-powered agents for content generation, data cleanup, and automated reporting using OpenAI APIs + serverless orchestrations.",
-      "Designed embedding and vector-search pipelines (Chroma + PGVector) that reduced editing time by 70%.",
-      "Prototyped MCP-compatible tools allowing agents to call internal APIs, classify documents, and complete CRM tasks autonomously.",
-      "Implemented AI-driven customer workflows that cut reporting cycles by 50–70%.",
-      "Led end-to-end delivery for client projects: planning, architecture, sprints, QA, deployment, and post-launch optimization.",
-      "Built Webflow/Shopify systems powered by Make.com + Node.js automations to streamline operations.",
+      "Shipped full-stack apps in React, Node.js, TypeScript, SQL, and AWS that raised performance and stability across every client platform.",
+      "Built LLM-powered agents for content generation, data cleanup, and automated reporting on OpenAI APIs + serverless orchestration.",
+      "Designed embedding and vector-search pipelines (Chroma + PGVector) that cut editing time by 70%.",
+      "Prototyped MCP-compatible tools that let agents call internal APIs, classify documents, and close out CRM tasks on their own.",
+      "Rolled out AI-driven customer workflows that cut reporting cycles by 50–70%.",
+      "Stood up CI/CD pipelines with GitHub Actions, cutting deployment time by 60%.",
+      "Owned end-to-end client delivery — planning, architecture, sprints, QA, deployment, post-launch optimization — shipping MVPs 60% faster through streamlined Agile and QA automation.",
+      "Built Webflow/Shopify systems on Make.com + Node.js automations that lifted client sales.",
     ],
   },
   {
@@ -109,9 +128,10 @@ export const resumeExperience: ResumeExperience[] = [
     location: "Remote, FL",
     dates: "March 2020 — May 2022",
     bullets: [
-      "Delivered production apps using Vue, Node.js, GraphQL, and FaunaDB.",
-      "Built data-driven experiments + A/B tests that increased engagement by double digits.",
-      "Collaborated closely with PMs to define API specs, tighten acceptance criteria, and improve sprint velocity.",
+      "Delivered production apps with Vue, Node.js, GraphQL, FaunaDB, and serverless functions — including schoolahoop.org, a free PK–12 school-discovery platform still live today.",
+      "Built a reusable UI component library and tuned frontend performance.",
+      "Ran data-driven experiments and A/B tests that lifted engagement by double digits.",
+      "Partnered with PMs to pin down API contracts, tighten acceptance criteria, and raise sprint velocity.",
     ],
   },
   {
@@ -121,9 +141,9 @@ export const resumeExperience: ResumeExperience[] = [
     dates: "October 2019 — March 2020",
     note: "Work performed under NDA — details limited.",
     bullets: [
-      "Built blockchain-based identity/authentication prototypes using Hyperledger Fabric + Ethereum smart contracts.",
-      "Designed secure decentralized storage systems using IPFS and encryption standards.",
-      "Worked in fast-paced Agile squad building proof-of-concept features.",
+      "Built blockchain-based biometric identity and authentication prototypes on Hyperledger Fabric + Ethereum smart contracts.",
+      "Designed secure decentralized storage on IPFS with encryption standards baked in.",
+      "Shipped proof-of-concept features in a fast-moving Agile squad.",
     ],
   },
   {
@@ -132,14 +152,52 @@ export const resumeExperience: ResumeExperience[] = [
     location: "Miami, FL",
     dates: "October 2017 — June 2019",
     bullets: [
-      "Built web apps, smart contracts, wallets, and NFT systems using JavaScript, Solidity, and Web3.js.",
-      "Integrated IPFS for decentralized storage and metadata distribution.",
-      "Facilitated Scrum ceremonies, velocity tracking, and technical planning.",
+      "Built web apps, smart contracts, wallets, and NFT systems in JavaScript, Solidity, and Web3.js.",
+      "Pioneered the studio's IPFS integrations for decentralized storage and metadata distribution.",
+      "Ran Scrum ceremonies, velocity tracking, and technical planning as the team's Scrum Master.",
     ],
   },
 ];
 
+// Live, clickable proof of range — all shipped, all mine, all one tap away.
+export const resumeProjects: ResumeProject[] = [
+  {
+    name: "VAN — kevssite.vercel.app",
+    stack: "Next.js / TypeScript",
+    description:
+      "This resume's home: a halftone wanted-poster that types itself in, dissolves, and inverts into a hidden world — secret pages, a working terminal, zero UI libraries.",
+    href: "https://kevssite.vercel.app",
+  },
+  {
+    name: "Halftone Studio",
+    stack: "Canvas / image processing",
+    description:
+      "Upload any image and re-screen it live — dot and line screens, angle and contrast tuning, full-res export. The print engine behind the poster above.",
+    href: "https://halftone-studio-sigma.vercel.app",
+  },
+  {
+    name: "pyano",
+    stack: "Web Audio API",
+    description:
+      "Music tools in the browser: a playable piano, a 4-track step sequencer with synthesized drums, a procedural melody generator, and a voice-to-drum-pad beatbox studio with WAV export.",
+    href: "https://pyano-web.vercel.app",
+  },
+  {
+    name: "blokc",
+    stack: "Web3 / generative art",
+    description:
+      "Bitcoin block hashes rendered as deterministic 8×8 pixel art — the chain as an endless generative gallery.",
+    href: "https://blokc-bice.vercel.app",
+  },
+];
+
 export const resumeEducation: ResumeEducation[] = [
+  {
+    credential: "Scrum Master Certification",
+    school: "3Back Certified Scrum Training",
+    location: "Miami, FL",
+    dates: "Oct 2017",
+  },
   {
     credential: "Full-stack Web Development Program",
     school: "Web Development Bootcamp",

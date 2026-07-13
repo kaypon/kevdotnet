@@ -202,6 +202,33 @@
   margin-bottom: 0.3rem;
 }
 
+.resume-projects {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.resume-projects li {
+  padding: 0.35rem 0;
+}
+
+.resume-project-name {
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+a.resume-project-name:hover,
+a.resume-project-name:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.resume-project-stack {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
 .resume-education {
   list-style: none;
   margin: 0;

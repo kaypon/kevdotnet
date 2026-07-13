@@ -17,6 +17,8 @@ const PAGES: Record<string, string> = {
   projects: "/projects",
   contact: "/contact",
   terminal: "/terminal",
+  // Deliberately absent from `ls` — a hidden path for those who ask.
+  resume: "/resume",
 };
 
 function Ln({ children, className }: { children?: ReactNode; className?: string }) {

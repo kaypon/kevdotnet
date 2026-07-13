@@ -1,8 +1,9 @@
-import { Document, Font, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
+import { Document, Font, Link, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
 import {
   resumeEducation,
   resumeExperience,
   resumeHeader,
+  resumeProjects,
   resumeSkills,
   resumeSummary,
 } from "@/lib/resume";
@@ -32,12 +33,12 @@ const MUTED = "#4a443a";
 
 const S = StyleSheet.create({
   page: {
-    paddingTop: 40,
-    paddingBottom: 44,
+    paddingTop: 34,
+    paddingBottom: 36,
     paddingHorizontal: 48,
     fontFamily: "Courier",
     fontSize: 9,
-    lineHeight: 1.45,
+    lineHeight: 1.4,
     color: INK,
   },
   name: { fontFamily: "Courier-Bold", fontSize: 21, lineHeight: 1.15, marginBottom: 2 },
@@ -47,8 +48,8 @@ const S = StyleSheet.create({
     fontFamily: "Courier-Bold",
     fontSize: 9.5,
     lineHeight: 1.4,
-    marginTop: 16,
-    marginBottom: 6,
+    marginTop: 10,
+    marginBottom: 4,
     paddingBottom: 2,
     borderBottomWidth: 1,
     borderBottomColor: INK,
@@ -56,22 +57,22 @@ const S = StyleSheet.create({
     letterSpacing: 1,
   },
   skillRow: { flexDirection: "row", marginBottom: 3 },
-  skillGroup: { fontFamily: "Courier-Bold", width: 132, fontSize: 8.5, lineHeight: 1.45, paddingRight: 8 },
-  skillItems: { flex: 1, fontSize: 8.5, lineHeight: 1.45 },
+  skillGroup: { fontFamily: "Courier-Bold", width: 132, fontSize: 8.5, lineHeight: 1.4, paddingRight: 8 },
+  skillItems: { flex: 1, fontSize: 8.5, lineHeight: 1.4 },
   jobHeadRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
-    marginTop: 10,
+    marginTop: 8,
   },
   jobHead: { fontFamily: "Courier-Bold", fontSize: 9.5, lineHeight: 1.35, flex: 1, paddingRight: 10 },
   jobDates: { fontSize: 8.5, lineHeight: 1.45, color: MUTED, flexShrink: 0 },
   jobMeta: { fontSize: 8.5, lineHeight: 1.45, color: MUTED, marginBottom: 4 },
   jobNote: { fontFamily: "Courier-Oblique", fontSize: 8.5, lineHeight: 1.45, color: MUTED, marginBottom: 3 },
-  bullet: { flexDirection: "row", marginBottom: 2.5 },
+  bullet: { flexDirection: "row", marginBottom: 2 },
   bulletGlyph: { width: 12 },
   bulletText: { flex: 1 },
-  eduLine: { marginBottom: 4 },
+  eduLine: { marginBottom: 2.5 },
   eduMeta: { color: MUTED },
 });
 
@@ -129,6 +130,18 @@ export function ResumePdf({ phone, email }: ResumePdfProps) {
               </View>
             ))}
           </View>
+        ))}
+
+        <Text style={S.sectionTitle}>Highlighted Projects</Text>
+        {resumeProjects.map((project) => (
+          <Text key={project.name} style={S.eduLine}>
+            <Link src={project.href} style={{ fontFamily: "Courier-Bold", color: INK, textDecoration: "underline" }}>
+              {project.name}
+            </Link>
+            <Text style={S.eduMeta}> ({project.stack})</Text>
+            {": "}
+            {project.description}
+          </Text>
         ))}
 
         <Text style={S.sectionTitle}>Education</Text>

@@ -6,6 +6,7 @@ import {
   resumeEducation,
   resumeExperience,
   resumeHeader,
+  resumeProjects,
   resumeSkills,
   resumeSummary,
 } from "@/lib/resume";
@@ -90,6 +91,27 @@ export default function ResumePage() {
               </ul>
             </article>
           ))}
+        </section>
+
+        <section>
+          <SectionTitle>Highlighted Projects</SectionTitle>
+          <ul className="resume-projects">
+            {resumeProjects.map((project) => (
+              <li key={project.name}>
+                <a
+                  className="resume-project-name"
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {project.name} ↗
+                </a>
+                <span className="resume-project-stack"> ({project.stack})</span>
+                {": "}
+                {project.description}
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section>
