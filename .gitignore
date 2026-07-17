@@ -27,6 +27,10 @@
 # design reference material (kept locally, not shipped or tracked)
 /inspo
 
+# raw spin-photo sources (65MB) — the halftoned frames they generate live
+# in public/photos/spin/ and are what gets tracked
+/aligned
+
 # personal notes, never meant for the repo
 /sum.md
 

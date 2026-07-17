@@ -29,6 +29,9 @@ type PosterGridProps = {
   onKeyDown?: (event: KeyboardEvent<HTMLDivElement>) => void;
   /** Intro mode: per-tile visibility set passed through to PosterTile. */
   revealedIds?: Set<string>;
+  /** Extra content overlaid on the grid (absolutely positioned against it) —
+   * the spinning head (SpinHead.tsx) on /van. */
+  children?: ReactNode;
 };
 
 export function PosterGrid({
@@ -46,6 +49,7 @@ export function PosterGrid({
   onPointerLeave,
   onKeyDown,
   revealedIds,
+  children,
 }: PosterGridProps) {
   return (
     <div
@@ -78,6 +82,7 @@ export function PosterGrid({
           <p className="poster-lore__text">{loreText}</p>
         </div>
       ) : null)}
+      {children}
     </div>
   );
 }

@@ -17,6 +17,7 @@ const PAGES: Record<string, string> = {
   projects: "/projects",
   contact: "/contact",
   terminal: "/terminal",
+  spin: "/spin",
   // Deliberately absent from `ls` — a hidden path for those who ask.
   resume: "/resume",
 };
@@ -97,6 +98,7 @@ function runCommand(
         <Ln><span className="term-green">projects</span><span className="term-dim">    things being built</span></Ln>,
         <Ln><span className="term-green">contact</span><span className="term-dim">     get in touch</span></Ln>,
         <Ln><span className="term-green">terminal</span><span className="term-dim">    you are here</span></Ln>,
+        <Ln><span className="term-green">spin</span><span className="term-dim">        360° of kevin</span></Ln>,
         <Ln />,
         <Ln><span className="term-dim">goto <span className="term-green">[page]</span> to navigate</span></Ln>,
         <Ln />,

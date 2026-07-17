@@ -8,6 +8,7 @@ import {
   posterTiles,
 } from "@/lib/data";
 import { PosterGrid } from "@/components/PosterGrid";
+import { SpinHead } from "@/components/SpinHead";
 
 function buildLoreNode(lore: string) {
   const [p1, p2, p3] = lore.split("\n\n");
@@ -41,7 +42,10 @@ export default function VanPage() {
           fadedCount={photoTileCount}
           loreNode={buildLoreNode(posterLore)}
           interactive={false}
-        />
+        >
+          {/* The page's closing beat: fades in after the nav settles. */}
+          <SpinHead />
+        </PosterGrid>
         <p className="poster-caption poster-caption--ghost" aria-hidden="true">
           {posterCaption}
         </p>
