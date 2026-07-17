@@ -12,6 +12,31 @@
   padding: clamp(0.75rem, 3vh, 2rem) 1rem;
 }
 
+/* Back link + studio share one column, so "← van" hangs off the studio's
+   top-left corner exactly like .term-back does over the terminal window. */
+.spin-page__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: min(66svh, 94vw);
+}
+
+/* Same voice as .term-back / .subpage-back, recolored for the paper page. */
+.spin-back {
+  align-self: flex-start;
+  font-family: var(--terminal);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.spin-back:hover,
+.spin-back:focus-visible {
+  color: var(--ink);
+}
+
 /* Same grain recipe as .poster-page::before. */
 .spin-page::before {
   content: "";
@@ -30,7 +55,7 @@
   flex-direction: column;
   align-items: center;
   gap: clamp(0.5rem, 1.6vh, 1rem);
-  width: min(66svh, 94vw);
+  width: 100%;
 }
 
 .spin-canvas {
