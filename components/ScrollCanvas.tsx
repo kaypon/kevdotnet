@@ -119,7 +119,7 @@ export function ScrollCanvas() {
 
     const run = async () => {
       try {
-        const blob = await fetch("/video.mp4").then((r) => {
+        const blob = await fetch("/taxi.mp4").then((r) => {
           if (!r.ok) throw new Error(`video fetch failed: ${r.status}`);
           return r.blob();
         });
