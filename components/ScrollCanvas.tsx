@@ -32,6 +32,21 @@ function drawCover(
   ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
 }
 
+// Seeking to the current time fires no `seeked` event, so skip the wait;
+// the timeout turns any engine stall into an error instead of a hang.
+function seekTo(video: HTMLVideoElement, t: number): Promise<void> {
+  return new Promise((res, rej) => {
+    if (video.currentTime === t) { res(); return; }
+    const timer = setTimeout(() => {
+      video.removeEventListener("seeked", onSeeked);
+      rej(new Error(`seek to ${t.toFixed(2)}s timed out`));
+    }, 5000);
+    const onSeeked = () => { clearTimeout(timer); res(); };
+    video.addEventListener("seeked", onSeeked, { once: true });
+    video.currentTime = t;
+  });
+}
+
 async function extractFrames(
   video: HTMLVideoElement,
   count: number,
@@ -44,8 +59,7 @@ async function extractFrames(
   const frames: ImageBitmap[] = [];
 
   for (let i = 0; i < count; i++) {
-    video.currentTime = (i / (count - 1)) * video.duration;
-    await new Promise<void>((res) => video.addEventListener("seeked", () => res(), { once: true }));
+    await seekTo(video, (i / (count - 1)) * video.duration);
     ctx.drawImage(video, 0, 0, w, h);
     frames.push(await createImageBitmap(oc));
     onProgress(i + 1);
@@ -62,20 +76,44 @@ export function ScrollCanvas() {
 
   const [extracted, setExtracted] = useState(0);
   const [ready, setReady]         = useState(false);
+  const [error, setError]         = useState<string | null>(null);
 
-  // Extract frames once video metadata is available
+  // Fetch the video as a blob, then extract frames. iOS WebKit suspends
+  // buffering of streamed video without a user gesture, so seeks past the
+  // first frame never complete; a fully local blob seeks reliably.
   useEffect(() => {
     const video = videoRef.current!;
+    let objectUrl: string | null = null;
+    let cancelled = false;
 
     const run = async () => {
-      const frames = await extractFrames(video, N, (n) => setExtracted(n));
-      framesRef.current = frames;
-      setReady(true);
+      try {
+        const blob = await fetch("/video.mp4").then((r) => {
+          if (!r.ok) throw new Error(`video fetch failed: ${r.status}`);
+          return r.blob();
+        });
+        if (cancelled) return;
+        objectUrl = URL.createObjectURL(blob);
+        video.src = objectUrl;
+        await new Promise<void>((res, rej) => {
+          video.addEventListener("loadedmetadata", () => res(), { once: true });
+          video.addEventListener("error", () => rej(new Error("video failed to decode")), { once: true });
+        });
+        if (cancelled) return;
+        const frames = await extractFrames(video, N, (n) => { if (!cancelled) setExtracted(n); });
+        if (cancelled) return;
+        framesRef.current = frames;
+        setReady(true);
+      } catch (err) {
+        if (!cancelled) setError(err instanceof Error ? err.message : String(err));
+      }
     };
+    run();
 
-    const onMeta = () => run();
-    if (video.readyState >= 1) { run(); return; }
-    video.addEventListener("loadedmetadata", onMeta, { once: true });
+    return () => {
+      cancelled = true;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
   }, []);
 
   // Size canvas and draw frame 0 on ready
@@ -136,17 +174,21 @@ export function ScrollCanvas() {
 
   return (
     <>
-      {/* Hidden video — only used for frame extraction */}
+      {/* Hidden video — only used for frame extraction; src is set from a
+          blob once fetched, so no src attribute here */}
       <video
         ref={videoRef}
-        src="/video.mp4"
-        preload="auto"
         muted
         playsInline
         style={{ display: "none" }}
       />
 
-      {!ready ? (
+      {error ? (
+        <div className="sc-loader">
+          <div className="sc-loader__label">Frame extraction failed</div>
+          <div className="sc-loader__count">{error}</div>
+        </div>
+      ) : !ready ? (
         <div className="sc-loader">
           <div className="sc-loader__label">Extracting frames</div>
           <div className="sc-loader__bar-track">
