@@ -33,9 +33,11 @@ function drawCover(
 }
 
 // Resolve once the sought frame is actually presented. iOS WebKit can leave
-// `seeked` unfired on programmatic seeks, so also listen for
-// requestVideoFrameCallback (fires on real frame presentation) and race both
-// against a timeout so a stall surfaces as an error instead of a hang.
+// `seeked` unfired on programmatic seeks, so also poll
+// requestVideoFrameCallback — but only accept a presented frame whose
+// mediaTime matches the seek target, since rVFC can first fire for a stale
+// pre-seek frame. Race both against a timeout so a stall surfaces as an
+// error instead of a hang.
 function seekTo(video: HTMLVideoElement, t: number): Promise<void> {
   return new Promise((res, rej) => {
     let done = false;
@@ -53,9 +55,14 @@ function seekTo(video: HTMLVideoElement, t: number): Promise<void> {
       video.removeEventListener("seeked", finish);
       rej(new Error(`seek to ${t.toFixed(2)}s timed out`));
     }, 5000);
-    if ("requestVideoFrameCallback" in video) video.requestVideoFrameCallback(() => finish());
+    const onFrame = (_now: number, meta: VideoFrameCallbackMetadata) => {
+      if (done) return;
+      if (Math.abs(meta.mediaTime - t) < 0.05) finish();
+      else video.requestVideoFrameCallback(onFrame);
+    };
     video.addEventListener("seeked", finish, { once: true });
     video.currentTime = t;
+    if ("requestVideoFrameCallback" in video) video.requestVideoFrameCallback(onFrame);
   });
 }
 
@@ -85,6 +92,7 @@ export function ScrollCanvas() {
   const textsRef  = useRef<(HTMLDivElement | null)[]>([]);
   const framesRef = useRef<ImageBitmap[]>([]);
   const rafRef    = useRef<number | null>(null);
+  const idxRef    = useRef(0);
 
   const [extracted, setExtracted] = useState(0);
   const [ready, setReady]         = useState(false);
@@ -142,9 +150,13 @@ export function ScrollCanvas() {
     const canvas = canvasRef.current!;
 
     const resize = () => {
-      canvas.width  = canvas.offsetWidth  * devicePixelRatio;
-      canvas.height = canvas.offsetHeight * devicePixelRatio;
-      drawFrame(0);
+      // The source video is only 752px wide — a backing store beyond ~2×
+      // that adds no visible detail but multiplies per-draw cost hugely on
+      // retina/4K screens. Cap it instead of blindly using devicePixelRatio.
+      const scale = Math.min(devicePixelRatio, 1536 / canvas.offsetWidth, 1536 / canvas.offsetHeight);
+      canvas.width  = Math.round(canvas.offsetWidth  * scale);
+      canvas.height = Math.round(canvas.offsetHeight * scale);
+      drawFrame(idxRef.current);
     };
     resize();
     window.addEventListener("resize", resize);
@@ -165,6 +177,7 @@ export function ScrollCanvas() {
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         const progress  = maxScroll > 0 ? Math.min(window.scrollY / maxScroll, 1) : 0;
         const idx       = Math.min(Math.round(progress * (N - 1)), N - 1);
+        idxRef.current  = idx;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawCover(ctx, framesRef.current[idx], canvas.width, canvas.height);
