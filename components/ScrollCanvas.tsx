@@ -32,17 +32,29 @@ function drawCover(
   ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
 }
 
-// Seeking to the current time fires no `seeked` event, so skip the wait;
-// the timeout turns any engine stall into an error instead of a hang.
+// Resolve once the sought frame is actually presented. iOS WebKit can leave
+// `seeked` unfired on programmatic seeks, so also listen for
+// requestVideoFrameCallback (fires on real frame presentation) and race both
+// against a timeout so a stall surfaces as an error instead of a hang.
 function seekTo(video: HTMLVideoElement, t: number): Promise<void> {
   return new Promise((res, rej) => {
+    let done = false;
     if (video.currentTime === t) { res(); return; }
+    const finish = () => {
+      if (done) return;
+      done = true;
+      clearTimeout(timer);
+      video.removeEventListener("seeked", finish);
+      res();
+    };
     const timer = setTimeout(() => {
-      video.removeEventListener("seeked", onSeeked);
+      if (done) return;
+      done = true;
+      video.removeEventListener("seeked", finish);
       rej(new Error(`seek to ${t.toFixed(2)}s timed out`));
     }, 5000);
-    const onSeeked = () => { clearTimeout(timer); res(); };
-    video.addEventListener("seeked", onSeeked, { once: true });
+    if ("requestVideoFrameCallback" in video) video.requestVideoFrameCallback(() => finish());
+    video.addEventListener("seeked", finish, { once: true });
     video.currentTime = t;
   });
 }
@@ -99,6 +111,14 @@ export function ScrollCanvas() {
           video.addEventListener("loadedmetadata", () => res(), { once: true });
           video.addEventListener("error", () => rej(new Error("video failed to decode")), { once: true });
         });
+        if (cancelled) return;
+        // Prime the decode pipeline: iOS won't service programmatic seeks
+        // until the element has played once. Muted + playsInline makes this
+        // legal without a user gesture.
+        try {
+          await video.play();
+          video.pause();
+        } catch {}
         if (cancelled) return;
         const frames = await extractFrames(video, N, (n) => { if (!cancelled) setExtracted(n); });
         if (cancelled) return;
@@ -174,13 +194,23 @@ export function ScrollCanvas() {
 
   return (
     <>
-      {/* Hidden video — only used for frame extraction; src is set from a
-          blob once fetched, so no src attribute here */}
+      {/* Extraction-only video, src set from a blob once fetched. Kept
+          technically visible (2px, near-transparent) because display:none
+          drops it from WebKit's render pipeline and frame events stop
+          firing on iOS. */}
       <video
         ref={videoRef}
         muted
         playsInline
-        style={{ display: "none" }}
+        style={{
+          position: "fixed",
+          left: 0,
+          bottom: 0,
+          width: 2,
+          height: 2,
+          opacity: 0.01,
+          pointerEvents: "none",
+        }}
       />
 
       {error ? (
