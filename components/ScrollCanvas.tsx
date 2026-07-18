@@ -41,18 +41,21 @@ function drawCover(
 function seekTo(video: HTMLVideoElement, t: number): Promise<void> {
   return new Promise((res, rej) => {
     let done = false;
-    if (video.currentTime === t) { res(); return; }
+    // Skipping an equal-time seek is only safe once a frame has actually
+    // been presented (readyState >= HAVE_CURRENT_DATA) — before that,
+    // drawImage of the video paints nothing at all.
+    if (video.currentTime === t && video.readyState >= 2) { res(); return; }
     const finish = () => {
       if (done) return;
       done = true;
       clearTimeout(timer);
-      video.removeEventListener("seeked", finish);
+      video.removeEventListener("seeked", onSeeked);
       res();
     };
     const timer = setTimeout(() => {
       if (done) return;
       done = true;
-      video.removeEventListener("seeked", finish);
+      video.removeEventListener("seeked", onSeeked);
       rej(new Error(`seek to ${t.toFixed(2)}s timed out`));
     }, 5000);
     const onFrame = (_now: number, meta: VideoFrameCallbackMetadata) => {
@@ -60,7 +63,10 @@ function seekTo(video: HTMLVideoElement, t: number): Promise<void> {
       if (Math.abs(meta.mediaTime - t) < 0.05) finish();
       else video.requestVideoFrameCallback(onFrame);
     };
-    video.addEventListener("seeked", finish, { once: true });
+    // `seeked` can fire a beat before the sought frame is drawable, so give
+    // presentation a moment to catch up; rVFC resolves sooner when it fires.
+    const onSeeked = () => setTimeout(finish, 50);
+    video.addEventListener("seeked", onSeeked, { once: true });
     video.currentTime = t;
     if ("requestVideoFrameCallback" in video) video.requestVideoFrameCallback(onFrame);
   });
@@ -76,6 +82,11 @@ async function extractFrames(
   const oc = new OffscreenCanvas(w, h);
   const ctx = oc.getContext("2d")!;
   const frames: ImageBitmap[] = [];
+
+  // Park mid-video first so the loop's seek to t=0 is a real seek — the
+  // video sits at currentTime 0 after load, and capturing without a
+  // completed seek yields a fully transparent frame.
+  await seekTo(video, video.duration / 2);
 
   for (let i = 0; i < count; i++) {
     await seekTo(video, (i / (count - 1)) * video.duration);
