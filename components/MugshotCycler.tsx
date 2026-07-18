@@ -15,7 +15,7 @@ export function MugshotCycler() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={MUGSHOTS[idx]}
-        alt="Halftone mugshot of Kevin van der Poll"
+        alt="Halftone subject photograph of Kevin van der Poll"
         className="lineup-mugshot__photo"
         onClick={() => setIdx((i) => (i + 1) % MUGSHOTS.length)}
         title="Click to cycle"

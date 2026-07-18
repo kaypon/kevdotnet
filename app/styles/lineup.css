@@ -216,10 +216,15 @@
   flex: 1;
 }
 
-/* multiply lets chart lines read through the halftone's white areas */
+/* multiply lets chart lines read through the halftone's white areas.
+   top: calibrated so the subject's head-top lands on the 183cm line —
+   183cm is 31.25% down the 198→150cm box; the source images (1023×1537,
+   displayed at 100% width of the 5/6 box, so 125.2% of its height) have
+   the head-top 8.56% down, i.e. 10.72% of box height below the img top:
+   31.25% − 10.72% ≈ 20.5%. */
 .lineup-mugshot__photo {
   position: absolute;
-  top: 0;
+  top: 20.5%;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -227,24 +232,23 @@
   cursor: crosshair;
 }
 
-/* Height ruler — right-side strip with tick marks */
-.lineup-ruler {
+/* Height-chart backdrop — horizontal lines behind the subject, numbers at
+   both edges of every line like the reference photo. The box's edges are
+   198cm (top) and 150cm (bottom); marks are positioned inline from that
+   scale in line-up/page.tsx. */
+.lineup-chart {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 2rem;
-  border-left: 1.5px solid rgba(60, 60, 60, 0.5);
-  z-index: 2;
+  inset: 0;
   pointer-events: none;
 }
 
-.lineup-mugshot__mark {
+.lineup-chart__mark {
   position: absolute;
   left: 0;
   right: 0;
   display: flex;
   align-items: center;
+  gap: 3px;
   transform: translateY(-50%);
   font-size: 0.44rem;
   font-weight: 400;
@@ -252,27 +256,15 @@
   line-height: 1;
 }
 
-.lineup-mugshot__tick {
-  width: 7px;
-  border-top: 1px solid #666;
-  flex-shrink: 0;
+.lineup-chart__line {
+  flex: 1;
+  border-top: 1px solid rgba(60, 60, 60, 0.55);
 }
 
-.lineup-mugshot__marknum {
-  padding: 0 2px 0 1px;
-  background: rgba(240, 230, 204, 0.82);
-  line-height: 1.4;
-}
-
-.lineup-mugshot__mark--subject {
-  color: #aa0000;
-  font-weight: 700;
-  font-size: 0.48rem;
-}
-
-.lineup-mugshot__mark--subject .lineup-mugshot__tick {
-  border-color: #aa0000;
-  width: 11px;
+.lineup-chart__num {
+  padding: 0 2px;
+  min-width: 2.2ch;
+  text-align: center;
 }
 
 /* Cycle indicator dots — overlaid at bottom of the photo */
@@ -280,7 +272,7 @@
   position: absolute;
   bottom: 0.5em;
   left: 0;
-  right: 2rem; /* stay left of ruler */
+  right: 0;
   display: flex;
   justify-content: center;
   gap: 5px;

@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { MugshotCycler } from "@/components/MugshotCycler";
 
 export const metadata: Metadata = {
   title: "Line-Up — Kevin van der Poll",
   description:
-    "Official criminal record of Kevin van der Poll — digital toolmaker, chaos operator, repeat offender.",
+    "Official personal record of Kevin van der Poll — digital toolmaker, chaos operator, subject of ongoing analysis.",
 };
 
-const HEIGHT_MARKS = [198, 195, 190, 185, 183, 180, 175, 170, 165, 160, 155];
-const MARK_TOP = HEIGHT_MARKS[0];
-const MARK_RANGE = MARK_TOP - HEIGHT_MARKS[HEIGHT_MARKS.length - 1];
+// The mugshot box maps linearly to a height scale: its top edge is 198cm,
+// its bottom edge 150cm. The photo is offset in lineup.css so the subject's
+// head-top (8.56% down the source image) sits exactly on the 183cm line —
+// Kevin's actual height. Keep both in sync if the scale or images change.
+const CHART_TOP_CM = 198;
+const CHART_RANGE_CM = 48;
+const HEIGHT_MARKS = [195, 190, 185, 180, 175, 170, 165, 160, 155];
 
 const FIELDS: [string, string | "REDACTED"][] = [
   ["NAME", "KEVIN VAN DER POLL"],
@@ -23,26 +28,137 @@ const FIELDS: [string, string | "REDACTED"][] = [
   ["ALIASES", "VDP / KEV.PNG / VAN"],
 ];
 
-const FINGER_LABELS = ["L.TH", "L.I", "L.M", "L.R", "L.L", "R.TH", "R.I", "R.M", "R.R", "R.L"];
-
-function Fingerprint({ seed }: { seed: number }) {
-  const rings = Array.from({ length: 7 }, (_, i) => 2.2 + i * 2.1);
+// Clean black icons of the subject's 10 strongest technologies, one per
+// print-card cell.
+function TechPrint({ children }: { children: ReactNode }) {
   return (
     <svg viewBox="0 0 40 50" className="lineup-print" aria-hidden="true">
-      <filter id={`fp-${seed}`} x="-25%" y="-25%" width="150%" height="150%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.14" numOctaves="2" seed={seed * 7 + 3} />
-        <feDisplacementMap in="SourceGraphic" scale="5" />
-      </filter>
-      <g filter={`url(#fp-${seed})`} fill="none" stroke="#1a1a1a" strokeWidth="0.9">
-        {rings.map((r) => (
-          <ellipse key={r} cx="20" cy="24" rx={r * 0.78} ry={r} />
-        ))}
-        <path d="M3 46 Q20 32 37 46" />
-        <path d="M4 50 Q20 37 36 50" />
+      <g fill="none" stroke="#1a1a1a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+        {children}
       </g>
     </svg>
   );
 }
+
+const printText = (text: string, size: number, y = 26) => (
+  <text
+    x="20"
+    y={y}
+    textAnchor="middle"
+    fontSize={size}
+    fontWeight="700"
+    fill="#1a1a1a"
+    stroke="none"
+    style={{ fontFamily: "var(--terminal)" }}
+  >
+    {text}
+  </text>
+);
+
+const TECH_PRINTS: { label: string; art: ReactNode }[] = [
+  {
+    label: "PY",
+    art: (
+      <>
+        {/* two interlocked snake hooks + eyes */}
+        <path d="M11.5 26 v-8 a8.5 8.5 0 0 1 17 0 v1 h-12.5" />
+        <path d="M28.5 24 v8 a8.5 8.5 0 0 1 -17 0 v-1 h12.5" />
+        <circle cx="16" cy="14.5" r="1.2" fill="#1a1a1a" stroke="none" />
+        <circle cx="24" cy="35.5" r="1.2" fill="#1a1a1a" stroke="none" />
+      </>
+    ),
+  },
+  {
+    label: "JS",
+    art: (
+      <>
+        <rect x="8" y="13" width="24" height="24" />
+        {printText("JS", 10, 29)}
+      </>
+    ),
+  },
+  {
+    label: "TS",
+    art: (
+      <>
+        <rect x="8" y="13" width="24" height="24" />
+        {printText("TS", 10, 29)}
+      </>
+    ),
+  },
+  {
+    label: "REACT",
+    art: (
+      <>
+        <ellipse cx="20" cy="25" rx="13" ry="5" />
+        <ellipse cx="20" cy="25" rx="13" ry="5" transform="rotate(60 20 25)" />
+        <ellipse cx="20" cy="25" rx="13" ry="5" transform="rotate(120 20 25)" />
+        <circle cx="20" cy="25" r="2" fill="#1a1a1a" stroke="none" />
+      </>
+    ),
+  },
+  {
+    label: "NEXT",
+    art: (
+      <>
+        <circle cx="20" cy="25" r="13" />
+        {printText("N", 12, 29.5)}
+      </>
+    ),
+  },
+  {
+    label: "NODE",
+    art: <polygon points="20,12 31.3,18.5 31.3,31.5 20,38 8.7,31.5 8.7,18.5" />,
+  },
+  {
+    label: "SQL",
+    art: (
+      <>
+        {/* database cylinder */}
+        <ellipse cx="20" cy="15" rx="11" ry="3.5" />
+        <path d="M9 15 v17" />
+        <path d="M31 15 v17" />
+        <path d="M9 21.5 a11 3.5 0 0 0 22 0" />
+        <path d="M9 27 a11 3.5 0 0 0 22 0" />
+        <path d="M9 32 a11 3.5 0 0 0 22 0" />
+      </>
+    ),
+  },
+  {
+    label: "AI",
+    art: (
+      <>
+        {/* sparkles */}
+        <path d="M18 13 l2.2 8 8 2.2 -8 2.2 -2.2 8 -2.2 -8 -8 -2.2 8 -2.2 z" />
+        <path d="M30 27 l1.2 3.3 3.3 1.2 -3.3 1.2 -1.2 3.3 -1.2 -3.3 -3.3 -1.2 3.3 -1.2 z" />
+      </>
+    ),
+  },
+  {
+    label: "GIT",
+    art: (
+      <>
+        <path d="M14 17 v16" />
+        <circle cx="14" cy="14.5" r="2.5" />
+        <circle cx="14" cy="35.5" r="2.5" />
+        <path d="M14 22 c0 7 12 3 12 9" />
+        <circle cx="26" cy="33.5" r="2.5" />
+      </>
+    ),
+  },
+  {
+    label: "AUTO",
+    art: (
+      <>
+        {/* gear */}
+        <circle cx="20" cy="25" r="10" />
+        <path d="M30 25 h3.5 M20 15 v-3.5 M10 25 h-3.5 M20 35 v3.5" />
+        <path d="M27.1 17.9 l2.5 -2.5 M12.9 17.9 l-2.5 -2.5 M12.9 32.1 l-2.5 2.5 M27.1 32.1 l2.5 2.5" />
+        <circle cx="20" cy="25" r="4" />
+      </>
+    ),
+  },
+];
 
 export default function LineUpPage() {
   return (
@@ -78,7 +194,7 @@ export default function LineUpPage() {
               </svg>
               <div className="lineup-agency__name">
                 <span>Van Intelligence Agency</span>
-                <strong>CRIMINAL RECORD</strong>
+                <strong>PERSONAL RECORD</strong>
                 <small>VDPKVN305FL</small>
               </div>
             </div>
@@ -112,35 +228,39 @@ export default function LineUpPage() {
             <div className="lineup-mugshot-wrap">
               <div className="lineup-mugshot-label">Subject Photograph</div>
               <figure className="lineup-mugshot">
-                <MugshotCycler />
-                <div className="lineup-ruler" aria-hidden="true">
+                {/* Chart renders before the photo so the multiply-blended
+                    halftone sits on top: lines read through its light areas
+                    and the subject occludes them, like a printed backdrop. */}
+                <div className="lineup-chart" aria-hidden="true">
                   {HEIGHT_MARKS.map((n) => (
                     <div
                       key={n}
-                      className={`lineup-mugshot__mark${n === 183 ? " lineup-mugshot__mark--subject" : ""}`}
-                      style={{ top: `${((MARK_TOP - n) / MARK_RANGE) * 100}%` }}
+                      className="lineup-chart__mark"
+                      style={{ top: `${((CHART_TOP_CM - n) / CHART_RANGE_CM) * 100}%` }}
                     >
-                      <span className="lineup-mugshot__tick" />
-                      <span className="lineup-mugshot__marknum">{n}</span>
+                      <span className="lineup-chart__num">{n}</span>
+                      <span className="lineup-chart__line" />
+                      <span className="lineup-chart__num">{n}</span>
                     </div>
                   ))}
                 </div>
+                <MugshotCycler />
               </figure>
               <div className="lineup-mugshot-caption">Photo ID: VDP-305-K &nbsp;•&nbsp; Date taken: ██████</div>
             </div>
           </div>
 
-          <h2 className="lineup-section-title">Charges</h2>
+          <h2 className="lineup-section-title">Findings</h2>
           <ul className="lineup-charges">
             <li>Excessive side projects — ongoing</li>
             <li>Breaking systems to learn their rules</li>
             <li>Making things nobody asked for</li>
-            <li>Impersonating a developer, an artist, a bartender, and a carpenter — all charges stuck</li>
+            <li>Operating as a developer, an artist, a bartender, and a carpenter — all findings confirmed</li>
           </ul>
           <p className="lineup-casual">
-            <u>casual:</u>{" "}
+            <u>analyst&apos;s note:</u>{" "}
             subject describes the work as &quot;somewhere between useful and strange.&quot;
-            the court agrees.
+            the agency concurs.
           </p>
 
           <div className="lineup-notes">
@@ -165,12 +285,12 @@ export default function LineUpPage() {
           <div className="lineup-bottom">
             <div>
               <div className="lineup-prints">
-                {Array.from({ length: 10 }, (_, i) => (
-                  <Fingerprint key={i} seed={i + 1} />
+                {TECH_PRINTS.map((t) => (
+                  <TechPrint key={t.label}>{t.art}</TechPrint>
                 ))}
               </div>
               <div className="lineup-print-labels">
-                {FINGER_LABELS.map((l) => <span key={l}>{l}</span>)}
+                {TECH_PRINTS.map((t) => <span key={t.label}>{t.label}</span>)}
               </div>
             </div>
             <div className="lineup-tastes">
