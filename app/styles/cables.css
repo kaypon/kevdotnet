@@ -1,0 +1,143 @@
+/* /cables — draggable utility pole with physics wires and sky backgrounds */
+
+.cables-stage {
+  position: fixed;
+  inset: 0;
+  background: var(--paper);
+  touch-action: none;
+  overflow: hidden;
+}
+
+/* grain overlay */
+.cables-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.35;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16 -13'/%3E%3C/filter%3E%3Crect width='90' height='90' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 90px 90px;
+}
+
+/* draggable frame — contains sky bg + transparent photo */
+.cables-frame {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(700px, 58vw);
+  aspect-ratio: 1458 / 1079;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  z-index: 10;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.14);
+}
+
+.cables-frame--dragging {
+  cursor: grabbing;
+}
+
+/* sky gradient fills the frame */
+.cables-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transition: background 700ms ease;
+}
+
+/* transparent pole PNG sits on top of the sky */
+.cables-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-image: url("/images/cross_transparent.png");
+  background-size: 100% 100%;
+  background-color: transparent;
+}
+
+.cables-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.cables-wire {
+  fill: none;
+  stroke: #1a1410;
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.cables-back {
+  position: fixed;
+  top: 1.1rem;
+  left: 1.25rem;
+  z-index: 30;
+  font-family: var(--terminal);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.cables-back:hover,
+.cables-back:focus-visible {
+  color: var(--ink);
+}
+
+.cables-hint {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.25rem;
+  z-index: 30;
+  margin: 0;
+  font-family: var(--terminal);
+  font-weight: 700;
+  font-size: clamp(0.58rem, 1.15vw, 0.76rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.cables-cycle {
+  position: fixed;
+  bottom: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  font-family: var(--terminal);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--muted);
+  padding: 0.35rem 1rem;
+  cursor: pointer;
+  transition: color 200ms ease, border-color 200ms ease;
+  white-space: nowrap;
+}
+
+.cables-cycle:hover,
+.cables-cycle:focus-visible {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+@media (max-width: 800px) {
+  .cables-frame {
+    width: 78vw;
+  }
+}

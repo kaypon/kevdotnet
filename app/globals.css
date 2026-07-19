@@ -6,6 +6,7 @@
 @import "./styles/contact.css";
 @import "./styles/resume.css";
 @import "./styles/spin.css";
+@import "./styles/cables.css";
 
 :root {
   --paper: #f2f2f0;

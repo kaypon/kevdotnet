@@ -26,6 +26,16 @@ export const projects: Project[] = [
     year: 2026,
   },
   {
+    slug: "cables",
+    name: "CABLES",
+    description:
+      "A bare utility pole you can drag around the screen — the wires sag and settle with spring physics.",
+    tags: ["Physics", "Interactive"],
+    category: ["art"],
+    route: "/cables",
+    year: 2026,
+  },
+  {
     slug: "demo-scroll",
     name: "Scroll canvas",
     description:

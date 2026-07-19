@@ -18,6 +18,7 @@ const PAGES: Record<string, string> = {
   contact: "/contact",
   terminal: "/terminal",
   spin: "/spin",
+  cables: "/cables",
   // Deliberately absent from `ls` — a hidden path for those who ask.
   resume: "/resume",
 };
@@ -99,6 +100,7 @@ function runCommand(
         <Ln><span className="term-green">contact</span><span className="term-dim">     get in touch</span></Ln>,
         <Ln><span className="term-green">terminal</span><span className="term-dim">    you are here</span></Ln>,
         <Ln><span className="term-green">spin</span><span className="term-dim">        360° of kevin</span></Ln>,
+        <Ln><span className="term-green">cables</span><span className="term-dim">      drag the pole. watch the wires.</span></Ln>,
         <Ln />,
         <Ln><span className="term-dim">goto <span className="term-green">[page]</span> to navigate</span></Ln>,
         <Ln />,
@@ -195,7 +197,7 @@ function runCommand(
           <Ln />,
           <Ln>usage: goto <span className="term-cyan">[page]</span></Ln>,
           <Ln />,
-          <Ln>pages: <span className="term-green">van  home  now  info  projects  contact  terminal</span></Ln>,
+          <Ln>pages: <span className="term-green">van  home  now  info  projects  contact  terminal  spin  cables</span></Ln>,
           <Ln />,
         );
       } else if (target === "terminal") {

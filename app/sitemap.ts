@@ -4,7 +4,7 @@ import { projects } from "@/lib/projects";
 const BASE = "https://kevssite.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/van", "/info", "/now", "/projects", "/contact", "/terminal", "/spin"].map(
+  const staticRoutes = ["", "/van", "/info", "/now", "/projects", "/contact", "/terminal", "/spin", "/cables"].map(
     (path) => ({ url: `${BASE}${path}` })
   );
 
