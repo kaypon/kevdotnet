@@ -165,7 +165,7 @@ export default function LineUpPage() {
     <main className="lineup-page">
       <div className="lineup-wrap">
         <div className="subpage-topnav">
-          <Link href="/van" className="subpage-back">← van</Link>
+          <Link href="/van" className="subpage-back">[← van]</Link>
         </div>
         <article className="lineup-sheet">
 

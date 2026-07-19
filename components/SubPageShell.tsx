@@ -20,9 +20,11 @@ export function SubPageShell({
     <main className="subpage">
       <div className={`subpage-inner${wide ? " subpage-inner--wide" : ""}`}>
         <div className="subpage-topnav">
-          <Link href={backHref} className="subpage-back">{backLabel}</Link>
+          <Link href={backHref} className="subpage-back">[{backLabel}]</Link>
         </div>
-        <h1 className="subpage-title">{title}</h1>
+        <h1 className="subpage-title">
+          <span className="subpage-title__slash">/</span>{title}
+        </h1>
         <div className="subpage-body">{children}</div>
       </div>
     </main>

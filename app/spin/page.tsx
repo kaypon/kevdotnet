@@ -11,7 +11,7 @@ export default function SpinPage() {
   return (
     <main className="spin-page">
       <div className="spin-page__inner">
-        <Link href="/van" className="spin-back">← van</Link>
+        <Link href="/van" className="spin-back">[← van]</Link>
         <h1 className="sr-only">SPIN — Kevin van der Poll</h1>
         <SpinStudio />
       </div>

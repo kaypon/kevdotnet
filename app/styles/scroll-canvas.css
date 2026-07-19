@@ -71,14 +71,14 @@
 .sc-text {
   position: absolute;
   right: 5vw;
-  left: 5vw;
-  max-width: 100%;
   text-align: right;
   color: #fff;
   font-family: "Courier New", monospace;
   opacity: 0;
   transition: none;
   will-change: opacity;
+  background: rgba(0, 0, 0, 0.72);
+  padding: 1.5rem 2rem;
 }
 
 .sc-text__label {

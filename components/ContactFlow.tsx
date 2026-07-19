@@ -9,7 +9,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 type Status = "answering" | "sending" | "sent" | "failed";
 
-export function ContactFlow() {
+export function ContactFlow({ onDone }: { onDone?: () => void } = {}) {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<string[]>(() => contactSteps.map(() => ""));
   const [error, setError] = useState<string | null>(null);
@@ -77,9 +77,15 @@ export function ContactFlow() {
     return (
       <div className="contact-flow" aria-live="polite">
         <p className="contact-flow__done">Message sent. Talk soon.</p>
-        <p>
-          <Link href="/van" className="contact-flow__backlink">← van</Link>
-        </p>
+        {onDone ? (
+          <button type="button" className="contact-flow__btn contact-flow__btn--quiet" onClick={onDone}>
+            [ close ]
+          </button>
+        ) : (
+          <p>
+            <Link href="/van" className="contact-flow__backlink">← van</Link>
+          </p>
+        )}
       </div>
     );
   }

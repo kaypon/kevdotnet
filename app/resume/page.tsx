@@ -28,7 +28,7 @@ export default function ResumePage() {
     <main className="resume-page">
       <div className="resume-sheet">
         <nav className="resume-topnav" aria-label="Back to site">
-          <Link href="/van" className="resume-back">← van</Link>
+          <Link href="/van" className="resume-back">[← van]</Link>
           <ResumeDownload />
         </nav>
 

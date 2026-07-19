@@ -1,6 +1,50 @@
 .projects-intro {
-  margin: 0 0 3rem;
+  margin: 0 0 2.25rem;
   color: var(--dark-muted);
+}
+
+.projects-filter {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin-bottom: 2rem;
+  border: 1px solid var(--dark-text);
+}
+
+.projects-filter__btn {
+  flex: 1;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--dark-muted);
+  background: none;
+  border: none;
+  border-right: 1px solid var(--dark-text);
+  padding: 0.6rem 0;
+  cursor: pointer;
+  transition: color 120ms ease, background 120ms ease;
+  line-height: 1;
+}
+
+.projects-filter__btn:last-child {
+  border-right: none;
+}
+
+.projects-filter__btn:hover {
+  color: var(--dark-text);
+}
+
+.projects-filter__btn--active {
+  color: var(--dark-bg);
+  background: var(--dark-text);
+}
+
+.projects-filter__btn--active:hover {
+  color: var(--dark-text);
+  background: var(--dark-text);
+  -webkit-text-stroke: 1.5px var(--dark-bg);
 }
 
 .projects-list {
@@ -66,11 +110,9 @@
 }
 
 .project-arrow {
-  font-family: var(--terminal);
-  font-size: 0.9rem;
+  font-family: var(--display);
   color: var(--dark-muted);
-  vertical-align: middle;
-  margin-left: 0.1em;
+  margin-left: 0.15em;
 }
 
 .project-desc {
@@ -113,10 +155,11 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--dark-muted);
-  border: 1px solid var(--dark-muted);
-  padding: 0.1rem 0.45rem;
   white-space: nowrap;
 }
+
+.project-tags li::before { content: "[ "; }
+.project-tags li::after  { content: " ]"; }
 
 /* --- project info page (/projects/[slug]) --- */
 

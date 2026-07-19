@@ -6,11 +6,10 @@ import "@/app/styles/scroll-canvas.css";
 const N = 60;
 
 const SECTIONS = [
-  { label: "01 / concept",  copy: "Not a GIF.\nNot video scrubbing.",              start: 0.00, end: 0.18 },
-  { label: "02 / method",   copy: "60 frames extracted\nfrom your video on load.", start: 0.20, end: 0.38 },
-  { label: "03 / mechanic", copy: "Scroll position maps\nto a frame index.",       start: 0.42, end: 0.58 },
-  { label: "04 / render",   copy: "One canvas draw call.\nInstant. Synchronous.",  start: 0.62, end: 0.78 },
-  { label: "05 / reality",  copy: "That's the Apple trick.",                       start: 0.83, end: 1.00 },
+  { label: "01 / method",   copy: "60 frames extracted\nfrom your video on load.", start: 0.00, end: 0.22 },
+  { label: "02 / mechanic", copy: "Scroll position maps\nto a frame index.",       start: 0.27, end: 0.50 },
+  { label: "03 / render",   copy: "One canvas draw call.\nInstant. Synchronous.",  start: 0.55, end: 0.78 },
+  { label: "04 / reality",  copy: "That's the Apple trick.",                       start: 0.82, end: 1.00 },
 ];
 
 function sectionOpacity(p: number, start: number, end: number) {

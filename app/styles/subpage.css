@@ -48,6 +48,10 @@
   margin: 0 0 1.5rem;
 }
 
+.subpage-title__slash {
+  margin-right: 0.04em;
+}
+
 .subpage-body {
   font-family: var(--terminal);
   font-size: clamp(0.9rem, 1.8vw, 1.05rem);
