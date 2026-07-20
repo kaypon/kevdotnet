@@ -9,27 +9,31 @@ export const metadata: Metadata = {
 
 export default function InfoPage() {
   return (
-    <SubPageShell title="Info" wide>
+    <SubPageShell title="Info" wide titleTransition="info">
       <div className="subpage-columns">
         <div>
           <p>
-            Kevin van der Poll is a builder and artist based in Miami. Born in South Africa and
-            raised in Johannesburg, he is always making something.
+            I grew up in Johannesburg and have spent most of my adult life trying to build a
+            life from whatever was in front of me. I&rsquo;ve worked in bars, hotels,
+            construction, and software. I&rsquo;ve managed people, written code, made drinks,
+            built furniture, and started more projects than I could explain in one sitting.
           </p>
           <p>
-            The through-line goes back to a kid editing MySpace profiles — changing layouts,
-            finding loopholes, breaking things just enough to understand them. Everything since
-            has followed the same pattern: get inside the system, learn its rules, bend it into
-            something personal.
+            Most of the work here began in the hours left over. After shifts. Between jobs.
+            Late at night, when an idea would not leave me alone.
           </p>
           <p>
-            For Kevin, code and art speak the same language. The work usually takes shape
-            through making, sometimes before it has a clear name — and it tends to land
-            somewhere between useful and strange.
+            Some of it became useful. Some of it became art. A lot of it began as a question
+            I could not answer until I made something out of it.
           </p>
           <p>
-            Right now that means shipping software for people with actual work to do,
-            prototyping AI tooling, and treating design as an extension of the same instinct.
+            I&rsquo;m not interested in pretending I followed a clean path. I make things
+            because building is how I think, and because sometimes the only way to understand
+            an idea is to give it a body.
+          </p>
+          <p>
+            For years, I treated that work like a side effect of the rest of my life. VAN is
+            what happened when I stopped.
           </p>
         </div>
         <figure className="subpage-portrait">

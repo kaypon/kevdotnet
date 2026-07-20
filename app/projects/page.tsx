@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <SubPageShell title="Projects" wide>
+    <SubPageShell title="Projects" wide titleTransition="projects">
       <p className="projects-intro">
-        Things I&apos;ve shipped — tools, experiments, and whatever else caught my attention.
+        Things I&apos;ve shipped: tools, experiments, and whatever else caught my attention.
       </p>
       <ProjectsList />
     </SubPageShell>

@@ -16,7 +16,7 @@ const SOCIALS = [
 
 export default function ContactPage() {
   return (
-    <SubPageShell title="Contact">
+    <SubPageShell title="Contact" titleTransition="contact">
       <ul className="contact-socials">
         {SOCIALS.map(({ label, href }) => (
           <li key={label}>

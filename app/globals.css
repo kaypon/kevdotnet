@@ -106,3 +106,30 @@ body {
   white-space: nowrap;
   border: 0;
 }
+
+/* View transitions: nav labels travel to their spot as page titles (and back).
+   Hiding the old snapshot kills the default crossfade-between-two-scaled-images
+   ("zoomy") look — one piece of text simply glides and rescales in proportion. */
+::view-transition-group(.morph) {
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-old(.morph) {
+  display: none;
+}
+
+::view-transition-new(.morph) {
+  height: 100%;
+  width: auto;
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}

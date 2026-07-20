@@ -51,7 +51,7 @@ export function SpinHead() {
   }, [autoSpin]);
 
   return (
-    <Link ref={containerRef} href="/spin" className="spin-head" aria-label="Kevin's head, spinning — see the full-size spin">
+    <Link ref={containerRef} href="/spin" className="spin-head" aria-label="VAN's head, spinning. See the full-size spin">
       {spinHeadFrames.map((src, i) => (
         <Image
           key={src}

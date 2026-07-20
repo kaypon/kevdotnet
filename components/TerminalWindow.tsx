@@ -118,7 +118,7 @@ function runCommand(
         <Ln>code and art speak the same language.</Ln>,
         <Ln>a tool is an instrument. a screen is a canvas.</Ln>,
         <Ln />,
-        <Ln>always making something — code, AI tools, visuals,</Ln>,
+        <Ln>always making something: code, AI tools, visuals,</Ln>,
         <Ln>objects, experiments. most of it lives somewhere</Ln>,
         <Ln>between useful and strange.</Ln>,
         <Ln />,
@@ -148,7 +148,7 @@ function runCommand(
           <Ln>Born in South Africa and raised in Johannesburg, he is always</Ln>,
           <Ln>making something.</Ln>,
           <Ln />,
-          <Ln>The through-line goes back to a kid editing MySpace profiles —</Ln>,
+          <Ln>The through-line goes back to a kid editing MySpace profiles:</Ln>,
           <Ln>changing layouts, finding loopholes, breaking things just enough</Ln>,
           <Ln>to understand them. Everything since has followed the same pattern:</Ln>,
           <Ln>get inside the system, learn its rules, bend them into something</Ln>,
@@ -248,7 +248,7 @@ export function TerminalWindow() {
       mkLine(<Ln />),
       mkLine(<Ln>Don&apos;t worry, you&apos;re not lost! This is just my website&apos;s terminal.</Ln>),
       mkLine(<Ln><span className="term-dim">Type <span className="term-green">help</span> to see available commands.</span></Ln>),
-      mkLine(<Ln><span className="term-dim">To get back out, click my face in the bottom-right corner — or <span className="term-green">← van</span> up top.</span></Ln>),
+      mkLine(<Ln><span className="term-dim">To get back out, click my face in the bottom-right corner, or <span className="term-green">[← van]</span> up top.</span></Ln>),
       mkLine(<Ln />),
     ];
   });

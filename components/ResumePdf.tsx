@@ -148,7 +148,7 @@ export function ResumePdf({ phone, email }: ResumePdfProps) {
         {resumeEducation.map((entry) => (
           <Text key={entry.credential} style={S.eduLine}>
             <Text style={{ fontFamily: "Courier-Bold" }}>{entry.credential}</Text>
-            {entry.school ? ` — ${entry.school}` : ""}
+            {entry.school ? `, ${entry.school}` : ""}
             <Text style={S.eduMeta}>
               {"  |  "}
               {entry.location} | {entry.dates}

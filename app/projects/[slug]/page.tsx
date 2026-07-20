@@ -31,7 +31,13 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
   }
 
   return (
-    <SubPageShell title={project.name} wide backHref="/projects" backLabel="← projects">
+    <SubPageShell
+      title={project.name}
+      wide
+      backHref="/projects"
+      backLabel="← projects"
+      titleTransition={`project-${project.slug}`}
+    >
       <div className="project-info-meta">
         {project.year && <span className="project-year">{project.year}</span>}
         <ul className="project-tags project-tags--row">

@@ -24,20 +24,25 @@ export default async function NowPage() {
   const lastActivityAt = await getLastPublicActivityAt();
 
   return (
-    <SubPageShell title="Now">
+    <SubPageShell title="Now" titleTransition="now">
       <p>Currently:</p>
       <p>
-        — completing the brand image and getting this site out into the world (a proper
-        domain included).
+        Building small physics toys for the browser. Latest: <Link href="/cables">/cables</Link>,
+        a bare utility pole you can drag around while the wires sag and settle.
       </p>
       <p>
-        — building <Link href="/projects/halftone-studio">Halftone Studio</Link>, the
-        image-to-dot-screen tool behind this site&apos;s poster tiles.
+        Scrubbing video frame-by-frame with the scrollbar on{" "}
+        <Link href="/demo_scroll">/demo_scroll</Link>, and fighting iOS Safari for every
+        single frame of it.
       </p>
       <p>
-        — prototyping AI tooling and agent workflows around day-to-day engineering work.
+        Polishing this site: a projects filter, a contact flow, and a portrait on{" "}
+        <Link href="/info">/info</Link>{" "}so you know who you&apos;re dealing with.
       </p>
-      <p>— and a hidden page or two in the works. Keep an eye out.</p>
+      <p>
+        Prototyping AI tooling and agent workflows around day-to-day engineering work.
+      </p>
+      <p>Still hunting down a proper domain. And a hidden page or two remains. Keep an eye out.</p>
       <p>
         {lastActivityAt
           ? `Last public GitHub activity: ${formatRelativeCommitTime(lastActivityAt)}.`

@@ -4,7 +4,7 @@ import { SpinStudio } from "@/components/SpinStudio";
 
 export const metadata: Metadata = {
   title: "SPIN — Kevin van der Poll",
-  description: "360° of Kevin. Drag to spin, tune the halftone.",
+  description: "360° of VAN. Drag to spin, tune the halftone.",
 };
 
 export default function SpinPage() {

@@ -6,7 +6,7 @@ export default function NotFound() {
     <SubPageShell title="404">
       <p>no such file or directory.</p>
       <p>
-        <Link href="/van">head back to the poster</Link> — or try the{" "}
+        <Link href="/van">head back to the poster</Link>, or try the{" "}
         <Link href="/terminal">terminal</Link> if you like poking around.
       </p>
     </SubPageShell>

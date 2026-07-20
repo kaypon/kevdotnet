@@ -90,4 +90,4 @@ export const posterCaption =
 // Short summary typed out at the end of the hidden hold-to-reveal sequence,
 // then shown statically on /van.
 export const posterLore =
-  "For Kevin, code and art speak the same language. The screen is not just where the piece appears. It is where it comes to life.\n\nThe goal is not to explain the idea perfectly, but to make something that lets it exist.";
+  "For VAN, code and art speak the same language. The screen is not just where the piece appears. It is where it comes to life.\n\nThe goal is not to explain the idea perfectly, but to make something that lets it exist.";

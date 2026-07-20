@@ -19,7 +19,7 @@ export const projects: Project[] = [
     slug: "halftone-studio",
     name: "Halftone Studio",
     description:
-      "Upload an image and tune halftone effects live — the same dot-screen treatment behind this site's poster tiles.",
+      "Upload an image and tune halftone effects live. The same dot-screen treatment behind this site's poster tiles.",
     tags: ["Design", "Tool"],
     category: ["art", "tech"],
     href: "https://halftone-studio-sigma.vercel.app",
@@ -29,7 +29,7 @@ export const projects: Project[] = [
     slug: "cables",
     name: "CABLES",
     description:
-      "A bare utility pole you can drag around the screen — the wires sag and settle with spring physics.",
+      "A bare utility pole you can drag around the screen. The wires sag and settle with spring physics.",
     tags: ["Physics", "Interactive"],
     category: ["art"],
     route: "/cables",
@@ -39,7 +39,7 @@ export const projects: Project[] = [
     slug: "demo-scroll",
     name: "Scroll canvas",
     description:
-      "A video scrubbed frame-by-frame by scroll position — the browser as a film projector.",
+      "A video scrubbed frame-by-frame by scroll position. The browser as a film projector.",
     tags: ["Canvas", "Web"],
     category: ["art"],
     route: "/demo_scroll",
@@ -48,7 +48,7 @@ export const projects: Project[] = [
   {
     slug: "spin",
     name: "SPIN",
-    description: "360° of Kevin. Drag to orbit a halftone head scan; tune the dot screen live.",
+    description: "360° of VAN. Drag to orbit a halftone head scan; tune the dot screen live.",
     tags: ["3D", "Design"],
     category: ["art"],
     route: "/spin",
@@ -58,7 +58,7 @@ export const projects: Project[] = [
     slug: "line-up",
     name: "Line-Up",
     description:
-      "Official VIA personal record — a police-lineup treatment of Kevin van der Poll, complete with height chart and redacted fields.",
+      "Official VIA personal record: a police-lineup treatment of Kevin van der Poll, complete with height chart and redacted fields.",
     tags: ["Design", "Identity"],
     category: ["art"],
     route: "/line-up",
@@ -67,7 +67,7 @@ export const projects: Project[] = [
   {
     slug: "resume",
     name: "Resume",
-    description: "Single-page professional resume — Forward-Deployed AI Engineer, Miami FL.",
+    description: "Single-page professional resume. Forward-Deployed AI Engineer, Miami FL.",
     tags: ["Document"],
     category: ["tech"],
     route: "/resume",
@@ -96,7 +96,7 @@ export const projects: Project[] = [
     slug: "fifty-two",
     name: "fifty_two",
     description:
-      "Manually shuffle a deck of cards and find out whether that exact order has ever appeared before — a hands-on tour of 52!.",
+      "Manually shuffle a deck of cards and find out whether that exact order has ever appeared before. A hands-on tour of 52!.",
     tags: ["Math", "Web"],
     category: ["tech"],
     href: "https://fiftytwo.vercel.app",

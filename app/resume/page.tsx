@@ -120,7 +120,7 @@ export default function ResumePage() {
             {resumeEducation.map((entry) => (
               <li key={entry.credential}>
                 <span className="resume-edu-credential">{entry.credential}</span>
-                {entry.school && <> — {entry.school}</>}
+                {entry.school && <>, {entry.school}</>}
                 <span className="resume-edu-meta">
                   {" "}
                   · {entry.location} · {entry.dates}

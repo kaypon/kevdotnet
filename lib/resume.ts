@@ -47,7 +47,7 @@ export const resumeHeader = {
 export const resumeSummary =
   "Forward-Deployed AI Engineer and Full-Stack Developer with 8+ years delivering " +
   "high-impact web, AI, blockchain, and automation solutions. Designs agentic systems, " +
-  "retrieval pipelines, and vector-database workflows — hands-on with MCP protocol, " +
+  "retrieval pipelines, and vector-database workflows. Hands-on with MCP protocol, " +
   "embeddings, Pinecone/Chroma/PGVector, OpenAI Assistants API, and LangChain-style " +
   "orchestration in Node.js + Python. Certified Scrum Master with a proven record of " +
   "leading Agile teams, shipping MVPs fast, reducing manual work by 50–70%, and " +
@@ -101,9 +101,9 @@ export const resumeExperience: ResumeExperience[] = [
     location: "Sunrise, FL",
     dates: "January 2025 — current",
     bullets: [
-      "Shipped internal AI copilots that draft responses, summarize records, generate reports, and answer documentation queries — cutting manual operational work across teams.",
+      "Shipped internal AI copilots that draft responses, summarize records, generate reports, and answer documentation queries, cutting manual operational work across teams.",
       "Turned one-off AI experiments into reusable service patterns: document Q&A, proposal generation, lead qualification, support triage, data cleanup, and workflow orchestration.",
-      "Built end-to-end RAG pipelines — ingestion, chunking, embeddings, vector search, grounded generation — powering internal knowledge retrieval and customer-facing support.",
+      "Built end-to-end RAG pipelines (ingestion, chunking, embeddings, vector search, grounded generation) powering internal knowledge retrieval and customer-facing support.",
     ],
   },
   {
@@ -118,7 +118,7 @@ export const resumeExperience: ResumeExperience[] = [
       "Prototyped MCP-compatible tools that let agents call internal APIs, classify documents, and close out CRM tasks on their own.",
       "Rolled out AI-driven customer workflows that cut reporting cycles by 50–70%.",
       "Stood up CI/CD pipelines with GitHub Actions, cutting deployment time by 60%.",
-      "Owned end-to-end client delivery — planning, architecture, sprints, QA, deployment, post-launch optimization — shipping MVPs 60% faster through streamlined Agile and QA automation.",
+      "Owned end-to-end client delivery (planning, architecture, sprints, QA, deployment, post-launch optimization), shipping MVPs 60% faster through streamlined Agile and QA automation.",
       "Built Webflow/Shopify systems on Make.com + Node.js automations that lifted client sales.",
     ],
   },
@@ -128,7 +128,7 @@ export const resumeExperience: ResumeExperience[] = [
     location: "Remote, FL",
     dates: "March 2020 — May 2022",
     bullets: [
-      "Delivered production apps with Vue, Node.js, GraphQL, FaunaDB, and serverless functions — including schoolahoop.org, a free PK–12 school-discovery platform still live today.",
+      "Delivered production apps with Vue, Node.js, GraphQL, FaunaDB, and serverless functions, including schoolahoop.org, a free PK–12 school-discovery platform still live today.",
       "Built a reusable UI component library and tuned frontend performance.",
       "Ran data-driven experiments and A/B tests that lifted engagement by double digits.",
       "Partnered with PMs to pin down API contracts, tighten acceptance criteria, and raise sprint velocity.",
@@ -139,7 +139,7 @@ export const resumeExperience: ResumeExperience[] = [
     org: "Magic Leap",
     location: "Sunrise, FL",
     dates: "October 2019 — March 2020",
-    note: "Work performed under NDA — details limited.",
+    note: "Work performed under NDA. Details limited.",
     bullets: [
       "Built blockchain-based biometric identity and authentication prototypes on Hyperledger Fabric + Ethereum smart contracts.",
       "Designed secure decentralized storage on IPFS with encryption standards baked in.",
@@ -162,17 +162,17 @@ export const resumeExperience: ResumeExperience[] = [
 // Live, clickable proof of range — all shipped, all mine, all one tap away.
 export const resumeProjects: ResumeProject[] = [
   {
-    name: "VAN — kevssite.vercel.app",
+    name: "VAN (kevssite.vercel.app)",
     stack: "Next.js / TypeScript",
     description:
-      "This resume's home: a halftone wanted-poster that types itself in, dissolves, and inverts into a hidden world — secret pages, a working terminal, zero UI libraries.",
+      "This resume's home: a halftone wanted-poster that types itself in, dissolves, and inverts into a hidden world. Secret pages, a working terminal, zero UI libraries.",
     href: "https://kevssite.vercel.app",
   },
   {
     name: "Halftone Studio",
     stack: "Canvas / image processing",
     description:
-      "Upload any image and re-screen it live — dot and line screens, angle and contrast tuning, full-res export. The print engine behind the poster above.",
+      "Upload any image and re-screen it live: dot and line screens, angle and contrast tuning, full-res export. The print engine behind the poster above.",
     href: "https://halftone-studio-sigma.vercel.app",
   },
   {
@@ -186,7 +186,7 @@ export const resumeProjects: ResumeProject[] = [
     name: "blokc",
     stack: "Web3 / generative art",
     description:
-      "Bitcoin block hashes rendered as deterministic 8×8 pixel art — the chain as an endless generative gallery.",
+      "Bitcoin block hashes rendered as deterministic 8×8 pixel art. The chain as an endless generative gallery.",
     href: "https://blokc-bice.vercel.app",
   },
 ];

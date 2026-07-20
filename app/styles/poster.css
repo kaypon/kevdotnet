@@ -346,9 +346,21 @@
   line-height: 1;
   letter-spacing: 0.01em;
   text-transform: uppercase;
+}
+
+/* Each link blinks in on its own, so a single one can sit out: when
+   returning from a section, that link skips the intro (it's the visible
+   target the view-transition morph slides back into place) while the
+   rest blink in around it. */
+.poster-nav a {
   opacity: 0;
   animation: poster-nav-in 0.7s ease forwards;
   animation-delay: 350ms;
+}
+
+.poster-nav a.poster-nav__item--settled {
+  animation: none;
+  opacity: 1;
 }
 
 @keyframes poster-nav-in {
@@ -357,7 +369,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .poster-nav {
+  .poster-nav a {
     animation-duration: 0.01s;
   }
 }

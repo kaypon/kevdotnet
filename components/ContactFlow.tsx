@@ -54,7 +54,7 @@ export function ContactFlow({ onDone }: { onDone?: () => void } = {}) {
     const value = skip ? "" : answers[step].trim();
 
     if (!skip && !current.optional && current.inputType === "email" && !EMAIL_RE.test(value)) {
-      setError("that doesn't look like an email — try again.");
+      setError("that doesn't look like an email. try again.");
       return;
     }
 
@@ -83,7 +83,7 @@ export function ContactFlow({ onDone }: { onDone?: () => void } = {}) {
           </button>
         ) : (
           <p>
-            <Link href="/van" className="contact-flow__backlink">← van</Link>
+            <Link href="/van" className="contact-flow__backlink">[← van]</Link>
           </p>
         )}
       </div>
@@ -93,7 +93,7 @@ export function ContactFlow({ onDone }: { onDone?: () => void } = {}) {
   if (status === "failed") {
     return (
       <div className="contact-flow" aria-live="polite">
-        <p className="contact-flow__done">Hmm — that didn&apos;t go through.</p>
+        <p className="contact-flow__done">Hmm. That didn&apos;t go through.</p>
         <p>
           <button type="button" className="contact-flow__btn" onClick={() => void submitAll(answers)}>
             [ try again ]

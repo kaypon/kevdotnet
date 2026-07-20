@@ -11,7 +11,7 @@ export default function TerminalPage() {
   return (
     <main className="term-page">
       <div className="term-page__inner">
-        <Link href="/van" className="term-back">← van</Link>
+        <Link href="/van" className="term-back">[← van]</Link>
         <TerminalWindow />
       </div>
     </main>

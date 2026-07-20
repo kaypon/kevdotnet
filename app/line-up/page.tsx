@@ -203,7 +203,7 @@ export default function LineUpPage() {
                 <tr><th>FILE NUMBER</th><td>#305-VDP-000186</td></tr>
                 <tr><th>PURPOSE RECORD</th><td>G-LINEUP-9(P)</td></tr>
                 <tr><th>DATE OF RECORD</th><td>██████████</td></tr>
-                <tr><th>CASE STATUS</th><td>OPEN — ONGOING</td></tr>
+                <tr><th>CASE STATUS</th><td>OPEN / ONGOING</td></tr>
                 <tr><th>SRU ID</th><td>K007</td></tr>
               </tbody>
             </table>
@@ -252,10 +252,10 @@ export default function LineUpPage() {
 
           <h2 className="lineup-section-title">Findings</h2>
           <ul className="lineup-charges">
-            <li>Excessive side projects — ongoing</li>
+            <li>Excessive side projects, ongoing</li>
             <li>Breaking systems to learn their rules</li>
             <li>Making things nobody asked for</li>
-            <li>Operating as a developer, an artist, a bartender, and a carpenter — all findings confirmed</li>
+            <li>Operating as a developer, an artist, a bartender, and a carpenter. All findings confirmed</li>
           </ul>
           <p className="lineup-casual">
             <u>analyst&apos;s note:</u>{" "}
@@ -324,7 +324,7 @@ export default function LineUpPage() {
           </div>
 
           <div className="lineup-footer">
-            <span>Internal use only — do not distribute</span>
+            <span>Internal use only. Do not distribute</span>
             <span>Form VDA-305-K Rev. 04/2024 &nbsp;•&nbsp; Page 1 of 1</span>
           </div>
 

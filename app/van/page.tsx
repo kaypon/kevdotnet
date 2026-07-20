@@ -8,6 +8,7 @@ import {
   posterTiles,
 } from "@/lib/data";
 import { PosterGrid } from "@/components/PosterGrid";
+import { PosterNav } from "@/components/PosterNav";
 import { SpinHead } from "@/components/SpinHead";
 
 function buildLoreNode(lore: string) {
@@ -25,7 +26,7 @@ function buildLoreNode(lore: string) {
 
 export const metadata: Metadata = {
   title: "VAN — Kevin van der Poll",
-  description: "Kevin van der Poll — code artist. Terminal as canvas.",
+  description: "Kevin van der Poll. Code artist. Terminal as canvas.",
 };
 
 export default function VanPage() {
@@ -50,29 +51,7 @@ export default function VanPage() {
           {posterCaption}
         </p>
       </section>
-      <nav className="poster-nav" aria-label="Site sections">
-        {[
-          { href: "/now", label: "now", tagline: "whats happening" },
-          { href: "/info", label: "info", tagline: "need some more" },
-          { href: "/projects", label: "projects", tagline: "can i see your" },
-          { href: "/contact", label: "contact", tagline: "how do i get in" },
-        ].map(({ href, label, tagline }) => (
-          <Link key={href} href={href}>
-            <span className="poster-nav__tagline" aria-hidden="true">
-              {tagline.split(" ").map((word, i) => (
-                <span
-                  key={i}
-                  className="poster-nav__tw"
-                  style={{ "--i": i } as React.CSSProperties}
-                >
-                  <span>{word}</span>
-                </span>
-              ))}
-            </span>
-            <span className="poster-nav__label">{label}</span>
-          </Link>
-        ))}
-      </nav>
+      <PosterNav />
     </main>
   );
 }
