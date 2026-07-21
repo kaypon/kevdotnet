@@ -51,7 +51,11 @@ const HALFTONES_DIR = path.join(process.cwd(), "public/photos/halftones");
 export function getPosterHalftoneImages(): string[] {
   const files = fs
     .readdirSync(HALFTONES_DIR, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && path.extname(entry.name).toLowerCase() === ".png")
+    // The "mugshot" shots are a separate arms-crossed photo used only by
+    // /line-up's MugshotCycler (see components/MugshotCycler.tsx) — this
+    // grid is face-only, so exclude them rather than folding them into the
+    // click-to-cycle rotation.
+    .filter((entry) => entry.isFile() && path.extname(entry.name).toLowerCase() === ".png" && !entry.name.startsWith("mugshot"))
     .map((entry) => entry.name)
     .sort((a, b) => {
       if (a === "default.png") return -1;

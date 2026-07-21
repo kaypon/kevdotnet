@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { SubPageShell } from "@/components/SubPageShell";
 import { ContactModal } from "@/components/ContactModal";
 
@@ -25,6 +26,11 @@ export default function ContactPage() {
             </a>
           </li>
         ))}
+        <li>
+          <Link href="/resume" className="contact-social__link">
+            Resume
+          </Link>
+        </li>
       </ul>
 
       <div className="contact-cta">
