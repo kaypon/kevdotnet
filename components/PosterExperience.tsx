@@ -162,8 +162,8 @@ export function PosterExperience({
 
   // --- typewriters ---
   // Caption starts empty; intro types it in, hold sequence deletes it.
-  const blurbTypewriter = useTypewriter("", 9);
-  const loreTypewriter = useTypewriter("", 30);
+  const blurbTypewriter = useTypewriter("", 5);
+  const loreTypewriter = useTypewriter("", 14);
 
   // The caption is justified + balanced (see .poster-caption in poster.css),
   // so typing it by slicing the string re-wraps and re-spaces the whole

@@ -145,7 +145,13 @@
    so cq units track the grid box). It's the page's closing beat: opacity 0
    until the nav's own entrance (0.7s, 350ms delay) has landed, then the
    same fade brings the head in last. z-index 5 clears the .poster-lore
-   overlay (z 4) so the link stays clickable. */
+   overlay (z 4) so the link stays clickable.
+
+   `top: 68%` here is only the pre-JS fallback — SpinHead.tsx measures the
+   real gap between the lore text's bottom and the nav's top on mount/resize
+   and overrides `top` with a pixel value that centers the head between
+   them exactly, since that gap's size depends on viewport-driven text
+   wrapping and isn't a fixed proportion of the grid. */
 .spin-head {
   position: absolute;
   z-index: 5;

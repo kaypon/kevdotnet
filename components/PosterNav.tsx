@@ -11,10 +11,17 @@ const SECTIONS = [
   { href: "/contact", label: "contact", tagline: "how do i get in" },
 ];
 
+function supportsViewTransitions() {
+  return typeof document !== "undefined" && typeof document.startViewTransition === "function";
+}
+
 export function PosterNav() {
   /* The link being returned to must be visible from the first frame — the
-     morph animates its live snapshot; the others keep the blink-in intro. */
-  const [returningFrom] = useState(peekReturningFrom);
+     morph animates its live snapshot; the others keep the blink-in intro.
+     Skipping the blink-in only pays off if the browser can actually run the
+     morph (most iOS Safari versions still can't) — otherwise the item would
+     never animate at all, so fall back to the normal intro there. */
+  const [returningFrom] = useState(() => (supportsViewTransitions() ? peekReturningFrom() : null));
 
   useEffect(() => {
     clearReturningFrom();

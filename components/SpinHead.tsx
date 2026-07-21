@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { spinHeadFrames } from "@/lib/spin";
 
 const FRAME_MS = 150;
@@ -14,6 +14,45 @@ export function SpinHead() {
   const [autoSpin, setAutoSpin] = useState(true);
   const containerRef = useRef<HTMLAnchorElement>(null);
   const idleTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  // The lore text's height and the nav's position both vary with viewport
+  // size (cqh-based font sizing, phone vs. desktop nav layout), so a fixed
+  // CSS percentage leaves uneven gaps above/below the head depending on the
+  // window. Measure the real gap and center the head inside it instead —
+  // the CSS `top` below is only the pre-JS fallback.
+  const [topPx, setTopPx] = useState<number | null>(null);
+
+  useLayoutEffect(() => {
+    const headEl = containerRef.current;
+    if (!headEl) return;
+
+    function reposition() {
+      const grid = headEl?.closest(".poster-grid");
+      const textEl = document.querySelector(".poster-lore__text");
+      const navEl = document.querySelector(".poster-nav");
+      if (!headEl || !grid || !textEl || !navEl) return;
+      const gridTop = grid.getBoundingClientRect().top;
+      const textBottom = textEl.getBoundingClientRect().bottom;
+      const navTop = navEl.getBoundingClientRect().top;
+      const headHeight = headEl.getBoundingClientRect().height;
+      const midY = (textBottom + navTop) / 2;
+      setTopPx(midY - gridTop - headHeight / 2);
+    }
+
+    reposition();
+    window.addEventListener("resize", reposition);
+    document.fonts?.ready.then(reposition);
+
+    const ro = new ResizeObserver(reposition);
+    const textEl = document.querySelector(".poster-lore__text");
+    const navEl = document.querySelector(".poster-nav");
+    if (textEl) ro.observe(textEl);
+    if (navEl) ro.observe(navEl);
+
+    return () => {
+      window.removeEventListener("resize", reposition);
+      ro.disconnect();
+    };
+  }, []);
 
   // Mouse-follow: map cursor angle to frame, idle-out after 5s → resume auto-spin
   useEffect(() => {
@@ -51,7 +90,13 @@ export function SpinHead() {
   }, [autoSpin]);
 
   return (
-    <Link ref={containerRef} href="/spin" className="spin-head" aria-label="VAN's head, spinning. See the full-size spin">
+    <Link
+      ref={containerRef}
+      href="/spin"
+      className="spin-head"
+      style={topPx !== null ? { top: topPx } : undefined}
+      aria-label="VAN's head, spinning. See the full-size spin"
+    >
       {spinHeadFrames.map((src, i) => (
         <Image
           key={src}
