@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { BackLink } from "@/components/BackLink";
 import { useEffect, useRef, useState } from "react";
 
 interface WireConfig {
@@ -213,7 +213,7 @@ export function CableStudio() {
         <div className="cables-photo" />
       </div>
       <svg className="cables-svg" ref={svgRef} aria-hidden="true" />
-      <Link href="/van" className="cables-back">[← van]</Link>
+      <BackLink href="/van" className="cables-back">[← van]</BackLink>
       <p className="cables-hint">I can&apos;t ever let go.</p>
       <button
         className="cables-cycle"

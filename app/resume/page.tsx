@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { BackLink } from "@/components/BackLink";
 import { ResumeContact } from "@/components/ResumeContact";
 import { ResumeDownload } from "@/components/ResumeDownload";
 import {
@@ -28,7 +28,7 @@ export default function ResumePage() {
     <main className="resume-page">
       <div className="resume-sheet">
         <nav className="resume-topnav" aria-label="Back to site">
-          <Link href="/van" className="resume-back">[← van]</Link>
+          <BackLink href="/van" className="resume-back">[← van]</BackLink>
           <ResumeDownload />
         </nav>
 

@@ -58,7 +58,7 @@ export function ProjectsList() {
                 ) : (
                   name
                 )}
-                <span className="project-desc">{project.description}</span>
+                <span className="project-desc">{project.shortDescription}</span>
               </div>
               <div className="project-meta">
                 {project.year && <span className="project-year">{project.year}</span>}

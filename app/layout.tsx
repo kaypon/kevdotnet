@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { TerminalShortcut } from "@/components/TerminalShortcut";
 import { TerminalFab } from "@/components/TerminalFab";
+import { NavTracker } from "@/components/NavTracker";
 
 const archivoBlack = Archivo_Black({
   weight: "400",
@@ -46,6 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={archivoBlack.variable}>
       <body>
+        <NavTracker />
         <TerminalShortcut />
         {children}
         <TerminalFab />

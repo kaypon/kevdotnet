@@ -16,3 +16,18 @@ export function peekReturningFrom() {
 export function clearReturningFrom() {
   returningFrom = null;
 }
+
+/* Track the two most-recent internal paths so back links can return to
+   wherever the user actually came from rather than a hardcoded default. */
+let previousPath: string | null = null;
+let currentPath: string | null = null;
+
+export function recordNavigation(path: string) {
+  if (currentPath === path) return;
+  previousPath = currentPath;
+  currentPath = path;
+}
+
+export function getPreviousPath() {
+  return previousPath;
+}

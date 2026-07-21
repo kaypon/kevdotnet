@@ -2,20 +2,31 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { setReturningFrom } from "@/lib/nav-return";
+import { useRouter } from "next/navigation";
+import { setReturningFrom, getPreviousPath } from "@/lib/nav-return";
 
 type BackLinkProps = {
   href: string;
   section?: string;
+  className?: string;
   children: ReactNode;
 };
 
-export function BackLink({ href, section, children }: BackLinkProps) {
+export function BackLink({ href, section, className = "subpage-back", children }: BackLinkProps) {
+  const router = useRouter();
+
   return (
     <Link
       href={href}
-      className="subpage-back"
-      onClick={section ? () => setReturningFrom(section) : undefined}
+      className={className}
+      onClick={(e) => {
+        if (section) setReturningFrom(section);
+        const prev = getPreviousPath();
+        if (prev) {
+          e.preventDefault();
+          router.back();
+        }
+      }}
     >
       {children}
     </Link>

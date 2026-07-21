@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { SpinStudio } from "@/components/SpinStudio";
+import { BackLink } from "@/components/BackLink";
 
 export const metadata: Metadata = {
   title: "SPIN — Kevin van der Poll",
@@ -11,7 +11,7 @@ export default function SpinPage() {
   return (
     <main className="spin-page">
       <div className="spin-page__inner">
-        <Link href="/van" className="spin-back">[← van]</Link>
+        <BackLink href="/van" className="spin-back">[← van]</BackLink>
         <h1 className="sr-only">SPIN — Kevin van der Poll</h1>
         <SpinStudio />
       </div>

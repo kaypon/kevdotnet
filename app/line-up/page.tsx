@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import Link from "next/link";
 import { MugshotCycler } from "@/components/MugshotCycler";
+import { BackLink } from "@/components/BackLink";
 
 export const metadata: Metadata = {
   title: "Line-Up — Kevin van der Poll",
@@ -165,7 +165,7 @@ export default function LineUpPage() {
     <main className="lineup-page">
       <div className="lineup-wrap">
         <div className="subpage-topnav">
-          <Link href="/van" className="subpage-back">[← van]</Link>
+          <BackLink href="/van">[← van]</BackLink>
         </div>
         <article className="lineup-sheet">
 

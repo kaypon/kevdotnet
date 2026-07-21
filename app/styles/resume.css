@@ -88,6 +88,7 @@
   font-size: 0.95rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .resume-contact {

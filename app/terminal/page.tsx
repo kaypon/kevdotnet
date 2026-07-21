@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { TerminalWindow } from "@/components/TerminalWindow";
+import { BackLink } from "@/components/BackLink";
 
 export const metadata: Metadata = {
   title: "Terminal — Kevin van der Poll",
@@ -11,7 +11,7 @@ export default function TerminalPage() {
   return (
     <main className="term-page">
       <div className="term-page__inner">
-        <Link href="/van" className="term-back">[← van]</Link>
+        <BackLink href="/van" className="term-back">[← van]</BackLink>
         <TerminalWindow />
       </div>
     </main>
