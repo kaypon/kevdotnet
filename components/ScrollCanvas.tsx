@@ -6,16 +6,24 @@ import "@/app/styles/scroll-canvas.css";
 const N = 60;
 
 const SECTIONS = [
-  { label: "01 / method",   copy: "60 frames extracted\nfrom your video on load.", start: 0.00, end: 0.22 },
-  { label: "02 / mechanic", copy: "Scroll position maps\nto a frame index.",       start: 0.27, end: 0.50 },
-  { label: "03 / render",   copy: "One canvas draw call.\nInstant. Synchronous.",  start: 0.55, end: 0.78 },
-  { label: "04 / reality",  copy: "That's the Apple trick.",                       start: 0.82, end: 1.00 },
+  { label: "01 / method",   copy: "60 frames extracted\nfrom your video on load." },
+  { label: "02 / mechanic", copy: "Scroll position maps\nto a frame index." },
+  { label: "03 / render",   copy: "One canvas draw call.\nInstant. Synchronous." },
+  { label: "04 / memory",   copy: "60 decoded bitmaps,\nheld in RAM. No network\nafter load." },
+  { label: "05 / feel",     copy: "No easing. No delay.\nThe frame IS the\nscroll position." },
+  { label: "06 / limits",   copy: "Bigger source video,\nbigger memory cost.\nCompress first." },
+  { label: "07 / reality",  copy: "That's the Apple trick.", blackout: true },
 ];
 
-function sectionOpacity(p: number, start: number, end: number) {
-  const f = 0.06;
-  if (p < start || p > end) return 0;
-  return Math.min((p - start) / f, (end - p) / f, 1);
+// Each text section fades in as it scrolls up into the middle band of the
+// viewport and fades out as it scrolls past the top — the canvas behind it
+// never moves, only these foreground blocks travel (real document scroll,
+// not a JS-driven translate), so this only needs to track opacity.
+function edgeFade(rect: DOMRect, vh: number) {
+  const fadeZone = vh * 0.35;
+  if (rect.top > vh - fadeZone) return Math.max(0, (vh - rect.top) / fadeZone);
+  if (rect.bottom < fadeZone) return Math.max(0, rect.bottom / fadeZone);
+  return 1;
 }
 
 // object-fit: cover — centers and crops to fill canvas without stretching
@@ -97,12 +105,15 @@ async function extractFrames(
 }
 
 export function ScrollCanvas() {
-  const videoRef  = useRef<HTMLVideoElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const textsRef  = useRef<(HTMLDivElement | null)[]>([]);
-  const framesRef = useRef<ImageBitmap[]>([]);
-  const rafRef    = useRef<number | null>(null);
-  const idxRef    = useRef(0);
+  const videoRef     = useRef<HTMLVideoElement>(null);
+  const canvasRef    = useRef<HTMLCanvasElement>(null);
+  const sectionsRef  = useRef<(HTMLElement | null)[]>([]);
+  const hintRef      = useRef<HTMLDivElement>(null);
+  const coverLeftRef  = useRef<HTMLDivElement>(null);
+  const coverRightRef = useRef<HTMLDivElement>(null);
+  const framesRef    = useRef<ImageBitmap[]>([]);
+  const rafRef       = useRef<number | null>(null);
+  const idxRef       = useRef(0);
 
   const [extracted, setExtracted] = useState(0);
   const [ready, setReady]         = useState(false);
@@ -192,12 +203,24 @@ export function ScrollCanvas() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawCover(ctx, framesRef.current[idx], canvas.width, canvas.height);
 
-        textsRef.current.forEach((el, i) => {
-          if (el) el.style.opacity = String(sectionOpacity(progress, SECTIONS[i].start, SECTIONS[i].end));
+        const vh = window.innerHeight;
+        sectionsRef.current.forEach((el) => {
+          if (!el) return;
+          const textEl = el.querySelector<HTMLElement>(".sc-text");
+          if (textEl) textEl.style.opacity = String(edgeFade(el.getBoundingClientRect(), vh));
         });
+        if (hintRef.current) hintRef.current.style.opacity = String(Math.max(0, 1 - progress * 12));
+
+        // Intro curtain: covers the video on load, split into left/right
+        // halves. The first viewport-height of scroll parts them — left
+        // slides fully up, right fully down — revealing the video beneath.
+        const introProgress = Math.min(window.scrollY / vh, 1);
+        if (coverLeftRef.current)  coverLeftRef.current.style.transform  = `translateY(${-introProgress * 100}%)`;
+        if (coverRightRef.current) coverRightRef.current.style.transform = `translateY(${introProgress * 100}%)`;
       });
     };
 
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
@@ -250,17 +273,36 @@ export function ScrollCanvas() {
           <div className="sc-loader__count">{extracted} / {N}</div>
         </div>
       ) : (
-        <div className="sc-scroll-container">
-          <div className="sc-sticky">
+        <>
+          {/* Fixed full-viewport layer — never scrolls. The text sections
+              below live in normal document flow on top of it, so scrolling
+              the page moves them (bottom to top) while this stays put. */}
+          <div className="sc-bg">
             <canvas ref={canvasRef} className="sc-canvas" />
+          </div>
 
-            <div className="sc-texts">
-              {SECTIONS.map((s, i) => (
-                <div
-                  key={i}
-                  className="sc-text"
-                  ref={(el) => { textsRef.current[i] = el; }}
-                >
+          {/* The first header rides on the curtain itself — label on the
+              left half, copy on the right — so it splits and slides away
+              with the panels instead of fading independently on top of them. */}
+          <div ref={coverLeftRef} className="sc-cover sc-cover--left">
+            <div className="sc-cover__text sc-cover__text--label">{SECTIONS[0].label}</div>
+          </div>
+          <div ref={coverRightRef} className="sc-cover sc-cover--right">
+            <div className="sc-cover__text sc-cover__text--copy">
+              {SECTIONS[0].copy.split("\n").map((line, j) => (
+                <span key={j}>{line}<br /></span>
+              ))}
+            </div>
+          </div>
+
+          <div className="sc-scroll-container">
+            {SECTIONS.map((s, i) => i === 0 ? null : (
+              <section
+                key={i}
+                className={`sc-text-section${s.blackout ? " sc-text-section--blackout" : ""}`}
+                ref={(el) => { sectionsRef.current[i] = el; }}
+              >
+                <div className="sc-text">
                   <div className="sc-text__label">{s.label}</div>
                   <div className="sc-text__copy">
                     {s.copy.split("\n").map((line, j) => (
@@ -268,12 +310,12 @@ export function ScrollCanvas() {
                     ))}
                   </div>
                 </div>
-              ))}
-            </div>
-
-            <div className="sc-hint">↓ scroll</div>
+              </section>
+            ))}
           </div>
-        </div>
+
+          <div ref={hintRef} className="sc-hint">↓ scroll</div>
+        </>
       )}
     </>
   );
