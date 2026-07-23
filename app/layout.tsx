@@ -16,7 +16,7 @@ const archivoBlack = Archivo_Black({
 export const metadata: Metadata = {
   // Swap for the custom domain when one lands — resolves the OG image and
   // og:url into absolute URLs for link-preview crawlers.
-  metadataBase: new URL("https://kevssite.vercel.app"),
+  metadataBase: new URL("https://kevdotnet.vercel.app"),
   title: "VAN — Kevin van der Poll",
   description:
     "A one-page halftone poster introducing Kevin van der Poll — Miami-based builder of useful systems and AI tools.",
@@ -44,7 +44,7 @@ const jsonLd = {
       "@type": "Person",
       name: "Kevin van der Poll",
       alternateName: "VAN",
-      url: "https://kevssite.vercel.app",
+      url: "https://kevdotnet.vercel.app",
       jobTitle: "Digital toolmaker",
       sameAs: [
         "https://github.com/kaypon",
@@ -56,7 +56,7 @@ const jsonLd = {
     {
       "@type": "WebSite",
       name: "VAN — Kevin van der Poll",
-      url: "https://kevssite.vercel.app",
+      url: "https://kevdotnet.vercel.app",
     },
   ],
 };

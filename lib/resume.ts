@@ -38,7 +38,7 @@ export const resumeHeader = {
   emailUser: "you",
   emailDomain: "gmail.com",
   links: [
-    { label: "kevssite.vercel.app", href: "https://kevssite.vercel.app" },
+    { label: "kevdotnet.vercel.app", href: "https://kevdotnet.vercel.app" },
     { label: "linkedin.com/in/kevinvanderpoll", href: "https://www.linkedin.com/in/kevinvanderpoll/" },
     { label: "github.com/kaypon", href: "https://github.com/kaypon" },
   ],
@@ -162,11 +162,11 @@ export const resumeExperience: ResumeExperience[] = [
 // Live, clickable proof of range — all shipped, all mine, all one tap away.
 export const resumeProjects: ResumeProject[] = [
   {
-    name: "VAN (kevssite.vercel.app)",
+    name: "VAN (kevdotnet.vercel.app)",
     stack: "Next.js / TypeScript",
     description:
       "This resume's home: a halftone wanted-poster that types itself in, dissolves, and inverts into a hidden world. Secret pages, a working terminal, zero UI libraries.",
-    href: "https://kevssite.vercel.app",
+    href: "https://kevdotnet.vercel.app",
   },
   {
     name: "Halftone Studio",
