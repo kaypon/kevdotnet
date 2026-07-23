@@ -4,6 +4,7 @@ import { CableStudio } from "@/components/CableStudio";
 export const metadata: Metadata = {
   title: "CABLES — Kevin van der Poll",
   description: "A bare utility pole. Drag it. The wires follow.",
+  alternates: { canonical: "/cables" },
 };
 
 export default function CablesPage() {

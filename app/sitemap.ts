@@ -9,7 +9,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
 
   // Info pages exist only for linked projects — mirrors generateStaticParams
-  // in app/projects/[slug]/page.tsx. /line-up stays out: it's unlinked WIP.
+  // in app/projects/[slug]/page.tsx. /line-up and /demo_scroll stay out even
+  // though they're linked from /projects — both carry their own noindex
+  // (see their page.tsx), so they're intentionally absent here too.
   const projectRoutes = projects
     .filter((project) => project.href)
     .map((project) => ({ url: `${BASE}/projects/${project.slug}` }));

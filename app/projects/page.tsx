@@ -5,6 +5,7 @@ import { ProjectsList } from "@/components/ProjectsList";
 export const metadata: Metadata = {
   title: "Projects — Kevin van der Poll",
   description: "A running list of what Kevin van der Poll is building.",
+  alternates: { canonical: "/projects" },
 };
 
 export default function ProjectsPage() {

@@ -27,6 +27,7 @@ function buildLoreNode(lore: string) {
 export const metadata: Metadata = {
   title: "VAN — Kevin van der Poll",
   description: "Kevin van der Poll. Code artist. Terminal as canvas.",
+  alternates: { canonical: "/van" },
 };
 
 export default function VanPage() {

@@ -30,7 +30,35 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@kevdotpng",
+    creator: "@kevdotpng",
   },
+};
+
+// Person + WebSite schema — helps search engines tie this domain to Kevin's
+// name and the VAN persona, and surface the social profiles as sameAs links.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      name: "Kevin van der Poll",
+      alternateName: "VAN",
+      url: "https://kevssite.vercel.app",
+      jobTitle: "Digital toolmaker",
+      sameAs: [
+        "https://github.com/kaypon",
+        "https://www.linkedin.com/in/kevinvanderpoll/",
+        "https://x.com/kevdotpng",
+        "https://www.instagram.com/kevdotpng/",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      name: "VAN — Kevin van der Poll",
+      url: "https://kevssite.vercel.app",
+    },
+  ],
 };
 
 export const viewport: Viewport = {
@@ -48,6 +76,10 @@ export default function RootLayout({
     <html lang="en" className={archivoBlack.variable}>
       <body>
         <NavTracker />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <TerminalShortcut />
         {children}
         <TerminalFab />

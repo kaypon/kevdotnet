@@ -6,6 +6,7 @@ import { ContactModal } from "@/components/ContactModal";
 export const metadata: Metadata = {
   title: "Contact — Kevin van der Poll",
   description: "Start a conversation with Kevin van der Poll.",
+  alternates: { canonical: "/contact" },
 };
 
 const SOCIALS = [

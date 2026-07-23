@@ -5,6 +5,7 @@ import { BackLink } from "@/components/BackLink";
 export const metadata: Metadata = {
   title: "Terminal — Kevin van der Poll",
   description: "A terminal for exploring kevs.site.",
+  alternates: { canonical: "/terminal" },
 };
 
 export default function TerminalPage() {

@@ -5,6 +5,7 @@ import { BackLink } from "@/components/BackLink";
 export const metadata: Metadata = {
   title: "SPIN — Kevin van der Poll",
   description: "360° of VAN. Drag to spin, tune the halftone.",
+  alternates: { canonical: "/spin" },
 };
 
 export default function SpinPage() {

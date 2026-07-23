@@ -3,10 +3,13 @@ import type { ReactNode } from "react";
 import { MugshotCycler } from "@/components/MugshotCycler";
 import { BackLink } from "@/components/BackLink";
 
+// Kept out of the index — a gag page, not a real destination worth ranking.
 export const metadata: Metadata = {
   title: "Line-Up — Kevin van der Poll",
   description:
     "Official personal record of Kevin van der Poll — digital toolmaker, chaos operator, subject of ongoing analysis.",
+  robots: { index: false, follow: false },
+  alternates: { canonical: "/line-up" },
 };
 
 // The mugshot box maps linearly to a height scale: its top edge is 198cm,

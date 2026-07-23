@@ -6,6 +6,7 @@ import { getLastPublicActivityAt } from "@/lib/github";
 export const metadata: Metadata = {
   title: "Now — Kevin van der Poll",
   description: "What Kevin van der Poll is currently working on.",
+  alternates: { canonical: "/now" },
 };
 
 function formatRelativeCommitTime(iso: string): string {

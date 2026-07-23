@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   title: "Kevin van der Poll — Resume",
   description: "Resume of Kevin van der Poll, Forward-Deployed AI Engineer.",
   robots: { index: false, follow: false },
+  alternates: { canonical: "/resume" },
 };
 
 function SectionTitle({ children }: { children: string }) {

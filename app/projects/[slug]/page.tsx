@@ -19,6 +19,7 @@ export async function generateMetadata(props: PageProps<"/projects/[slug]">): Pr
   return {
     title: project ? `${project.name} — Kevin van der Poll` : "Project — Kevin van der Poll",
     description: project?.description,
+    alternates: { canonical: `/projects/${slug}` },
   };
 }
 
