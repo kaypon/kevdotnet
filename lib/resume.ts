@@ -28,7 +28,7 @@ export type ResumeProject = {
 
 export const resumeHeader = {
   name: "Kevin van der Poll",
-  title: "Forward-Deployed AI Engineer · Full-Stack Developer · Technical Project Lead",
+  title: "Forward-Deployed AI Engineer",
   location: "South Florida",
   // Deliberately split: the assembled number/address must never appear in
   // served HTML, RSC payloads, or JS bundles, where email/phone regexes
@@ -50,8 +50,8 @@ export const resumeSummary =
   "retrieval pipelines, and vector-database workflows. Hands-on with MCP protocol, " +
   "embeddings, Pinecone/Chroma/PGVector, OpenAI Assistants API, and LangChain-style " +
   "orchestration in Node.js + Python. Certified Scrum Master with a proven record of " +
-  "leading Agile teams, shipping MVPs fast, reducing manual work by 50–70%, and " +
-  "bridging business goals with technical execution.";
+  "leading Agile teams, shipping MVPs fast, and bridging business goals with " +
+  "technical execution.";
 
 export const resumeSkills: { group: string; items: string }[] = [
   {
@@ -99,7 +99,7 @@ export const resumeExperience: ResumeExperience[] = [
     role: "AI Engineer",
     org: "Synvestable",
     location: "Sunrise, FL",
-    dates: "January 2025 — current",
+    dates: "March 2025 — current",
     bullets: [
       "Shipped internal AI copilots that draft responses, summarize records, generate reports, and answer documentation queries, cutting manual operational work across teams.",
       "Turned one-off AI experiments into reusable service patterns: document Q&A, proposal generation, lead qualification, support triage, data cleanup, and workflow orchestration.",
@@ -113,13 +113,10 @@ export const resumeExperience: ResumeExperience[] = [
     dates: "June 2022 — March 2025",
     bullets: [
       "Shipped full-stack apps in React, Node.js, TypeScript, SQL, and AWS that raised performance and stability across every client platform.",
-      "Built LLM-powered agents for content generation, data cleanup, and automated reporting on OpenAI APIs + serverless orchestration.",
-      "Designed embedding and vector-search pipelines (Chroma + PGVector) that cut editing time by 70%.",
+      "Built LLM-powered agents and RAG pipelines (Chroma + PGVector embeddings, vector search) for content generation, data cleanup, and automated reporting on OpenAI APIs + serverless orchestration.",
       "Prototyped MCP-compatible tools that let agents call internal APIs, classify documents, and close out CRM tasks on their own.",
-      "Rolled out AI-driven customer workflows that cut reporting cycles by 50–70%.",
-      "Stood up CI/CD pipelines with GitHub Actions, cutting deployment time by 60%.",
-      "Owned end-to-end client delivery (planning, architecture, sprints, QA, deployment, post-launch optimization), shipping MVPs 60% faster through streamlined Agile and QA automation.",
-      "Built Webflow/Shopify systems on Make.com + Node.js automations that lifted client sales.",
+      "Stood up CI/CD pipelines with GitHub Actions, streamlining releases across every client project.",
+      "Owned end-to-end client delivery (planning, architecture, sprints, QA, deployment, post-launch optimization) through streamlined Agile and QA automation.",
     ],
   },
   {

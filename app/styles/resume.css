@@ -249,6 +249,11 @@ a.resume-project-name:focus-visible {
 }
 
 @media (max-width: 600px) {
+  .resume-title {
+    white-space: normal;
+    line-height: 1.4;
+  }
+
   .resume-skill-row {
     grid-template-columns: 1fr;
     padding: 0.5rem 0;
