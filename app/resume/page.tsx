@@ -14,8 +14,8 @@ import {
 // Unlinked, shared directly with employers — kept out of the sitemap and
 // told to search engines to stay out of the index.
 export const metadata: Metadata = {
-  title: "Kevin van der Poll — Resume",
-  description: "Resume of Kevin van der Poll, Forward-Deployed AI Engineer.",
+  title: "Kevin van der Poll | Resume",
+  description: "Resume of Kevin van der Poll, Full-Stack Developer and Automation Engineer.",
   robots: { index: false, follow: false },
   alternates: { canonical: "/resume" },
 };
@@ -76,9 +76,10 @@ export default function ResumePage() {
           {resumeExperience.map((job) => (
             <article key={`${job.org}-${job.dates}`} className="resume-job">
               <div className="resume-job-head">
-                <h3 className="resume-job-role">
-                  {job.role} <span className="resume-job-org">| {job.org}</span>
-                </h3>
+                <div className="resume-job-title">
+                  <h3 className="resume-job-org">{job.org}</h3>
+                  <p className="resume-job-role">{job.role}</p>
+                </div>
                 <p className="resume-job-meta">
                   {job.location && <>{job.location} · </>}
                   {job.dates}

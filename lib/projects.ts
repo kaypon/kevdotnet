@@ -17,6 +17,18 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "phoebe",
+    name: "Phoebe",
+    shortDescription: "Autonomous personal AI assistant running on OpenClaw.",
+    description:
+      "A persistent, tool-augmented AI agent built on the OpenClaw runtime, backed by Claude Opus 4.8 with automatic failover to GPT. Features a tool-calling loop (web search, shell execution, file I/O, cron scheduling), file-based long-term memory with semantic recall, sub-agent orchestration for parallel tasks, and 30+ modular skills. Deployed as a Discord bot with a proactive heartbeat system. Has autonomously designed, built, and shipped native desktop and web applications.",
+    tags: ["AI", "Agents", "OpenClaw"],
+    category: ["tech"],
+    href: "https://openclaw-ai.net",
+    embeddable: false,
+    year: 2026,
+  },
+  {
     slug: "halftone-studio",
     name: "Halftone Studio",
     shortDescription: "Generate halftone dot and line patterns, then export.",
@@ -136,5 +148,41 @@ export const projects: Project[] = [
     category: ["tech"],
     href: "https://blackjacktrainer-chi.vercel.app",
     year: 2024,
+  },
+  {
+    slug: "sunchokephoto",
+    name: "Sunchoke Photo",
+    shortDescription: "Photography portfolio for a commercial photographer.",
+    description:
+      "Photography portfolio for a commercial photographer. Custom layout, CMS-driven galleries, and client booking flow. Built in Webflow.",
+    tags: ["Webflow", "Client Work"],
+    category: ["tech"],
+    href: "https://sunchokephoto.com",
+    embeddable: false,
+    year: 2023,
+  },
+  {
+    slug: "badbucktruck",
+    name: "Bad Buck Truck",
+    shortDescription: "E-commerce and inventory site for a truck accessories brand.",
+    description:
+      "E-commerce and inventory site for a truck accessories brand. Webflow CMS, product pages, and lead capture. Built in Webflow.",
+    tags: ["Webflow", "Client Work"],
+    category: ["tech"],
+    href: "https://badbucktruck.com",
+    embeddable: false,
+    year: 2023,
+  },
+  {
+    slug: "schoolahoop",
+    name: "Schoolahoop",
+    shortDescription: "Free PK–12 school discovery platform serving families across the US.",
+    description:
+      "Free PK–12 school discovery platform serving families across the US. Built at Lincoln Network with Vue, Node.js, GraphQL, and FaunaDB. Still live.",
+    tags: ["Vue", "GraphQL", "Client Work"],
+    category: ["tech"],
+    href: "https://schoolahoop.org",
+    embeddable: false,
+    year: 2021,
   },
 ];

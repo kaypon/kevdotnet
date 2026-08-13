@@ -164,17 +164,24 @@
   flex-wrap: nowrap;
 }
 
-.resume-job-role {
-  margin: 0;
+.resume-job-title {
   flex: 1;
   min-width: 0;
-  font-family: var(--terminal);
-  font-weight: 700;
-  font-size: 0.95rem;
 }
 
 .resume-job-org {
+  margin: 0;
+  font-family: var(--terminal);
   font-weight: 700;
+  font-size: 1rem;
+}
+
+.resume-job-role {
+  margin: 0.1rem 0 0;
+  font-family: var(--terminal);
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 
 .resume-job-meta {

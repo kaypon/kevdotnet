@@ -1,4 +1,4 @@
-/** Content for the unlinked /resume page — the only file to edit when the
+/** Content for the unlinked /resume page -the only file to edit when the
  * resume changes. Source of truth: Kevin's Kvdp_2026 resume. Contact info
  * lives only here: the page is unlinked and noindexed. */
 
@@ -7,7 +7,7 @@ export type ResumeExperience = {
   org: string;
   location?: string;
   dates: string;
-  /** e.g. NDA disclaimers — rendered muted under the role line. */
+  /** e.g. NDA disclaimers -rendered muted under the role line. */
   note?: string;
   bullets: string[];
 };
@@ -28,8 +28,8 @@ export type ResumeProject = {
 
 export const resumeHeader = {
   name: "Kevin van der Poll",
-  title: "Forward-Deployed AI Engineer",
-  location: "South Florida",
+  title: "Full-Stack Developer · AI & Automation Engineer",
+  location: "Dallas, TX",
   // Deliberately split: the assembled number/address must never appear in
   // served HTML, RSC payloads, or JS bundles, where email/phone regexes
   // harvest them. ResumeContact.tsx joins the parts in the browser after
@@ -45,52 +45,41 @@ export const resumeHeader = {
 };
 
 export const resumeSummary =
-  "Forward-Deployed AI Engineer and Full-Stack Developer with 8+ years delivering " +
-  "high-impact web, AI, blockchain, and automation solutions. Designs agentic systems, " +
-  "retrieval pipelines, and vector-database workflows. Hands-on with MCP protocol, " +
-  "embeddings, Pinecone/Chroma/PGVector, OpenAI Assistants API, and LangChain-style " +
-  "orchestration in Node.js + Python. Certified Scrum Master with a proven record of " +
-  "leading Agile teams, shipping MVPs fast, and bridging business goals with " +
-  "technical execution.";
+  "Full-stack developer and automation engineer with 8+ years shipping real products for real clients. " +
+  "Currently building AI copilots, RAG pipelines, and agentic workflows at a fintech startup. " +
+  "Hands-on with OpenAI APIs, Make.com, Zapier, Webflow, and Shopify. " +
+  "Certified Scrum Master who has run full client lifecycles end-to-end, " +
+  "from brief to deployment, and can talk to humans as well as write the code. " +
+  "Available for full-time and contract roles in the Dallas / DFW area.";
 
 export const resumeSkills: { group: string; items: string }[] = [
   {
-    group: "AI Engineering",
+    group: "AI / Automation",
     items:
-      "MCP protocol, custom MCP tool servers, OpenAI Assistants API, function calling, agent orchestration, embeddings, vector search, RAG pipelines, evaluation frameworks, LangChain-style chains, metadata filtering",
+      "OpenAI API, Anthropic Claude API, OpenClaw, Make.com, Zapier, RAG pipelines, vector search, embeddings, MCP protocol, agent orchestration, Pinecone, Chroma, PGVector",
   },
   {
     group: "Frontend",
     items:
-      "React, Next.js, TypeScript, JavaScript (ES6+), Vue, TailwindCSS, responsive UI, state management, Liquid templating",
+      "React, Next.js, TypeScript, JavaScript (ES6+), Vue, TailwindCSS, Webflow, responsive UI, state management",
   },
   {
     group: "Backend",
     items:
-      "Node.js, Express, Python, REST, GraphQL, SQL, PostgreSQL, MongoDB, FaunaDB, Firebase, microservices, JWT/OAuth authentication",
+      "Node.js, Express, Python, REST, GraphQL, PostgreSQL, MongoDB, Firebase, microservices, JWT/OAuth authentication",
   },
   {
-    group: "Blockchain / Web3",
-    items:
-      "Solidity, Web3.js, Ethereum smart contracts, Hyperledger Fabric, IPFS, NFTs, wallets",
+    group: "E-commerce / CMS",
+    items: "Shopify, Webflow CMS, Memberstack",
   },
   {
     group: "Cloud & DevOps",
-    items: "AWS (Lambda, S3, EC2), Docker, GitHub Actions (CI/CD), GCP, serverless, Redis caching",
+    items: "AWS (Lambda, S3, EC2), Docker, GitHub Actions (CI/CD), serverless",
   },
-  {
-    group: "Automation / Integration",
-    items: "Make.com, Zapier, Memberstack, Webflow CMS, Shopify, OpenAI API, AI integrations",
-  },
-  { group: "Vector Databases", items: "Pinecone, Chroma, PGVector, Weaviate" },
   {
     group: "Leadership / Delivery",
     items:
-      "Certified Scrum Master, Agile (Scrum, Kanban, SAFe), client-facing engineering, sprint planning, backlog refinement, QA automation, velocity optimization, MVP delivery",
-  },
-  {
-    group: "Tools",
-    items: "Jira, Confluence, GitHub, Figma",
+      "Certified Scrum Master, Agile (Scrum, Kanban), sprint planning, client-facing delivery, MVP delivery",
   },
 ];
 
@@ -99,7 +88,7 @@ export const resumeExperience: ResumeExperience[] = [
     role: "AI Engineer",
     org: "Synvestable",
     location: "Sunrise, FL",
-    dates: "March 2025 — current",
+    dates: "Jan 2025 - current",
     bullets: [
       "Shipped internal AI copilots that draft responses, summarize records, generate reports, and answer documentation queries, cutting manual operational work across teams.",
       "Turned one-off AI experiments into reusable service patterns: document Q&A, proposal generation, lead qualification, support triage, data cleanup, and workflow orchestration.",
@@ -110,20 +99,19 @@ export const resumeExperience: ResumeExperience[] = [
     role: "Full-Stack Developer / Technical Project Lead",
     org: "Electric Flow",
     location: "Sunrise, FL",
-    dates: "June 2022 — March 2025",
+    dates: "June 2022 - March 2025",
     bullets: [
-      "Shipped full-stack apps in React, Node.js, TypeScript, SQL, and AWS that raised performance and stability across every client platform.",
-      "Built LLM-powered agents and RAG pipelines (Chroma + PGVector embeddings, vector search) for content generation, data cleanup, and automated reporting on OpenAI APIs + serverless orchestration.",
-      "Prototyped MCP-compatible tools that let agents call internal APIs, classify documents, and close out CRM tasks on their own.",
-      "Stood up CI/CD pipelines with GitHub Actions, streamlining releases across every client project.",
-      "Owned end-to-end client delivery (planning, architecture, sprints, QA, deployment, post-launch optimization) through streamlined Agile and QA automation.",
+      "Designed and shipped Webflow sites for clients across photography, e-commerce, and professional services, including live builds at sunchokephoto.com and badbucktruck.com.",
+      "Built Make.com and Zapier automation pipelines for content publishing, CRM workflows, and lead capture.",
+      "Integrated early OpenAI API tooling for automated blog content generation and copy workflows.",
+      "Managed full client lifecycle across concurrent projects: scoping, design direction, build, and handoff.",
     ],
   },
   {
     role: "Full Stack Engineer",
     org: "Lincoln Network",
     location: "Remote, FL",
-    dates: "March 2020 — May 2022",
+    dates: "March 2020 - May 2022",
     bullets: [
       "Delivered production apps with Vue, Node.js, GraphQL, FaunaDB, and serverless functions, including schoolahoop.org, a free PK–12 school-discovery platform still live today.",
       "Built a reusable UI component library and tuned frontend performance.",
@@ -135,56 +123,61 @@ export const resumeExperience: ResumeExperience[] = [
     role: "Blockchain Engineer",
     org: "Magic Leap",
     location: "Sunrise, FL",
-    dates: "October 2019 — March 2020",
+    dates: "October 2019 - March 2020",
     note: "Work performed under NDA. Details limited.",
     bullets: [
-      "Built blockchain-based biometric identity and authentication prototypes on Hyperledger Fabric + Ethereum smart contracts.",
-      "Designed secure decentralized storage on IPFS with encryption standards baked in.",
-      "Shipped proof-of-concept features in a fast-moving Agile squad.",
+      "Built blockchain-based biometric identity prototypes on Hyperledger Fabric and Ethereum in a fast-moving Agile squad.",
+      "Decentralized storage on IPFS with encryption.",
     ],
   },
   {
     role: "Full Stack Engineer / Scrum Master",
     org: "Bushido Lab",
     location: "Miami, FL",
-    dates: "October 2017 — June 2019",
+    dates: "October 2017 - June 2019",
     bullets: [
-      "Built web apps, smart contracts, wallets, and NFT systems in JavaScript, Solidity, and Web3.js.",
-      "Pioneered the studio's IPFS integrations for decentralized storage and metadata distribution.",
-      "Ran Scrum ceremonies, velocity tracking, and technical planning as the team's Scrum Master.",
+      "Built web apps and smart contract systems in JavaScript and Solidity.",
+      "Ran Scrum ceremonies and technical planning as the team's Scrum Master.",
     ],
   },
 ];
 
-// Live, clickable proof of range — all shipped, all mine, all one tap away.
+// Live, clickable proof of range -all shipped, all mine, all one tap away.
 export const resumeProjects: ResumeProject[] = [
+  {
+    name: "Phoebe (OpenClaw agent)",
+    stack: "OpenClaw / Claude Opus / GPT failover",
+    description:
+      "Persistent autonomous AI assistant with tool-calling, file-based long-term memory, sub-agent orchestration, and a 30+ skill modular system. Deployed as a Discord bot with scheduled proactive behavior. Has independently designed and shipped native desktop and web apps.",
+    href: "https://openclaw-ai.net",
+  },
   {
     name: "VAN (kevdotnet.vercel.app)",
     stack: "Next.js / TypeScript",
     description:
-      "This resume's home: a halftone wanted-poster that types itself in, dissolves, and inverts into a hidden world. Secret pages, a working terminal, zero UI libraries.",
+      "Hand-built portfolio: halftone poster with canvas-based tile animations, typewriter sequencing, view transitions, and a working in-browser terminal. No UI libraries. Every effect is custom.",
     href: "https://kevdotnet.vercel.app",
   },
   {
-    name: "Halftone Studio",
-    stack: "Canvas / image processing",
+    name: "schoolahoop.org",
+    stack: "Vue / Node.js / GraphQL / FaunaDB",
     description:
-      "Upload any image and re-screen it live: dot and line screens, angle and contrast tuning, full-res export. The print engine behind the poster above.",
-    href: "https://halftone-studio-sigma.vercel.app",
+      "Free PK–12 school discovery platform serving families across the US. Shipped at Lincoln Network, still live.",
+    href: "https://schoolahoop.org",
   },
   {
-    name: "pyano",
-    stack: "Web Audio API",
+    name: "sunchokephoto.com",
+    stack: "Webflow",
     description:
-      "Music tools in the browser: a playable piano, a 4-track step sequencer with synthesized drums, a procedural melody generator, and a voice-to-drum-pad beatbox studio with WAV export.",
-    href: "https://pyano-web.vercel.app",
+      "Photography portfolio for a commercial photographer. Custom layout, CMS-driven galleries, and client booking flow.",
+    href: "https://sunchokephoto.com",
   },
   {
-    name: "blokc",
-    stack: "Web3 / generative art",
+    name: "badbucktruck.com",
+    stack: "Webflow",
     description:
-      "Bitcoin block hashes rendered as deterministic 8×8 pixel art. The chain as an endless generative gallery.",
-    href: "https://blokc-bice.vercel.app",
+      "E-commerce and inventory site for a truck accessories brand. Webflow CMS, product pages, and lead capture.",
+    href: "https://badbucktruck.com",
   },
 ];
 
@@ -200,11 +193,6 @@ export const resumeEducation: ResumeEducation[] = [
     school: "Web Development Bootcamp",
     location: "Miami, FL",
     dates: "Aug 2017",
-  },
-  {
-    credential: "HNC in 3D Animation and Game Design",
-    location: "Prague, CZ",
-    dates: "May 2015",
   },
   {
     credential: "HND in Electronic Engineering",

@@ -17,7 +17,7 @@ type PosterExperienceProps = {
   lore: string;
 };
 
-const RAINBOW_WORD = "STRANGE";
+const RAINBOW_WORD = "AND OCCASIONALLY,";
 
 const HOLD_MS = 500;
 const FADE_STEP_MS = 140;
@@ -365,6 +365,14 @@ export function PosterExperience({
     router.push("/van");
   }, [phase, router]);
 
+  // Auto-advance to /van if the user doesn't interact within 5 seconds of idle.
+  useEffect(() => {
+    if (phase !== "idle") return;
+    const timeout = setTimeout(() => startSequence(), 5000);
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase]);
+
   // Three clean beats, in order: every tile dissolves into the still-paper
   // page, THEN the page inverts to black while the letters crossfade to
   // white, then the lore types. Dark deliberately waits for "inverting" —
@@ -377,8 +385,8 @@ export function PosterExperience({
 
   return (
     <main className={`poster-page${isDark ? " poster-page--dark" : ""}`}>
-      <section className="poster" aria-label={`${headline} — Kevin van der Poll poster`}>
-        <h1 className="sr-only">{headline} — Kevin van der Poll</h1>
+      <section className="poster" aria-label={`${headline} | Kevin van der Poll poster`}>
+        <h1 className="sr-only">{headline} | Kevin van der Poll</h1>
         <div className={`van-intro-grid${gridVisible ? " van-intro-grid--visible" : ""}`}>
           <PosterGrid
             tiles={tiles}
