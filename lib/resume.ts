@@ -50,7 +50,7 @@ export const resumeSummary =
   "Hands-on with OpenAI APIs, Make.com, Zapier, Webflow, and Shopify. " +
   "Certified Scrum Master who has run full client lifecycles end-to-end, " +
   "from brief to deployment, and can talk to humans as well as write the code. " +
-  "Available for full-time and contract roles in the Dallas / DFW area.";
+  "Available for remote roles and full-time or contract work in Dallas / DFW.";
 
 export const resumeSkills: { group: string; items: string }[] = [
   {
@@ -173,11 +173,11 @@ export const resumeProjects: ResumeProject[] = [
     href: "https://sunchokephoto.com",
   },
   {
-    name: "badbucktruck.com",
-    stack: "Webflow",
+    name: "blokc",
+    stack: "Generative / Web3",
     description:
-      "E-commerce and inventory site for a truck accessories brand. Webflow CMS, product pages, and lead capture.",
-    href: "https://badbucktruck.com",
+      "Every Bitcoin block's SHA-256 hash rendered as colored pixel art. Steps through 800,000+ blocks, one generative grid per block.",
+    href: "https://blokc-bice.vercel.app",
   },
 ];
 
