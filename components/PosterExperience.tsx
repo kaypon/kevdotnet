@@ -17,7 +17,7 @@ type PosterExperienceProps = {
   lore: string;
 };
 
-const RAINBOW_WORD = "AND OCCASIONALLY,";
+const RAINBOW_WORD = "IF HE CAN PICTURE IT,";
 
 const HOLD_MS = 500;
 const FADE_STEP_MS = 140;

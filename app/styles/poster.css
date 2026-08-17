@@ -198,8 +198,8 @@
   visibility: hidden;
 }
 
-/* The last word of the caption ("strange") gets a rainbow flash — a little
-   wink that the "useful and strange" line means it. */
+/* The closing line of the caption ("if he can picture it, he ships it")
+   gets a rainbow flash — the payoff lands in color. */
 .poster-caption-rainbow {
   background-image: linear-gradient(
     90deg,
