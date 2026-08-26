@@ -37,11 +37,13 @@ export default async function NowPage() {
         single frame of it.
       </p>
       <p>
-        Polishing this site: a projects filter, a contact flow, and a portrait on{" "}
-        <Link href="/info">/info</Link>{" "}so you know who you&apos;re dealing with.
+        Wrote up a real case study on <Link href="/projects/phoebe">/projects/phoebe</Link>,
+        the AI agent running on my old laptop: why it exists, how it's wired, and the token
+        bottleneck that almost killed it.
       </p>
       <p>
-        Prototyping AI tooling and agent workflows around day-to-day engineering work.
+        Trimmed the resume, added remote availability, and folded in recent client and agent
+        work.
       </p>
       <p>Still hunting down a proper domain. And a hidden page or two remains. Keep an eye out.</p>
       <p>
@@ -49,7 +51,7 @@ export default async function NowPage() {
           ? `Last public GitHub activity: ${formatRelativeCommitTime(lastActivityAt)}.`
           : "No recent public GitHub activity to show."}
       </p>
-      <p>updated july 2026.</p>
+      <p>updated august 2026.</p>
     </SubPageShell>
   );
 }

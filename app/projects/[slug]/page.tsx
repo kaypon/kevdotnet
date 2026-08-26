@@ -48,31 +48,45 @@ export default async function ProjectPage(props: PageProps<"/projects/[slug]">) 
         </ul>
       </div>
       <p className="project-info-desc">{project.description}</p>
-      <a
-        className="project-info-visit"
-        href={project.href}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        visit site ↗
-      </a>
-      <div className="project-preview">
-        {project.embeddable === false ? (
-          <div className="project-preview__blocked">
-            <p>live preview blocked by this site&apos;s security headers</p>
-            <a href={project.href} target="_blank" rel="noopener noreferrer">
-              open {project.name} directly ↗
-            </a>
-          </div>
-        ) : (
-          <iframe
-            className="project-preview__frame"
-            src={project.href}
-            title={`${project.name} preview`}
-            loading="lazy"
-          />
-        )}
-      </div>
+      {!project.hideVisitLink && (
+        <a
+          className="project-info-visit"
+          href={project.href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          visit site ↗
+        </a>
+      )}
+      {project.caseStudy && (
+        <div className="project-case-study">
+          {project.caseStudy.sections.map((section) => (
+            <div className="project-case-study__section" key={section.heading}>
+              <h2 className="project-case-study__heading">{section.heading}</h2>
+              <p className="project-case-study__body">{section.body}</p>
+            </div>
+          ))}
+        </div>
+      )}
+      {!project.hidePreview && (
+        <div className="project-preview">
+          {project.embeddable === false ? (
+            <div className="project-preview__blocked">
+              <p>live preview blocked by this site&apos;s security headers</p>
+              <a href={project.href} target="_blank" rel="noopener noreferrer">
+                open {project.name} directly ↗
+              </a>
+            </div>
+          ) : (
+            <iframe
+              className="project-preview__frame"
+              src={project.href}
+              title={`${project.name} preview`}
+              loading="lazy"
+            />
+          )}
+        </div>
+      )}
     </SubPageShell>
   );
 }

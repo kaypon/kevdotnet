@@ -13,6 +13,14 @@ export type Project = {
    * X-Frame-Options/frame-ancestors headers blocking iframe embeds —
    * their info page shows a fallback card instead of a live preview. */
   embeddable?: boolean;
+  /** Skips the preview/blocked-preview block entirely on the detail page. */
+  hidePreview?: boolean;
+  /** Skips the "visit site" button on the detail page. */
+  hideVisitLink?: boolean;
+  /** Extended write-up rendered on the detail page below the description. */
+  caseStudy?: {
+    sections: { heading: string; body: string }[];
+  };
 };
 
 export const projects: Project[] = [
@@ -26,7 +34,29 @@ export const projects: Project[] = [
     category: ["tech"],
     href: "https://openclaw-ai.net",
     embeddable: false,
+    hidePreview: true,
+    hideVisitLink: true,
     year: 2026,
+    caseStudy: {
+      sections: [
+        {
+          heading: "Why",
+          body: "Went looking for a decent AI companion after seeing glimpses of what people were building online, wanted something Jarvis-like. Had a spare laptop sitting around doing nothing, so it got handed over completely: Phoebe's machine, not a shared one.",
+        },
+        {
+          heading: "How it's wired",
+          body: "Chose Discord over WhatsApp or Telegram because it gets Phoebe a full server: dedicated channels, its own permissions, room to moderate and post on its own terms. Memory runs on GraphRAG instead of flat context stuffing, pulling only the relevant nodes on each recall instead of re-feeding the whole history.",
+        },
+        {
+          heading: "The bottleneck",
+          body: "Token cost was the real fight. The first message of a session was burning a disproportionate chunk of budget just reloading context before it could do anything useful. Moving memory over to GraphRAG fixed it: lookups pull what's relevant instead of everything. Once that was solved, the rest was easy.",
+        },
+        {
+          heading: "What it does now",
+          body: "Runs on a daily timer: summarizes what got done, the weather, and news filtered to stated preferences. Beyond that it designs, builds, and ships its own native desktop and web apps without being walked through it step by step.",
+        },
+      ],
+    },
   },
   {
     slug: "halftone-studio",
