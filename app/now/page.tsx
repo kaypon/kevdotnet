@@ -42,8 +42,17 @@ export default async function NowPage() {
         bottleneck that almost killed it.
       </p>
       <p>
-        Trimmed the resume, added remote availability, and folded in recent client and agent
-        work.
+        Built a site for Hooper Construction: drone footage that scrubs with the scroll, a
+        curtain reveal, and a Didot headline. Most of the work was making it feel cinematic
+        without lagging on a phone.
+      </p>
+      <p>
+        Building a 3PL software app for a logistics client. Warehouses, labels, and the boring
+        parts that keep freight moving.
+      </p>
+      <p>
+        Reading through bitchat, the open source Bluetooth mesh messenger, to see how it handles
+        offline peer-to-peer messaging and encryption.
       </p>
       <p>Still hunting down a proper domain. And a hidden page or two remains. Keep an eye out.</p>
       <p>
@@ -51,7 +60,7 @@ export default async function NowPage() {
           ? `Last public GitHub activity: ${formatRelativeCommitTime(lastActivityAt)}.`
           : "No recent public GitHub activity to show."}
       </p>
-      <p>updated august 2026.</p>
+      <p>updated september 2026.</p>
     </SubPageShell>
   );
 }
