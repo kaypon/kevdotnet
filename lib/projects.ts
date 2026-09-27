@@ -23,9 +23,8 @@ export type Project = {
   };
 };
 
-// Ordered by when each entry was added to this list (newest first), not by
-// the `year` field, which records when the project itself was originally
-// built.
+// Ordered by `year` descending (newest first). Keep it sorted this way when
+// adding entries — this list is not auto-sorted at render time.
 export const projects: Project[] = [
   {
     slug: "face-detect",
@@ -50,42 +49,6 @@ export const projects: Project[] = [
         },
       ],
     },
-  },
-  {
-    slug: "schoolahoop",
-    name: "Schoolahoop",
-    shortDescription: "Free PK–12 school discovery platform serving families across the US.",
-    description:
-      "Free PK–12 school discovery platform serving families across the US. Built at Lincoln Network with Vue, Node.js, GraphQL, and FaunaDB. Still live.",
-    tags: ["Vue", "GraphQL", "Client Work"],
-    category: ["tech"],
-    href: "https://schoolahoop.org",
-    embeddable: false,
-    year: 2021,
-  },
-  {
-    slug: "badbucktruck",
-    name: "Bad Buck Truck",
-    shortDescription: "E-commerce and inventory site for a truck accessories brand.",
-    description:
-      "E-commerce and inventory site for a truck accessories brand. Webflow CMS, product pages, and lead capture. Built in Webflow.",
-    tags: ["Webflow", "Client Work"],
-    category: ["tech"],
-    href: "https://badbucktruck.com",
-    embeddable: false,
-    year: 2023,
-  },
-  {
-    slug: "sunchokephoto",
-    name: "Sunchoke Photo",
-    shortDescription: "Photography portfolio for a commercial photographer.",
-    description:
-      "Photography portfolio for a commercial photographer. Custom layout, CMS-driven galleries, and client booking flow. Built in Webflow.",
-    tags: ["Webflow", "Client Work"],
-    category: ["tech"],
-    href: "https://sunchokephoto.com",
-    embeddable: false,
-    year: 2023,
   },
   {
     slug: "phoebe",
@@ -143,15 +106,15 @@ export const projects: Project[] = [
     year: 2026,
   },
   {
-    slug: "line-up",
-    name: "Line-Up",
-    shortDescription: "A classified personal record filed by the Van Intelligence Agency.",
+    slug: "halftone-studio",
+    name: "Halftone Studio",
+    shortDescription: "Generate halftone dot and line patterns, then export.",
     description:
-      "A classified personal record filed by the Van Intelligence Agency. Mugshot, height chart, redacted fields, and a list of ongoing findings. The resume you'd have if the resume were a dossier.",
-    tags: ["Design", "Identity"],
-    category: ["art"],
-    route: "/line-up",
-    year: 2025,
+      "Born from a tattoo session. Wanted a halftone line design, spent hours in Procreate not getting it right, and eventually gave up. This tool is the result of that frustration. Dial in exactly the dot or line pattern you're after and export it.",
+    tags: ["Design", "Tool"],
+    category: ["art", "tech"],
+    href: "https://halftone-studio-sigma.vercel.app",
+    year: 2026,
   },
   {
     slug: "spin",
@@ -165,15 +128,15 @@ export const projects: Project[] = [
     year: 2025,
   },
   {
-    slug: "halftone-studio",
-    name: "Halftone Studio",
-    shortDescription: "Generate halftone dot and line patterns, then export.",
+    slug: "line-up",
+    name: "Line-Up",
+    shortDescription: "A classified personal record filed by the Van Intelligence Agency.",
     description:
-      "Born from a tattoo session. Wanted a halftone line design, spent hours in Procreate not getting it right, and eventually gave up. This tool is the result of that frustration. Dial in exactly the dot or line pattern you're after and export it.",
-    tags: ["Design", "Tool"],
-    category: ["art", "tech"],
-    href: "https://halftone-studio-sigma.vercel.app",
-    year: 2026,
+      "A classified personal record filed by the Van Intelligence Agency. Mugshot, height chart, redacted fields, and a list of ongoing findings. The resume you'd have if the resume were a dossier.",
+    tags: ["Design", "Identity"],
+    category: ["art"],
+    route: "/line-up",
+    year: 2025,
   },
   {
     slug: "blackjack",
@@ -219,6 +182,42 @@ export const projects: Project[] = [
     href: "https://dnd-rho-umber.vercel.app",
     embeddable: false,
     year: 2024,
+  },
+  {
+    slug: "badbucktruck",
+    name: "Bad Buck Truck",
+    shortDescription: "E-commerce and inventory site for a truck accessories brand.",
+    description:
+      "E-commerce and inventory site for a truck accessories brand. Webflow CMS, product pages, and lead capture. Built in Webflow.",
+    tags: ["Webflow", "Client Work"],
+    category: ["tech"],
+    href: "https://badbucktruck.com",
+    embeddable: false,
+    year: 2023,
+  },
+  {
+    slug: "sunchokephoto",
+    name: "Sunchoke Photo",
+    shortDescription: "Photography portfolio for a commercial photographer.",
+    description:
+      "Photography portfolio for a commercial photographer. Custom layout, CMS-driven galleries, and client booking flow. Built in Webflow.",
+    tags: ["Webflow", "Client Work"],
+    category: ["tech"],
+    href: "https://sunchokephoto.com",
+    embeddable: false,
+    year: 2023,
+  },
+  {
+    slug: "schoolahoop",
+    name: "Schoolahoop",
+    shortDescription: "Free PK–12 school discovery platform serving families across the US.",
+    description:
+      "Free PK–12 school discovery platform serving families across the US. Built at Lincoln Network with Vue, Node.js, GraphQL, and FaunaDB. Still live.",
+    tags: ["Vue", "GraphQL", "Client Work"],
+    category: ["tech"],
+    href: "https://schoolahoop.org",
+    embeddable: false,
+    year: 2021,
   },
   {
     slug: "blokc",
