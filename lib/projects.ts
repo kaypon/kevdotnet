@@ -81,15 +81,28 @@ export const projects: Project[] = [
     year: 2026,
   },
   {
-    slug: "demo-scroll",
-    name: "Scroll canvas",
-    shortDescription: "A video scrubbed frame-by-frame by scroll position.",
+    slug: "face-detect",
+    name: "Face Detect",
+    shortDescription: "A browser-based face tracking playground with a hand-framed color portal.",
     description:
-      "A video scrubbed frame-by-frame by scroll position. The browser as a film projector.",
-    tags: ["Canvas", "Web"],
+      "A face tracking playground built on face-api.js: live mesh overlays, landmarks, mood and age/gender readouts, AR stickers, and a halftone camera style, all running 100% locally, nothing leaves the browser. Frame your hands into a rectangle and MediaPipe hand tracking turns the window between them into a false-color or frosted-glass portal.",
+    tags: ["Vision", "Browser"],
     category: ["art"],
-    route: "/demo_scroll",
-    year: 2025,
+    href: "https://facerec-sigma.vercel.app",
+    embeddable: false,
+    year: 2026,
+    caseStudy: {
+      sections: [
+        {
+          heading: "Why",
+          body: "Been into facial recognition since messing around with the Kairos API back in 2017. This is a browser-only version of that itch: face-api.js running entirely client-side for the mesh, landmarks, mood tracking, and AR stickers, no server involved.",
+        },
+        {
+          heading: "The hand portal",
+          body: "Saw people doing the two-hand picture-frame trick on Instagram and had to give it a shot. MediaPipe tracks both hands, and the window traced between your thumbs and index fingers gets false-colored or turned to frosted glass. The versions on Instagram are way more technical than this. Mine's about as basic as it gets, just a simple, runs-in-the-browser take on the idea.",
+        },
+      ],
+    },
   },
   {
     slug: "spin",

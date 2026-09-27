@@ -37,6 +37,11 @@ export default async function NowPage() {
         single frame of it.
       </p>
       <p>
+        Also poking at <Link href="/projects/face-detect">/projects/face-detect</Link>, a
+        browser-based face tracking playground, plus a two-hand color portal ripped straight
+        from an Instagram trend.
+      </p>
+      <p>
         Wrote up a real case study on <Link href="/projects/phoebe">/projects/phoebe</Link>,
         the AI agent running on my old laptop: why it exists, how it's wired, and the token
         bottleneck that almost killed it.
