@@ -39,6 +39,10 @@ export const projects: Project[] = [
     caseStudy: {
       sections: [
         {
+          heading: "Why",
+          body: "Because the light-day is almost here. Voyager 1 is about to be a full day of light away from us, and I got excited about it. A date on a news page didn't feel like enough, so I wanted to see it: the clock ticking toward 24 hours, the distance, the signal crawling out there.",
+        },
+        {
           heading: "Getting the time right",
           body: "The clock runs off JPL Horizons, the same trajectory data NASA works from. Daily positions for 2026 through 2030 get baked into the site and interpolated in between, so it never has to call JPL while you're on the page. Checked against samples it never saw, it's off by less than 47 meters, and it crosses one light-day 3 milliseconds before NASA's published time.",
         },
