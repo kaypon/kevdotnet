@@ -27,6 +27,17 @@ export type Project = {
 // adding entries — this list is not auto-sorted at render time.
 export const projects: Project[] = [
   {
+    slug: "one-light-day",
+    name: "One Light-Day",
+    shortDescription: "A live clock counting down to Voyager 1 hitting one light-day from Earth.",
+    description:
+      "On Nov 18, 2026, Voyager 1 becomes the first thing we've built to sit a full day of light away from Earth. The clock shows how long light takes to reach it right now, ticking toward 24:00:00, running off JPL's own trajectory data. It lands within 3 milliseconds of NASA's published time. Styled like a 1977 mission document, down to the halftone launch photo and the drawing's title block.",
+    tags: ["Space", "Interactive"],
+    category: ["art", "tech"],
+    href: "https://one-light-day.vercel.app",
+    year: 2026,
+  },
+  {
     slug: "speed-reader",
     name: "Speed Reader",
     shortDescription: "Paste any text and read it one flash at a time, lined up on a focus letter.",
@@ -104,16 +115,6 @@ export const projects: Project[] = [
     tags: ["Physics", "Interactive"],
     category: ["art"],
     route: "/cables",
-    year: 2026,
-  },
-  {
-    slug: "resume",
-    name: "Resume",
-    shortDescription: "Single-page professional resume.",
-    description: "Single-page professional resume. Forward-Deployed AI Engineer, Miami FL.",
-    tags: ["Document"],
-    category: ["tech"],
-    route: "/resume",
     year: 2026,
   },
   {

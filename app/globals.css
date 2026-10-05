@@ -7,6 +7,7 @@
 @import "./styles/resume.css";
 @import "./styles/spin.css";
 @import "./styles/cables.css";
+@import "./styles/focus.css";
 
 :root {
   --paper: #f2f2f0;

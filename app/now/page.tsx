@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { SubPageShell } from "@/components/SubPageShell";
+import { NowEntries } from "@/components/NowEntries";
 import { getLastPublicActivityAt } from "@/lib/github";
 
 export const metadata: Metadata = {
@@ -26,46 +26,13 @@ export default async function NowPage() {
 
   return (
     <SubPageShell title="Now" titleTransition="now">
-      <p>Currently:</p>
-      <p>
-        Building small physics toys for the browser. Latest: <Link href="/cables">/cables</Link>,
-        a bare utility pole you can drag around while the wires sag and settle.
-      </p>
-      <p>
-        Scrubbing video frame-by-frame with the scrollbar on{" "}
-        <Link href="/demo_scroll">/demo_scroll</Link>, and fighting iOS Safari for every
-        single frame of it.
-      </p>
-      <p>
-        Also poking at <Link href="/projects/face-detect">/projects/face-detect</Link>, a
-        browser-based face tracking playground, plus a two-hand color portal ripped straight
-        from an Instagram trend.
-      </p>
-      <p>
-        Wrote up a real case study on <Link href="/projects/phoebe">/projects/phoebe</Link>,
-        the AI agent running on my old laptop: why it exists, how it's wired, and the token
-        bottleneck that almost killed it.
-      </p>
-      <p>
-        Built a site for Hooper Construction: drone footage that scrubs with the scroll, a
-        curtain reveal, and a Didot headline. Most of the work was making it feel cinematic
-        without lagging on a phone.
-      </p>
-      <p>
-        Building a 3PL software app for a logistics client. Warehouses, labels, and the boring
-        parts that keep freight moving.
-      </p>
-      <p>
-        Reading through bitchat, the open source Bluetooth mesh messenger, to see how it handles
-        offline peer-to-peer messaging and encryption.
-      </p>
-      <p>Still hunting down a proper domain. And a hidden page or two remains. Keep an eye out.</p>
+      <NowEntries />
       <p>
         {lastActivityAt
           ? `Last public GitHub activity: ${formatRelativeCommitTime(lastActivityAt)}.`
           : "No recent public GitHub activity to show."}
       </p>
-      <p>updated september 2026.</p>
+      <p>updated october 2026.</p>
     </SubPageShell>
   );
 }

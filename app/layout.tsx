@@ -19,12 +19,12 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://kevdotnet.vercel.app"),
   title: "VAN — Kevin van der Poll",
   description:
-    "A one-page halftone poster introducing Kevin van der Poll — Miami-based builder of useful systems and AI tools.",
+    "Kevin van der Poll - Nomadic artist & builder of useful systems and AI tools.",
   openGraph: {
     siteName: "VAN — Kevin van der Poll",
     title: "VAN — Kevin van der Poll",
     description:
-      "A one-page halftone poster introducing Kevin van der Poll — Miami-based builder of useful systems and AI tools.",
+      "Kevin van der Poll - Nomadic artist & builder of useful systems and AI tools.",
     url: "/",
     type: "website",
   },

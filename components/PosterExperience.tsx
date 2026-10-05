@@ -365,10 +365,11 @@ export function PosterExperience({
     router.push("/van");
   }, [phase, router]);
 
-  // Auto-advance to /van if the user doesn't interact within 5 seconds of idle.
+  // Auto-advance to /van after 30 seconds on the idle poster: long enough to
+  // read the lore and play with the halftone face before it moves on.
   useEffect(() => {
     if (phase !== "idle") return;
-    const timeout = setTimeout(() => startSequence(), 5000);
+    const timeout = setTimeout(() => startSequence(), 30_000);
     return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);

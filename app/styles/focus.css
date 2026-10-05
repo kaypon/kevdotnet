@@ -1,0 +1,87 @@
+/* /focus — tilted, fake-blurred paper. Layers are 1/(copies + 1) opaque so
+   the stack adds back up to roughly solid ink. */
+
+.focus-page {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), var(--paper);
+  background-attachment: fixed;
+}
+
+.focus-stage {
+  position: relative;
+  max-width: 900px;
+  margin: -300px auto 0;
+}
+
+.focus-sheet {
+  /* Stops the h1 margin collapsing through the in-flow original but not the
+     absolute copies, which would knock the layers out of register. */
+  display: flow-root;
+  color: var(--ink);
+  font-family: Georgia, Baskerville, serif;
+  font-size: 30px;
+  text-align: justify;
+  opacity: 0.2;
+  transform-origin: 50% 600px;
+  text-shadow:
+    0 0 3px rgba(25, 22, 17, 0.6),
+    0 0 1px rgba(25, 22, 17, 0.2);
+  outline: none;
+  caret-color: var(--ink);
+}
+
+.focus-sheet--copy {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.focus-sheet h1 {
+  margin: 0.67em 0;
+  font-family: inherit;
+  font-size: 100px;
+  font-weight: normal;
+  text-align: center;
+}
+
+.focus-sheet p {
+  text-indent: 60px;
+}
+
+.focus-sheet a {
+  color: inherit;
+}
+
+.focus-haze {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(rgba(238, 238, 238, 0.3), rgba(238, 238, 238, 0));
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .focus-stage {
+    margin-top: -140px;
+    padding: 0 16px;
+  }
+
+  .focus-sheet {
+    font-size: 18px;
+    transform-origin: 50% 360px;
+  }
+
+  .focus-sheet--copy {
+    inset: 0 16px;
+  }
+
+  .focus-sheet h1 {
+    font-size: 60px;
+  }
+
+  .focus-sheet p {
+    text-indent: 36px;
+  }
+}
