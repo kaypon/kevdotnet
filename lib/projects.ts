@@ -27,6 +27,17 @@ export type Project = {
 // adding entries — this list is not auto-sorted at render time.
 export const projects: Project[] = [
   {
+    slug: "speed-reader",
+    name: "Speed Reader",
+    shortDescription: "Paste any text and read it one flash at a time, lined up on a focus letter.",
+    description:
+      "An RSVP speed reader: words flash one at a time in a fixed spot, each lined up on a red focus letter so your eyes never move. Paste text, drop in a .txt or .md file, or import any article by link and it strips the page down to just the writing. Tune the WPM, words per flash, a warm-up ramp, and extra pauses on commas, sentence ends, and paragraph breaks, all over a drifting starfield.",
+    tags: ["Tool", "Web"],
+    category: ["tech"],
+    href: "https://speedreader-self.vercel.app",
+    year: 2026,
+  },
+  {
     slug: "face-detect",
     name: "Face Detect",
     shortDescription: "A browser-based face tracking playground with a hand-framed color portal.",
