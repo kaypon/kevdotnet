@@ -31,11 +31,31 @@ export const projects: Project[] = [
     name: "One Light-Day",
     shortDescription: "A live clock counting down to Voyager 1 hitting one light-day from Earth.",
     description:
-      "On Nov 18, 2026, Voyager 1 becomes the first thing we've built to sit a full day of light away from Earth. The clock shows how long light takes to reach it right now, ticking toward 24:00:00, running off JPL's own trajectory data. It lands within 3 milliseconds of NASA's published time. Styled like a 1977 mission document, down to the halftone launch photo and the drawing's title block.",
+      "On Nov 18, 2026, Voyager 1 becomes the first thing we've built to sit a full day of light away from Earth. The clock shows how long light takes to reach it right now, ticking toward 24:00:00, running off JPL's own trajectory data. It lands within 3 milliseconds of NASA's published time. Around it: send a ping at the speed of light and watch it crawl out to Voyager, see which Deep Space Network dish is talking to it right now, and drag Earth around its orbit to see why the distance actually shrinks every spring. Styled like a 1977 mission document, down to the halftone launch photo and the drawing's title block.",
     tags: ["Space", "Interactive"],
     category: ["art", "tech"],
     href: "https://one-light-day.vercel.app",
     year: 2026,
+    caseStudy: {
+      sections: [
+        {
+          heading: "Getting the time right",
+          body: "The clock runs off JPL Horizons, the same trajectory data NASA works from. Daily positions for 2026 through 2030 get baked into the site and interpolated in between, so it never has to call JPL while you're on the page. Checked against samples it never saw, it's off by less than 47 meters, and it crosses one light-day 3 milliseconds before NASA's published time.",
+        },
+        {
+          heading: "Which light-day?",
+          body: "There are three fair ways to count it. A command sent from Earth crosses the 24 hour mark first, on Nov 17. The straight-line distance, the one NASA uses and the one the clock counts, gets there at 10:16:07 UTC on Nov 18. The light we actually receive back from Voyager is last, on Nov 19. The page explains all three instead of pretending there's only one.",
+        },
+        {
+          heading: "It goes backwards for a bit",
+          body: "Voyager is flying away at close to 39 km a second, but every spring Earth's orbit swings us back toward it. Between January and April 2027 the gap shrinks by about 40 million km, roughly 106 trips to the Moon, before it starts growing again. It never dips back under one light-day, so there's only one crossing. The wobble section lets you drag Earth around and watch it happen.",
+        },
+        {
+          heading: "Ping Voyager",
+          body: "Hit the button and a ping leaves at the speed of light. Watch it cross a log-scale track, or warp time up to a day per second to see it arrive. Everyone's pings show up as anonymous dots on a shared hourly counter. No messages and no IP addresses get stored.",
+        },
+      ],
+    },
   },
   {
     slug: "speed-reader",
