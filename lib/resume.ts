@@ -29,7 +29,7 @@ export type ResumeProject = {
 export const resumeHeader = {
   name: "Kevin van der Poll",
   title: "Full-Stack Developer · AI & Automation Engineer",
-  location: "Dallas, TX",
+  location: "United Kingdom",
   // Deliberately split: the assembled number/address must never appear in
   // served HTML, RSC payloads, or JS bundles, where email/phone regexes
   // harvest them. ResumeContact.tsx joins the parts in the browser after
@@ -46,17 +46,18 @@ export const resumeHeader = {
 
 export const resumeSummary =
   "Full-stack developer and automation engineer with 8+ years shipping real products for real clients. " +
-  "Currently building AI copilots, RAG pipelines, and agentic workflows at a fintech startup. " +
+  "Currently contracting in the UK, building the warehouse operations system behind a meal-box fulfilment packer, " +
+  "after building AI copilots, RAG pipelines, and agentic workflows at a fintech startup. " +
   "Hands-on with OpenAI APIs, Make.com, Zapier, Webflow, and Shopify. " +
   "Certified Scrum Master who has run full client lifecycles end-to-end, " +
   "from brief to deployment, and can talk to humans as well as write the code. " +
-  "Available for remote roles and full-time or contract work in Dallas / DFW.";
+  "Available for remote roles and full-time or contract work in the UK.";
 
 export const resumeSkills: { group: string; items: string }[] = [
   {
     group: "AI / Automation",
     items:
-      "OpenAI API, Anthropic Claude API, OpenClaw, Make.com, Zapier, RAG pipelines, vector search, embeddings, MCP protocol, agent orchestration, Pinecone, Chroma, PGVector",
+      "OpenAI API, Anthropic Claude API, Claude Code (agent teams), OpenClaw, Make.com, Zapier, RAG pipelines, vector search, embeddings, MCP protocol, agent orchestration, Pinecone, Chroma, PGVector",
   },
   {
     group: "Frontend",
@@ -66,15 +67,15 @@ export const resumeSkills: { group: string; items: string }[] = [
   {
     group: "Backend",
     items:
-      "Node.js, Express, Python, REST, GraphQL, PostgreSQL, MongoDB, Firebase, microservices, JWT/OAuth authentication",
+      "Node.js, Express, Python, Flask, REST, GraphQL, WebSockets, PostgreSQL, SQLite, MongoDB, Firebase, microservices, JWT/OAuth authentication",
   },
   {
     group: "E-commerce / CMS",
-    items: "Shopify, Webflow CMS, Memberstack",
+    items: "Shopify (Admin API), Webflow CMS, Memberstack, DPD shipping API",
   },
   {
     group: "Cloud & DevOps",
-    items: "AWS (Lambda, S3, EC2), Docker, GitHub Actions (CI/CD), serverless",
+    items: "AWS (Lambda, S3, EC2), Docker, GitHub Actions (CI/CD), serverless, Linux servers (systemd)",
   },
   {
     group: "Leadership / Delivery",
@@ -85,10 +86,24 @@ export const resumeSkills: { group: string; items: string }[] = [
 
 export const resumeExperience: ResumeExperience[] = [
   {
+    role: "Lead Engineer",
+    org: "Coolpack",
+    location: "Corby, UK",
+    dates: "Sep 2026 - current",
+    bullets: [
+      "Sole engineer on a local-first warehouse operations suite for a meal-box fulfilment packer: Python/Flask portal, Node.js hub, SQLite, ~40k lines with automated test suites on both sides.",
+      "Integrated the Shopify Admin API and DPD Ireland's live shipping API. First production week: 280 orders pulled, booked and labelled in one pass, 322 parcel labels, zero failed bookings.",
+      "Built a height-aware box-packing engine that exactly reproduced the ops lead's hand-planned 209-order workbook, plus automatic station layouts and per-box pick sheets stamped with matching shipping labels.",
+      "Shipped real-time floor tooling on an on-site Linux server: handheld and Zebra scanner screens, a live WebSocket pack board, and label safety guards (live vs sandbox mode, stale-label blocking, no double bookings).",
+      "Made the platform multi-client (per-client data, branding and login) and onboarded a second meal brand.",
+      "Ran the build with AI coding agents (Claude Code agent teams with a dedicated adversarial reviewer, gated on tests passing), working directly with the owners and ops lead to turn physical packing rules into software.",
+    ],
+  },
+  {
     role: "AI Engineer",
     org: "Synvestable",
     location: "Sunrise, FL",
-    dates: "Jan 2025 - current",
+    dates: "Jan 2025 - Aug 2026",
     bullets: [
       "Shipped internal AI copilots that draft responses, summarize records, generate reports, and answer documentation queries, cutting manual operational work across teams.",
       "Turned one-off AI experiments into reusable service patterns: document Q&A, proposal generation, lead qualification, support triage, data cleanup, and workflow orchestration.",
