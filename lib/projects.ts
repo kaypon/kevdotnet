@@ -27,6 +27,33 @@ export type Project = {
 // adding entries — this list is not auto-sorted at render time.
 export const projects: Project[] = [
   {
+    slug: "fourier",
+    name: "Fourier",
+    shortDescription: "Spinning circles that add up to a square wave, and to anything else you draw.",
+    description:
+      "A Fourier series playground. A chain of spinning circles traces a wave, and the formula under it is the control panel: drag or type any circle's size, speed or starting angle and watch the wave reshape live. Build square, saw and triangle waves one circle at a time, draw your own wiggle and get the circles that redraw it, or flip to picture mode, where circles spinning both ways trace any outline you sketch. Listen to the wave you've built, see its spectrum, share it by link, and hit \"what is this?\" for the full explanation, with the real maths folded away for the nerds.",
+    tags: ["Math", "Interactive"],
+    category: ["art", "tech"],
+    href: "https://fourier-series-lac.vercel.app",
+    year: 2026,
+    caseStudy: {
+      sections: [
+        {
+          heading: "Why",
+          body: "Kept seeing posts on Instagram of circles spinning on circles, drawing waves, and got completely sucked in. How do a bunch of smooth circles add up to a wave with sharp corners? The one that hooked me was a reel by @ubilumapp building a square wave one circle at a time. Watching wasn't enough. I wanted to grab the numbers and mess with them myself, so I made my own version.",
+        },
+        {
+          heading: "The formula is the controls",
+          body: "Every number in the formula is something you can drag. Change a circle's size or speed and you see that exact circle change while the wave reshapes. The square, saw and triangle presets draw the perfect shape faintly behind the wave, so you can watch the little overshoot at the corners that never goes away, no matter how many circles you throw at it.",
+        },
+        {
+          heading: "Draw anything",
+          body: "Sketch any wiggle and it works out the circles that redraw it, each with its own size, speed and starting angle. Picture mode lets the circles spin both ways so they can trace any outline. It opens on a plain circle, which takes exactly one circle. Draw something else and see how many it takes.",
+        },
+      ],
+    },
+  },
+  {
     slug: "one-light-day",
     name: "One Light-Day",
     shortDescription: "A live clock counting down to Voyager 1 hitting one light-day from Earth.",
