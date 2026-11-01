@@ -33,8 +33,8 @@ export default function InfoPage() {
             an idea is to give it a body.
           </p>
           <p>
-            For years, I treated that work like a side effect of the rest of my life. VAN is
-            what happened when I stopped.
+            For years, I treated that work like a side effect of the rest of my life. This site
+            is what happened when I stopped.
           </p>
         </div>
         <figure className="subpage-portrait">

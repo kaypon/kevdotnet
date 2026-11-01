@@ -40,6 +40,13 @@ body {
   color: var(--paper);
 }
 
+/* Cycling back-link word (ScrambleWord.tsx): the floor stops the closing
+   bracket jittering while narrow glyphs flick past; an emoji may still nudge it. */
+.scramble-word {
+  display: inline-block;
+  min-width: 3ch;
+}
+
 /* Floating terminal shortcut (TerminalFab.tsx), pinned bottom-right on
    every page. Ink disc with a muted ring so it reads on both the paper
    home page and the dark subpages. */
@@ -77,7 +84,7 @@ body {
 }
 
 /* On /terminal the disc trades the glyph for a halftone mugshot and leads
-   back to /van (see TerminalFab.tsx). The image is set inline; here it's
+   back to /kev (see TerminalFab.tsx). The image is set inline; here it's
    framed and cropped to the face. */
 .terminal-fab--face {
   background-size: cover;

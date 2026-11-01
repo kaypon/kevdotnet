@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import Link from "next/link";
 import { contactFormAction, contactSteps } from "@/lib/contact-form";
+import { ScrambleWord } from "./ScrambleWord";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -83,7 +84,7 @@ export function ContactFlow({ onDone }: { onDone?: () => void } = {}) {
           </button>
         ) : (
           <p>
-            <Link href="/van" className="contact-flow__backlink">[← van]</Link>
+            <Link href="/kev" className="contact-flow__backlink">[← <ScrambleWord />]</Link>
           </p>
         )}
       </div>

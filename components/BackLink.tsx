@@ -4,12 +4,14 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { setReturningFrom, getPreviousPath } from "@/lib/nav-return";
+import { ScrambleWord } from "./ScrambleWord";
 
 type BackLinkProps = {
   href: string;
   section?: string;
   className?: string;
-  children: ReactNode;
+  /** Defaults to the cycling [← kev] label. */
+  children?: ReactNode;
 };
 
 export function BackLink({ href, section, className = "subpage-back", children }: BackLinkProps) {
@@ -28,7 +30,7 @@ export function BackLink({ href, section, className = "subpage-back", children }
         }
       }}
     >
-      {children}
+      {children ?? <>[← <ScrambleWord />]</>}
     </Link>
   );
 }

@@ -1,4 +1,4 @@
-/* Handshake between a subpage's back link and the /van nav: records which
+/* Handshake between a subpage's back link and the /kev nav: records which
    section the user is returning from, so that one link can skip its blink-in
    and slide back into place via the view-transition morph while the rest
    blink in as usual. Module state survives client-side navigation only —

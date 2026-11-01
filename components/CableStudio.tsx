@@ -213,7 +213,7 @@ export function CableStudio() {
         <div className="cables-photo" />
       </div>
       <svg className="cables-svg" ref={svgRef} aria-hidden="true" />
-      <BackLink href="/van" className="cables-back">[← van]</BackLink>
+      <BackLink href="/kev" className="cables-back" />
       <p className="cables-hint">I can&apos;t ever let go.</p>
       <button
         className="cables-cycle"

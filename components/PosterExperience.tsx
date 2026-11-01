@@ -5,6 +5,7 @@ import type { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerE
 import { useRouter } from "next/navigation";
 import type { PosterTileData } from "@/lib/data";
 import { PosterGrid } from "./PosterGrid";
+import { useScrambleCycle, withHeaderLetters } from "./useScrambleCycle";
 import { useTypewriter } from "./useTypewriter";
 
 type Phase = "intro" | "idle" | "deleting" | "fading" | "inverting" | "typing" | "done";
@@ -52,12 +53,12 @@ function rippleGroups(
   return groups;
 }
 
-// V lands first (top-left photo block), then A and N complete the name,
+// K lands first (top-left photo block), then E and V complete the name,
 // then the remaining 7 photo tiles reveal in a random order each load.
-const INTRO_VAN: Array<{ id: string; pause: number }> = [
-  { id: "v", pause: 0 },    // V photo block — first thing visible
-  { id: "a", pause: 220 },  // A
-  { id: "n", pause: 160 },  // N — VAN complete
+const INTRO_HEADLINE: Array<{ id: string; pause: number }> = [
+  { id: "v", pause: 0 },    // K photo block, first thing visible
+  { id: "a", pause: 220 },  // E
+  { id: "n", pause: 160 },  // V, KEV complete
 ];
 const INTRO_REST_IDS = ["t1", "t2", "t3", "t4", "t5", "t6", "t7"];
 
@@ -87,6 +88,9 @@ export function PosterExperience({
 
   const [fadedCount, setFadedCount] = useState(0);
   const [gridVisible, setGridVisible] = useState(false);
+  // The letters start cycling the moment the last tile lands, then never stop.
+  const [tilesIn, setTilesIn] = useState(false);
+  const headerLetters = useScrambleCycle(tilesIn);
   // Starts as an empty Set; tiles are added one-by-one during the intro.
   // Set to undefined when the intro ends — PosterTile falls back to fadedCount.
   const [revealedIds, setRevealedIds] = useState<Set<string> | undefined>(new Set());
@@ -97,6 +101,7 @@ export function PosterExperience({
       setFadedCount(0);
       setGridVisible(false);
       setRevealedIds(new Set());
+      setTilesIn(false);
     };
   }, []);
 
@@ -208,7 +213,7 @@ export function PosterExperience({
   }, []);
 
   // --- intro sequence ---
-  // Grid fades in, V lands first, then A and N complete the name, then the
+  // Grid fades in, K lands first, then E and V complete the name, then the
   // remaining 7 photo tiles reveal in a freshly-shuffled random order.
   useEffect(() => {
     if (phase !== "intro") return;
@@ -234,12 +239,12 @@ export function PosterExperience({
       }, GRID_IN_DELAY_MS)
     );
 
-    // Build the full step list: fixed VAN head + shuffled tail.
+    // Build the full step list: fixed KEV head + shuffled tail.
     const restSteps = shuffled(INTRO_REST_IDS).map((id, i) => ({
       id,
-      pause: i === 0 ? 350 : 140, // pause after VAN, then 140ms between each
+      pause: i === 0 ? 350 : 140, // pause after KEV, then 140ms between each
     }));
-    const steps = [...INTRO_VAN, ...restSteps];
+    const steps = [...INTRO_HEADLINE, ...restSteps];
 
     let t = GRID_IN_DELAY_MS;
     for (const { id, pause } of steps) {
@@ -257,6 +262,7 @@ export function PosterExperience({
     timers.push(
       setTimeout(() => {
         setRevealedIds(undefined);
+        setTilesIn(true);
         cascadeDone = true;
         maybeIdle();
       }, t + 200)
@@ -355,17 +361,17 @@ export function PosterExperience({
 
   useEffect(() => {
     if (phase !== "typing") return;
-    router.prefetch("/van");
+    router.prefetch("/kev");
     loreTypewriter.typeIn(lore, () => setPhase("done"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
   useEffect(() => {
     if (phase !== "done") return;
-    router.push("/van");
+    router.push("/kev");
   }, [phase, router]);
 
-  // Auto-advance to /van after 30 seconds on the idle poster: long enough to
+  // Auto-advance to /kev after 30 seconds on the idle poster: long enough to
   // read the lore and play with the halftone face before it moves on.
   useEffect(() => {
     if (phase !== "idle") return;
@@ -381,6 +387,7 @@ export function PosterExperience({
   // part of the sequence, not a flash to engineer away.
   const isDark = phase === "inverting" || phase === "typing" || phase === "done";
   const showHint = phase === "idle";
+  const displayTiles = withHeaderLetters(tiles, headerLetters);
   const introRevealedIds = phase === "intro" ? revealedIds : undefined;
   const fadedCountForGrid = phase === "idle" || phase === "deleting" ? undefined : fadedCount;
 
@@ -388,9 +395,9 @@ export function PosterExperience({
     <main className={`poster-page${isDark ? " poster-page--dark" : ""}`}>
       <section className="poster" aria-label={`${headline} | Kevin van der Poll poster`}>
         <h1 className="sr-only">{headline} | Kevin van der Poll</h1>
-        <div className={`van-intro-grid${gridVisible ? " van-intro-grid--visible" : ""}`}>
+        <div className={`poster-intro-grid${gridVisible ? " poster-intro-grid--visible" : ""}`}>
           <PosterGrid
-            tiles={tiles}
+            tiles={displayTiles}
             photoUrl={displayedSrc}
             fadedCount={fadedCountForGrid}
             isLoading={isImageLoading}

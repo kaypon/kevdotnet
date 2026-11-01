@@ -7,8 +7,8 @@ import {
   posterLore,
   posterTiles,
 } from "@/lib/data";
-import { PosterGrid } from "@/components/PosterGrid";
 import { PosterNav } from "@/components/PosterNav";
+import { ScramblingPosterGrid } from "@/components/ScramblingPosterGrid";
 import { SpinHead } from "@/components/SpinHead";
 
 function buildLoreNode(lore: string) {
@@ -25,12 +25,12 @@ function buildLoreNode(lore: string) {
 }
 
 export const metadata: Metadata = {
-  title: "VAN — Kevin van der Poll",
+  title: "Kevin van der Poll",
   description: "Kevin van der Poll. Code artist. Terminal as canvas.",
-  alternates: { canonical: "/van" },
+  alternates: { canonical: "/kev" },
 };
 
-export default function VanPage() {
+export default function KevPage() {
   const images = getPosterHalftoneImages();
   const photoTileCount = posterTiles.filter((tile) => !tile.bare).length;
 
@@ -38,7 +38,7 @@ export default function VanPage() {
     <main className="poster-page poster-page--dark">
       <section className="poster" aria-label={`${posterHeadline} — Kevin van der Poll poster`}>
         <h1 className="sr-only">{posterHeadline} — Kevin van der Poll</h1>
-        <PosterGrid
+        <ScramblingPosterGrid
           tiles={posterTiles}
           photoUrl={images[0]}
           fadedCount={photoTileCount}
@@ -47,7 +47,7 @@ export default function VanPage() {
         >
           {/* The page's closing beat: fades in after the nav settles. */}
           <SpinHead />
-        </PosterGrid>
+        </ScramblingPosterGrid>
         <p className="poster-caption poster-caption--ghost" aria-hidden="true">
           {posterCaption}
         </p>

@@ -193,9 +193,9 @@ export const projects: Project[] = [
   {
     slug: "line-up",
     name: "Line-Up",
-    shortDescription: "A classified personal record filed by the Van Intelligence Agency.",
+    shortDescription: "A classified personal record filed by the Kev Intelligence Agency.",
     description:
-      "A classified personal record filed by the Van Intelligence Agency. Mugshot, height chart, redacted fields, and a list of ongoing findings. The resume you'd have if the resume were a dossier.",
+      "A classified personal record filed by the Kev Intelligence Agency. Mugshot, height chart, redacted fields, and a list of ongoing findings. The resume you'd have if the resume were a dossier.",
     tags: ["Design", "Identity"],
     category: ["art"],
     route: "/line-up",

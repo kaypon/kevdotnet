@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type ReactNode, type KeyboardEvent } from "react";
 import { useRouter } from "next/navigation";
+import { ScrambleWord } from "./ScrambleWord";
 
 type Line = { id: number; node: ReactNode };
 
@@ -9,7 +10,7 @@ let uid = 0;
 const mkLine = (node: ReactNode): Line => ({ id: uid++, node });
 
 const PAGES: Record<string, string> = {
-  van: "/van",
+  kev: "/kev",
   home: "/",
   "/": "/",
   now: "/now",
@@ -80,7 +81,7 @@ function runCommand(
         <Ln>{"  "}cat <span className="term-cyan">[file]</span><span className="term-dim">    →  read a file</span></Ln>,
         <Ln>{"  "}neofetch<span className="term-dim">      →  system info</span></Ln>,
         <Ln>{"  "}goto <span className="term-cyan">[page]</span><span className="term-dim">   →  navigate</span></Ln>,
-        <Ln>{"  "}exit<span className="term-dim">          →  back to /van</span></Ln>,
+        <Ln>{"  "}exit<span className="term-dim">          →  back to /kev</span></Ln>,
         <Ln />,
       );
       break;
@@ -93,7 +94,7 @@ function runCommand(
     case "ls":
       push(
         <Ln />,
-        <Ln><span className="term-green">van</span><span className="term-dim">         poster, home base</span></Ln>,
+        <Ln><span className="term-green">kev</span><span className="term-dim">         poster, home base</span></Ln>,
         <Ln><span className="term-green">home</span><span className="term-dim">        landing / intro animation</span></Ln>,
         <Ln><span className="term-green">now</span><span className="term-dim">         what kevin&apos;s doing right now</span></Ln>,
         <Ln><span className="term-green">info</span><span className="term-dim">        about kevin</span></Ln>,
@@ -174,9 +175,9 @@ function runCommand(
     case "neofetch":
       push(
         <Ln />,
-        <Ln>{"  "}▓{"  "}{"         "}{"  "}kevin@van</Ln>,
+        <Ln>{"  "}▓{"  "}{"         "}{"  "}kevin@kevdotnet</Ln>,
         <Ln>{"  "}▓▓{"         "}{"  "}<span className="term-dim">──────────────────</span></Ln>,
-        <Ln>{"  "}▓ ▓{"        "}{"  "}OS<span className="term-dim">       VAN/OS 1.0.0</span></Ln>,
+        <Ln>{"  "}▓ ▓{"        "}{"  "}OS<span className="term-dim">       KEV/OS 1.0.0</span></Ln>,
         <Ln>{"  "}▓  ▓{"       "}{"  "}HOST<span className="term-dim">     kevs.site</span></Ln>,
         <Ln>{"  "}▓   ▓{"      "}{"  "}SHELL<span className="term-dim">    zsh</span></Ln>,
         <Ln>{"  "}▓    ▓{"     "}{"  "}FONT<span className="term-dim">     Courier New</span></Ln>,
@@ -198,7 +199,7 @@ function runCommand(
           <Ln />,
           <Ln>usage: goto <span className="term-cyan">[page]</span></Ln>,
           <Ln />,
-          <Ln>pages: <span className="term-green">van  home  now  info  projects  contact  terminal  spin  cables</span></Ln>,
+          <Ln>pages: <span className="term-green">kev  home  now  info  projects  contact  terminal  spin  cables</span></Ln>,
           <Ln />,
         );
       } else if (target === "terminal") {
@@ -220,9 +221,9 @@ function runCommand(
     case "exit":
     case "back":
     case "quit":
-      push(<Ln><span className="term-dim">→ returning to <span className="term-green">/van</span>…</span></Ln>);
+      push(<Ln><span className="term-dim">→ returning to <span className="term-green">/kev</span>…</span></Ln>);
       commit();
-      setTimeout(() => router.push("/van"), 500);
+      setTimeout(() => router.push("/kev"), 500);
       return;
 
     default:
@@ -249,7 +250,7 @@ export function TerminalWindow() {
       mkLine(<Ln />),
       mkLine(<Ln>Don&apos;t worry, you&apos;re not lost! This is just my website&apos;s terminal.</Ln>),
       mkLine(<Ln><span className="term-dim">Type <span className="term-green">help</span> to see available commands.</span></Ln>),
-      mkLine(<Ln><span className="term-dim">To get back out, click my face in the bottom-right corner, or <span className="term-green">[← van]</span> up top.</span></Ln>),
+      mkLine(<Ln><span className="term-dim">To get back out, click my face in the bottom-right corner, or <span className="term-green">[← <ScrambleWord />]</span> up top.</span></Ln>),
       mkLine(<Ln />),
     ];
   });
@@ -298,11 +299,11 @@ export function TerminalWindow() {
     <div className="term-window" onClick={() => inputRef.current?.focus()}>
       <div className="term-handle">
         <div className="term-btns">
-          <button className="term-btn term-btn--close" aria-label="close" onClick={() => router.push("/van")} />
+          <button className="term-btn term-btn--close" aria-label="close" onClick={() => router.push("/kev")} />
           <button className="term-btn term-btn--min" aria-label="minimize" />
           <button className="term-btn term-btn--max" aria-label="maximize" />
         </div>
-        <span className="term-title">kevin@van: ~ (zsh)</span>
+        <span className="term-title">kevin@kevdotnet: ~ (zsh)</span>
       </div>
       <div className="term-body" ref={bodyRef}>
         {lines.map((line) => (

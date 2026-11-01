@@ -95,7 +95,7 @@ export function SpinHead() {
       href="/spin"
       className="spin-head"
       style={topPx !== null ? { top: topPx } : undefined}
-      aria-label="VAN's head, spinning. See the full-size spin"
+      aria-label="KEV's head, spinning. See the full-size spin"
     >
       {spinHeadFrames.map((src, i) => (
         <Image

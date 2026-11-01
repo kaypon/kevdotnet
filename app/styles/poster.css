@@ -1,5 +1,5 @@
 /* align-items is deliberately flex-start, not center: the content below the
-   grid differs in height from page to page (`/` never shows the nav, /van
+   grid differs in height from page to page (`/` never shows the nav, /kev
    always does; the idle bio caption is much taller than its emptied/hidden
    states) — centering the whole variable-height block would shift the grid
    itself up or down depending on what's currently rendered below it. Anchor
@@ -85,7 +85,7 @@
   opacity: 0.85;
 }
 
-/* /van's static, non-interactive reuse of this grid (see PosterGrid.tsx's
+/* /kev's static, non-interactive reuse of this grid (see PosterGrid.tsx's
    `interactive` prop) — no click-to-cycle, so no crosshair affordance. */
 .poster-grid--static {
   cursor: default;
@@ -189,11 +189,11 @@
   transition: color 700ms ease;
 }
 
-/* /van has no JS to measure the caption's natural height the way `/`'s
+/* /kev has no JS to measure the caption's natural height the way `/`'s
    ResizeObserver does (see PosterExperience.tsx) — rendering the same full
    text invisibly reserves the identical space with zero JS, so the grid/nav
    spacing matches exactly whether you arrive via the animation or a direct
-   /van visit. */
+   /kev visit. */
 .poster-caption--ghost {
   visibility: hidden;
 }
@@ -267,7 +267,7 @@
    only grows downward from a fixed starting line, never re-centering (which
    would shift already-typed lines upward every time a new line wraps).
 
-   Top inset is deliberately much bigger than the others: the VAN letter row
+   Top inset is deliberately much bigger than the others: the KEV letter row
    is 214/757 = ~28.3% of the grid's height (see .poster-grid's
    grid-template-rows above), so this box's top edge has to start below that
    with margin to spare — otherwise long lore text can grow tall enough to
@@ -306,23 +306,23 @@
   }
 }
 
-/* /van intro: grid fades in from invisible on mount via `gridVisible` state,
+/* /kev intro: grid fades in from invisible on mount via `gridVisible` state,
    then tiles cascade in (see PosterExperience.tsx). The wrapper sits between
    .poster and .poster-grid so the opacity transition doesn't interfere with
    the grid's own loading fade. */
-.van-intro-grid {
+.poster-intro-grid {
   opacity: 0;
   transition: opacity 500ms ease;
 }
 
-.van-intro-grid--visible {
+.poster-intro-grid--visible {
   opacity: 1;
 }
 
-/* Site nav — lives only on /van (the resting "revealed" page). No bar, no
+/* Site nav — lives only on /kev (the resting "revealed" page). No bar, no
    rules: the menu is display typography set in the poster's own face, made
    of the poster's own material. Each word carries the halftone portrait as
-   a background (--nav-photo-url, set inline in van/page.tsx from the same
+   a background (--nav-photo-url, set inline in kev/page.tsx from the same
    images[0] the grid uses) clipped to its glyphs; at rest an opaque muted
    color painted over the glyphs hides the fill, and hover/focus fades that
    color to transparent so the photo develops inside the letterforms — the
@@ -377,7 +377,7 @@
 /* Hover/focus surfaces a small typewritten tagline just above the word:
    each tagline word sits in its own overflow-hidden mask (poster-nav__tw)
    and slides up from below its baseline, staggered 40ms apart via the --i
-   index set inline in van/page.tsx. The delays apply only in the hover
+   index set inline in kev/page.tsx. The delays apply only in the hover
    state, so mouse-out drops every word at once — quick in, instant out.
    Taglines are aria-hidden decoration; the link's name is its label. */
 .poster-nav a {
@@ -503,7 +503,7 @@
   }
 }
 
-/* Lore link on /van — second paragraph links to /terminal */
+/* Lore link on /kev — second paragraph links to /terminal */
 .poster-lore__link {
   color: inherit;
   text-decoration: none;

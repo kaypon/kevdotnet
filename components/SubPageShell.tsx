@@ -8,7 +8,7 @@ type SubPageShellProps = {
   backHref?: string;
   backLabel?: string;
   /* Pairs this page's title with an identically named element elsewhere
-     (e.g. the /van nav label) so navigation morphs between the two. */
+     (e.g. the /kev nav label) so navigation morphs between the two. */
   titleTransition?: string;
 };
 
@@ -16,8 +16,8 @@ export function SubPageShell({
   title,
   children,
   wide,
-  backHref = "/van",
-  backLabel = "← van",
+  backHref = "/kev",
+  backLabel,
   titleTransition,
 }: SubPageShellProps) {
   const heading = (
@@ -30,7 +30,9 @@ export function SubPageShell({
     <main className="subpage">
       <div className={`subpage-inner${wide ? " subpage-inner--wide" : ""}`}>
         <div className="subpage-topnav">
-          <BackLink href={backHref} section={titleTransition}>[{backLabel}]</BackLink>
+          <BackLink href={backHref} section={titleTransition}>
+            {backLabel && `[${backLabel}]`}
+          </BackLink>
         </div>
         {titleTransition ? (
           <ViewTransition name={`title-${titleTransition}`} share="morph">

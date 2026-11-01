@@ -14,15 +14,15 @@ const archivoBlack = Archivo_Black({
 });
 
 export const metadata: Metadata = {
-  // Swap for the custom domain when one lands — resolves the OG image and
-  // og:url into absolute URLs for link-preview crawlers.
-  metadataBase: new URL("https://kevdotnet.vercel.app"),
-  title: "VAN — Kevin van der Poll",
+  // Resolves the OG image and og:url into absolute URLs for link-preview
+  // crawlers.
+  metadataBase: new URL("https://kevdotnet.net"),
+  title: "Kevin van der Poll",
   description:
     "Kevin van der Poll - Nomadic artist & builder of useful systems and AI tools.",
   openGraph: {
-    siteName: "VAN — Kevin van der Poll",
-    title: "VAN — Kevin van der Poll",
+    siteName: "Kevin van der Poll",
+    title: "Kevin van der Poll",
     description:
       "Kevin van der Poll - Nomadic artist & builder of useful systems and AI tools.",
     url: "/",
@@ -36,15 +36,14 @@ export const metadata: Metadata = {
 };
 
 // Person + WebSite schema — helps search engines tie this domain to Kevin's
-// name and the VAN persona, and surface the social profiles as sameAs links.
+// name, and surface the social profiles as sameAs links.
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Person",
       name: "Kevin van der Poll",
-      alternateName: "VAN",
-      url: "https://kevdotnet.vercel.app",
+      url: "https://kevdotnet.net",
       jobTitle: "Digital toolmaker",
       sameAs: [
         "https://github.com/kaypon",
@@ -55,8 +54,8 @@ const jsonLd = {
     },
     {
       "@type": "WebSite",
-      name: "VAN — Kevin van der Poll",
-      url: "https://kevdotnet.vercel.app",
+      name: "Kevin van der Poll",
+      url: "https://kevdotnet.net",
     },
   ],
 };

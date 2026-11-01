@@ -38,7 +38,7 @@ export const resumeHeader = {
   emailUser: "you",
   emailDomain: "gmail.com",
   links: [
-    { label: "kevdotnet.vercel.app", href: "https://kevdotnet.vercel.app" },
+    { label: "kevdotnet.net", href: "https://kevdotnet.net" },
     { label: "linkedin.com/in/kevinvanderpoll", href: "https://www.linkedin.com/in/kevinvanderpoll/" },
     { label: "github.com/kaypon", href: "https://github.com/kaypon" },
   ],
@@ -167,11 +167,11 @@ export const resumeProjects: ResumeProject[] = [
     href: "https://openclaw-ai.net",
   },
   {
-    name: "VAN (kevdotnet.vercel.app)",
+    name: "kevdotnet.net",
     stack: "Next.js / TypeScript",
     description:
       "Hand-built portfolio: halftone poster with canvas-based tile animations, typewriter sequencing, view transitions, and a working in-browser terminal. No UI libraries. Every effect is custom.",
-    href: "https://kevdotnet.vercel.app",
+    href: "https://kevdotnet.net",
   },
   {
     name: "schoolahoop.org",

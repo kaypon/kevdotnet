@@ -32,7 +32,7 @@ export default async function NowPage() {
           ? `Last public GitHub activity: ${formatRelativeCommitTime(lastActivityAt)}.`
           : "No recent public GitHub activity to show."}
       </p>
-      <p>updated october 2026.</p>
+      <p>updated november 2026.</p>
     </SubPageShell>
   );
 }

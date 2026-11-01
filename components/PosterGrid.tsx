@@ -11,14 +11,14 @@ type PosterGridProps = {
    * names. */
   nextPhotoUrl?: string;
   switchedIds?: Set<string>;
-  /** Typed in below the VAN letters once the hidden sequence reaches its
+  /** Typed in below the KEV letters once the hidden sequence reaches its
    * final beat — kept inside the grid's own box so revealing it can never
    * add page height/scroll. */
   loreText?: string;
-  /** Rich alternative to loreText — used on /van where the lore needs
+  /** Rich alternative to loreText — used on /kev where the lore needs
    * inline links. When provided, loreText is ignored for rendering. */
   loreNode?: ReactNode;
-  /** False for the static /van display (no click-to-cycle, no hold-to-reveal
+  /** False for the static /kev display (no click-to-cycle, no hold-to-reveal
    * — the reveal already happened on `/`), so it shouldn't announce itself
    * as a button or tab-stop to nothing. Defaults to true for `/`'s
    * interactive usage. */
@@ -30,7 +30,7 @@ type PosterGridProps = {
   /** Intro mode: per-tile visibility set passed through to PosterTile. */
   revealedIds?: Set<string>;
   /** Extra content overlaid on the grid (absolutely positioned against it) —
-   * the spinning head (SpinHead.tsx) on /van. */
+   * the spinning head (SpinHead.tsx) on /kev. */
   children?: ReactNode;
 };
 

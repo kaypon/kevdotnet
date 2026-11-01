@@ -27,7 +27,7 @@ export function PosterTile({ tile, fadedCount, nextPhotoUrl, switchedIds, reveal
     fadeOpacity = tile.fadeOrder < fadedCount ? 0 : 1;
   }
 
-  // Bare cells (A, N, empty gaps) are hidden in intro until their id is revealed.
+  // Bare cells (E, V, empty gaps) are hidden in intro until their id is revealed.
   const bareHidden = revealedIds !== undefined && tile.bare && !revealedIds.has(tile.id);
 
   const style = {
@@ -48,7 +48,7 @@ export function PosterTile({ tile, fadedCount, nextPhotoUrl, switchedIds, reveal
     "poster-cell",
     tile.bare ? "poster-cell--bare" : `poster-cell--tone-${tile.tone}`,
     tile.letter ? "poster-cell--letter" : "",
-    // Photo gone ⇒ a paper-colored letter (the V) would sit invisible on the
+    // Photo gone ⇒ a paper-colored letter (the K) would sit invisible on the
     // paper page; this flips it to ink for the beat before the invert.
     isPhoto && fadeOpacity === 0 ? "poster-cell--cleared" : "",
   ]

@@ -18,7 +18,7 @@ export type PosterTileData = {
 };
 
 // Snake order for the hold-to-reveal fade: bottom row left-to-right, next
-// row up right-to-left, alternating, ending at the top-left "V" cell last.
+// row up right-to-left, alternating, ending at the top-left "K" cell last.
 // Bare cells are skipped entirely (not just left un-faded) so the sequence
 // never "waits" on a step that has nothing visible to show.
 function withFadeOrder(tiles: PosterTileData[]): PosterTileData[] {
@@ -32,7 +32,7 @@ function withFadeOrder(tiles: PosterTileData[]): PosterTileData[] {
   return tiles.map((tile) => ({ ...tile, fadeOrder: orderById.get(tile.id) }));
 }
 
-export const posterHeadline = "VAN";
+export const posterHeadline = "KEV";
 
 const HALFTONES_DIR = path.join(process.cwd(), "public/photos/halftones");
 
@@ -74,9 +74,9 @@ export function getPosterHalftoneImages(): string[] {
 // adjacent tiles line up like a photo cut into pieces rather than 8
 // independent crops.
 export const posterTiles: PosterTileData[] = withFadeOrder([
-  { id: "v", letter: "V", tone: 1, alt: "Kevin van der Poll", colStart: 1, rowStart: 1 },
-  { id: "a", letter: "A", bare: true, alt: "", colStart: 2, rowStart: 1 },
-  { id: "n", letter: "N", bare: true, alt: "", colStart: 3, rowStart: 1 },
+  { id: "v", letter: "K", tone: 1, alt: "Kevin van der Poll", colStart: 1, rowStart: 1 },
+  { id: "a", letter: "E", bare: true, alt: "", colStart: 2, rowStart: 1 },
+  { id: "n", letter: "V", bare: true, alt: "", colStart: 3, rowStart: 1 },
   { id: "t1", tone: 2, alt: "Kevin van der Poll", colStart: 1, rowStart: 2 },
   { id: "t2", tone: 3, alt: "Kevin van der Poll", colStart: 2, rowStart: 2 },
   { id: "t3", tone: 4, alt: "Kevin van der Poll", colStart: 3, rowStart: 2 },
@@ -92,6 +92,6 @@ export const posterCaption =
   "KEVIN VAN DER POLL IS A MIAMI BUILDER WHO WON'T PICK A LANE.\n\nARTIST AND ENGINEER, HE SHIPS WEBSITES, NATIVE APPS, CUSTOM SOFTWARE, GENERATIVE ART, AND AI TOOLS.\n\nHE LEARNS WHATEVER THE IDEA NEEDS AND BUILDS IT END TO END.\n\nIF HE CAN PICTURE IT, HE SHIPS IT.";
 
 // Short summary typed out at the end of the hidden hold-to-reveal sequence,
-// then shown statically on /van.
+// then shown statically on /kev.
 export const posterLore =
-  "For VAN, code and art speak the same language. The screen is not just where the piece appears. It is where it comes to life.\n\nThe goal is not to explain the idea perfectly, but to make something that lets it exist.";
+  "For KEV, code and art speak the same language. The screen is not just where the piece appears. It is where it comes to life.\n\nThe goal is not to explain the idea perfectly, but to make something that lets it exist.";

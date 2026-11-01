@@ -12,7 +12,7 @@ export default function TerminalPage() {
   return (
     <main className="term-page">
       <div className="term-page__inner">
-        <BackLink href="/van" className="term-back">[← van]</BackLink>
+        <BackLink href="/kev" className="term-back" />
         <TerminalWindow />
       </div>
     </main>

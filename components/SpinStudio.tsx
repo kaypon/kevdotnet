@@ -7,7 +7,7 @@ import { spinSourceFrames } from "@/lib/spin";
  * cutouts are decoded once into luminance+alpha buffers; every frame change or
  * setting tweak re-screens the current frame onto the canvas live. The
  * transparent background never gets ink — cells outside the cutout's alpha are
- * skipped, exactly like the pre-baked frames on /van.
+ * skipped, exactly like the pre-baked frames on /kev.
  *
  * Spinning: drag the canvas horizontally (or arrow keys), or click auto-spin —
  * each click steps the speed up until it stops again.

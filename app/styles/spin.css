@@ -1,7 +1,7 @@
 /* /spin — the halftone spin studio (SpinStudio.tsx): a canvas re-screening
    the 360° photo set live, drag/auto-spin, and screen settings. Paper +
    grain to match the poster. Also styles SpinMini, the tiny always-spinning
-   cousin on /van. */
+   cousin on /kev. */
 
 .spin-page {
   min-height: 100svh;
@@ -12,7 +12,7 @@
   padding: clamp(0.75rem, 3vh, 2rem) 1rem;
 }
 
-/* Back link + studio share one column, so "← van" hangs off the studio's
+/* Back link + studio share one column, so "← kev" hangs off the studio's
    top-left corner exactly like .term-back does over the terminal window. */
 .spin-page__inner {
   display: flex;
@@ -140,7 +140,7 @@
   accent-color: var(--ink);
 }
 
-/* The always-spinning head (SpinHead.tsx) — floats centered under /van's
+/* The always-spinning head (SpinHead.tsx) — floats centered under /kev's
    lore text, absolutely positioned inside .poster-grid (a size container,
    so cq units track the grid box). It's the page's closing beat: opacity 0
    until the nav's own entrance (0.7s, 350ms delay) has landed, then the

@@ -32,6 +32,15 @@ export function NowEntries() {
         bottleneck that almost killed it.
       </p>
       <p>
+        Launched the new site for{" "}
+        <a href="https://eciiinetwork.com" target="_blank" rel="noopener noreferrer">
+          EC III Network
+        </a>
+        , a logistics company doing final-mile appliance delivery, transportation, and
+        warehousing. It comes with a built-in editor, so their team can change pages and photos
+        without calling me.
+      </p>
+      <p>
         Building a 3PL software app for a logistics client. Warehouses, labels, and the boring
         parts that keep freight moving.
       </p>
@@ -39,7 +48,7 @@ export function NowEntries() {
         Reading through bitchat, the open source Bluetooth mesh messenger, to see how it handles
         offline peer-to-peer messaging and encryption.
       </p>
-      <p>Still hunting down a proper domain. And a hidden page or two remains. Keep an eye out.</p>
+      <p>Finally got a proper domain: kevdotnet.net. A hidden page or two remains. Keep an eye out.</p>
     </>
   );
 }

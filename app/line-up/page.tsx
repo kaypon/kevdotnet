@@ -28,7 +28,7 @@ const FIELDS: [string, string | "REDACTED"][] = [
   ["OCCUPATION", "DIGITAL TOOLMAKER"],
   ["NATIONALITY", "SOUTH AFRICAN"],
   ["BASE", "MIAMI, FL"],
-  ["ALIASES", "VDP / KEV.PNG / VAN"],
+  ["ALIASES", "VDP / KEV.PNG"],
 ];
 
 // Clean black icons of the subject's 10 strongest technologies, one per
@@ -168,7 +168,7 @@ export default function LineUpPage() {
     <main className="lineup-page">
       <div className="lineup-wrap">
         <div className="subpage-topnav">
-          <BackLink href="/van">[← van]</BackLink>
+          <BackLink href="/kev" />
         </div>
         <article className="lineup-sheet">
 
@@ -189,14 +189,14 @@ export default function LineUpPage() {
                 <circle cx="32" cy="32" r="30" fill="none" stroke="#111" strokeWidth="2" />
                 <circle cx="32" cy="32" r="17" fill="none" stroke="#111" strokeWidth="1.5" />
                 <text fontSize="6.5" letterSpacing="1.4" fill="#111" fontFamily="Arial, sans-serif" fontWeight="bold">
-                  <textPath href="#seal-arc">VAN INTELLIGENCE AGENCY • MIA •</textPath>
+                  <textPath href="#seal-arc">KEV INTELLIGENCE AGENCY • MIA •</textPath>
                 </text>
                 <text x="32" y="38" textAnchor="middle" fontSize="17" fontWeight="900" fill="#111" fontFamily="Arial, sans-serif">
                   V
                 </text>
               </svg>
               <div className="lineup-agency__name">
-                <span>Van Intelligence Agency</span>
+                <span>Kev Intelligence Agency</span>
                 <strong>PERSONAL RECORD</strong>
                 <small>VDPKVN305FL</small>
               </div>
