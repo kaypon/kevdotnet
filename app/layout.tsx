@@ -30,8 +30,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "@kevdotpng",
-    creator: "@kevdotpng",
+    site: "@kevdottxt",
+    creator: "@kevdottxt",
   },
 };
 
@@ -48,7 +48,7 @@ const jsonLd = {
       sameAs: [
         "https://github.com/kaypon",
         "https://www.linkedin.com/in/kevinvanderpoll/",
-        "https://x.com/kevdotpng",
+        "https://x.com/kevdottxt",
         "https://www.instagram.com/kevdotpng/",
       ],
     },

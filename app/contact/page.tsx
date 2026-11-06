@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const SOCIALS = [
   { label: "GitHub",    href: "https://github.com/kaypon" },
   { label: "LinkedIn",  href: "https://www.linkedin.com/in/kevinvanderpoll/" },
-  { label: "X",         href: "https://x.com/kevdotpng" },
+  { label: "X",         href: "https://x.com/kevdottxt" },
   { label: "Instagram", href: "https://www.instagram.com/kevdotpng/" },
 ];
 
