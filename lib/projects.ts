@@ -27,6 +27,33 @@ export type Project = {
 // adding entries — this list is not auto-sorted at render time.
 export const projects: Project[] = [
   {
+    slug: "cube",
+    name: "CUBE",
+    shortDescription: "A 3D Rubik's cube you can twist, copy yours onto, and watch solve itself.",
+    description:
+      "A Rubik's cube in the browser that you can actually use. Drag any face to turn it, or paint the stickers to match the scrambled one on your desk, and it finds a solution in about 20 moves and plays it back one turn at a time. Comes in toon, brushed metal and glass, with a halftone screen, an exploded view, and a how-to-solve guide for when you'd rather learn it than cheat.",
+    tags: ["3D", "Interactive"],
+    category: ["art", "tech"],
+    href: "https://rubix-cube-theta.vercel.app",
+    year: 2026,
+    caseStudy: {
+      sections: [
+        {
+          heading: "Paint your cube",
+          body: "Hold your real cube white on top, green facing you, and paint what you see. If what you painted can't exist, it says exactly why: a twisted corner, a flipped edge, two pieces swapped, or a colour with ten stickers. Only one random stickering in twelve is a cube you could actually make by turning.",
+        },
+        {
+          heading: "How it solves",
+          body: "The Solve button runs Kociemba's two-phase algorithm in the background. Phase one gets every piece facing a legal way, phase two finishes using only moves that can't undo that, and both lean on big precomputed tables of how far each position is from done. Step through the answer, scrub it, or let it play.",
+        },
+        {
+          heading: "Learn it instead",
+          body: "The how-to-solve panel walks through the beginner's layer-by-layer method. Tap any sequence and a little demo cube sets up that exact case and solves it on a loop, so you can watch which pieces move without wrecking your own cube.",
+        },
+      ],
+    },
+  },
+  {
     slug: "fourier",
     name: "Fourier",
     shortDescription: "Spinning circles that add up to a square wave, and to anything else you draw.",
