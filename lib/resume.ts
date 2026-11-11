@@ -1,6 +1,32 @@
 /** Content for the unlinked /resume page -the only file to edit when the
- * resume changes. Source of truth: Kevin's Kvdp_2026 resume. Contact info
- * lives only here: the page is unlinked and noindexed. */
+ * resume changes. Source of truth: Kevin's Kvdp_2026 resume. Phone and email
+ * are NOT here (the repo is public): they come from the RESUME_PHONE and
+ * RESUME_EMAIL env vars, set in .env.local and on Vercel. */
+
+/** Contact details split into parts so the assembled number/address never
+ * appears in served HTML, RSC payloads, or JS bundles, where email/phone
+ * regexes harvest them. The client components join the parts in the
+ * browser after mount. */
+export type ResumeContactParts = {
+  phoneParts: string[];
+  emailUser: string;
+  emailDomain: string;
+};
+
+/** Server-only: reads RESUME_PHONE ("305-555-0100" style, dash separated)
+ * and RESUME_EMAIL at build time. Returns null when either is missing, and
+ * the resume then renders without phone/email instead of failing. */
+export function getResumeContact(): ResumeContactParts | null {
+  const phone = process.env.RESUME_PHONE?.trim();
+  const email = process.env.RESUME_EMAIL?.trim();
+  if (!phone || !email || !email.includes("@")) return null;
+  const at = email.lastIndexOf("@");
+  return {
+    phoneParts: phone.split("-").filter(Boolean),
+    emailUser: email.slice(0, at),
+    emailDomain: email.slice(at + 1),
+  };
+}
 
 export type ResumeExperience = {
   role: string;
@@ -30,13 +56,7 @@ export const resumeHeader = {
   name: "Kevin van der Poll",
   title: "Full-Stack Developer · AI & Automation Engineer",
   location: "United Kingdom",
-  // Deliberately split: the assembled number/address must never appear in
-  // served HTML, RSC payloads, or JS bundles, where email/phone regexes
-  // harvest them. ResumeContact.tsx joins the parts in the browser after
-  // mount. Edit the parts, never inline the whole thing.
-  phoneParts: ["000", "000", "0000"],
-  emailUser: "you",
-  emailDomain: "gmail.com",
+  // Phone and email are not in the repo: see getResumeContact() below.
   links: [
     { label: "kevdotnet.net", href: "https://kevdotnet.net" },
     { label: "linkedin.com/in/kevinvanderpoll", href: "https://www.linkedin.com/in/kevinvanderpoll/" },

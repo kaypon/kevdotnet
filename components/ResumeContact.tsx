@@ -1,12 +1,11 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import type { ResumeContactParts } from "@/lib/resume";
 
 type ResumeContactProps = {
   location: string;
-  phoneParts: string[];
-  emailUser: string;
-  emailDomain: string;
+  contact: ResumeContactParts | null;
 };
 
 const emptySubscribe = () => () => {};
@@ -15,8 +14,9 @@ const emptySubscribe = () => () => {};
  * ever exist assembled inside the browser, after hydration — server HTML,
  * RSC payload, and JS bundles carry them split into parts that neither an
  * email regex nor a phone regex can match. Humans see the real thing
- * (clickable) a frame after load; harvesters reading raw responses don't. */
-export function ResumeContact({ location, phoneParts, emailUser, emailDomain }: ResumeContactProps) {
+ * (clickable) a frame after load; harvesters reading raw responses don't.
+ * With no contact configured (env vars unset) only the location shows. */
+export function ResumeContact({ location, contact }: ResumeContactProps) {
   // false during SSR and the hydration pass, true in the live browser.
   const mounted = useSyncExternalStore(
     emptySubscribe,
@@ -24,8 +24,10 @@ export function ResumeContact({ location, phoneParts, emailUser, emailDomain }: 
     () => false
   );
 
-  const phone = mounted ? phoneParts.join("-") : null;
-  const email = mounted ? `${emailUser}${String.fromCharCode(64)}${emailDomain}` : null;
+  if (!contact) return <p className="resume-contact">{location}</p>;
+
+  const phone = mounted ? contact.phoneParts.join("-") : null;
+  const email = mounted ? `${contact.emailUser}${String.fromCharCode(64)}${contact.emailDomain}` : null;
 
   return (
     <p className="resume-contact">

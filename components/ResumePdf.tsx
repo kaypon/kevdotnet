@@ -77,8 +77,8 @@ const S = StyleSheet.create({
 });
 
 type ResumePdfProps = {
-  phone: string;
-  email: string;
+  phone?: string;
+  email?: string;
 };
 
 export function ResumePdf({ phone, email }: ResumePdfProps) {
@@ -91,7 +91,7 @@ export function ResumePdf({ phone, email }: ResumePdfProps) {
         <Text style={S.name}>{resumeHeader.name.toUpperCase()}</Text>
         <Text style={S.title}>{resumeHeader.title.toUpperCase()}</Text>
         <Text style={S.contact}>
-          {resumeHeader.location} | {phone} | {email}
+          {[resumeHeader.location, phone, email].filter(Boolean).join(" | ")}
         </Text>
         <Text style={S.contact}>
           {resumeHeader.links.map((l) => l.label).join(" | ")}

@@ -3,6 +3,7 @@ import { BackLink } from "@/components/BackLink";
 import { ResumeContact } from "@/components/ResumeContact";
 import { ResumeDownload } from "@/components/ResumeDownload";
 import {
+  getResumeContact,
   resumeEducation,
   resumeExperience,
   resumeHeader,
@@ -25,23 +26,19 @@ function SectionTitle({ children }: { children: string }) {
 }
 
 export default function ResumePage() {
+  const contact = getResumeContact();
   return (
     <main className="resume-page">
       <div className="resume-sheet">
         <nav className="resume-topnav" aria-label="Back to site">
           <BackLink href="/kev" className="resume-back" />
-          <ResumeDownload />
+          <ResumeDownload contact={contact} />
         </nav>
 
         <header className="resume-header">
           <h1 className="resume-name">{resumeHeader.name}</h1>
           <p className="resume-title">{resumeHeader.title}</p>
-          <ResumeContact
-            location={resumeHeader.location}
-            phoneParts={resumeHeader.phoneParts}
-            emailUser={resumeHeader.emailUser}
-            emailDomain={resumeHeader.emailDomain}
-          />
+          <ResumeContact location={resumeHeader.location} contact={contact} />
           <p className="resume-contact">
             {resumeHeader.links.map((link, i) => (
               <span key={link.href}>
